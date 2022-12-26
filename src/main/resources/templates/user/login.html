@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/user/login.css}" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <div class="login_form_img">
+            <div class="user-check">Diary</div>
+        </div>
+
+        <div class="login_form">
+
+            <div class="login_form_main">
+                <div class="login_form_main-id">
+                    <div class="login_form_main-id-img">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <input type="text" placeholder=" Email or Id " class="login_form_main-id-text"/>
+                </div>
+                <div class="login_id_check">아이디를 정확히 입력하세요(2~10)</div>
+
+
+                <div class="login_form_main-pwd">
+                    <div class="login_form_main-pwd-img">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <input type="password" placeholder=" Password " class="login_form_main-pwd-text"/>
+                </div>
+                <div class="login_pwd_check">비밀번호를 정확히 입력하세요(2~10)</div>
+
+                <div class="login_button">
+                    <input type="button" value="login" class="login_button_box"/>
+                </div>
+            </div> <!--login form main-->
+
+
+            <div class="login_form_bottom">
+                <span class="login_form_bottom-text">New to Diary?</span>
+                <a class="login_form_bottom-link" href="#">
+                    <span class="login_form_bottom-text">Sign up</span>
+                </a>
+            </div>
+
+
+
+        </div> <!--login_form-->
+
+    </div> <!--container_background-->
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/user/write.css}" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <div class="write_form_header">
+
+            <div class="write_form_header_first">
+                <div class="write_form_header_icon cursor">
+                    <i class="fa-solid fa-x"></i>
+                </div>
+                <input type="button" value="저장" class="write_form_header_save cursor"/>
+            </div>
+
+            <div class="write_form_header_second">
+                <!--동적으로 현재 날짜-->
+                <input readonly value="2022월 8월 5일" type="text" id="date" size="10" class="write_form_header_second_text" />
+                <label for="date">
+                    <i class="fa-solid fa-caret-down cursor"></i>
+                </label>
+            </div>
+
+        </div> <!--header-->
+
+
+        <div class="write_form_main">
+            <div class="write_form_main_subject">
+                <input type="text" placeholder="표제" class="write_form_main_subject_text"/>
+            </div>
+            <textarea placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
+        </div>
+
+
+
+
+        <div class="write_form_footer">
+            <i class="fa-solid fa-pen-clip cursor"></i> <!--그림-->
+            <i class="fa-solid fa-image cursor"></i> <!--사진-->
+            <i class="fa-solid fa-text-slash cursor"></i> <!--색상 변경-->
+            <i class="fa-solid fa-tag cursor"></i> <!--태그-->
+        </div> <!--footer-->
+
+
+
+    </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- datepicker 한국어로 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+<script>
+    $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['ko']); //datepicker 한국어로 사용하기 위한 언어설정
+        $('#date').datepicker({dateFormat: 'yy년 mm월 dd일'});
+    });
+</script>
+<script>
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (12 + obj.scrollHeight) + 'px';
+    }
+</script>
+</body>
+</html>

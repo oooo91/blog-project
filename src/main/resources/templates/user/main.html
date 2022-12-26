@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/user/main.css}" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <!--header -->
+        <div class="content_header">
+            <div class="exit_icon cursor">
+                <input type="button" value="로그아웃" class="join_form_btn"/>
+            </div>
+            <div class="search_icon cursor">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="sort_icon cursor">
+                <i class="fa-solid fa-arrow-down-up-across-line"></i>
+            </div>
+        </div>
+
+        <!--main-->
+        <div class="content_main">
+            <!--동적 처리-->
+            <div class="content_main_year">
+                2022
+            </div> <!--content_main_year-->
+
+
+            <div class="content_main_diary">
+                <!--동적 처리-->
+                <div class="content_main_diary-detail cursor">
+
+                    <div class="content_main_diary-detail-date">
+              <span class="content_main_diary-detail-date-day">
+                01
+              </span>
+                        <span class="content_main_diary-detail-date-month">
+                8월
+              </span>
+                    </div>
+
+                    <div class="content_main_diary-detail-box">
+
+                        <div class="content_main_diary-detail-box-subject">
+                            큰일났음
+                        </div>
+                        <div class="content_main_diary-detail-box-content">
+                            으아아아아아아아아아아아아아
+                        </div>
+
+                    </div>
+
+                </div> <!--content_main_diary-detail-->
+
+            </div> <!--content_main_diary-->
+
+        </div> <!--content_main-->
+
+        <div class="content_footer">
+            <div class="content_footer_width">
+                <div class="content_footer_calendar cursor">
+                    <i class="fa-solid fa-calendar-week"></i>
+                </div>
+                <div class="content_footer_plus cursor">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="content_footer_user cursor">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

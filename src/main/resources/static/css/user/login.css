@@ -1,0 +1,104 @@
+html, body {
+    height: 100%;
+    background-color: #f7faff;
+}
+.cursor {
+    cursor: pointer;
+}
+.container {
+    margin: auto;
+}
+.login_form_img {
+    background-color: black;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    position: fixed;
+    top: 22%;
+    left: 46.4%;
+    z-index: 1000;
+}
+.user-check {
+    margin-top: 38px;
+    margin-left: 5px;
+    font-size: 20px;
+}
+.login_form {
+    background-color: #9aafe6;
+    position: fixed;
+    width: 50%;
+    top: 28%;
+    left: 25%;
+    border-radius: 10px;
+    padding-top: 80px;
+}
+.login_form_main {
+    padding: 0px 80px;
+}
+.login_form_main-id,
+.login_form_main-pwd {
+    height: 50px;
+    display: flex;
+    margin: 0 auto;
+}
+.login_id_check,
+.login_pwd_check {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color:black;
+    font-size: 12px;
+}
+.login_form_main-id-img,
+.login_form_main-pwd-img {
+    background-color: #5c7091;
+    width: 50px;
+    color: white;
+    text-align: center;
+}
+.fa-user,
+.fa-lock {
+    font-size: 23px;
+    margin-top: 12px;
+}
+input:focus {
+    outline: none;
+}
+.login_form_main-id-text,
+.login_form_main-pwd-text {
+    border: none;
+    width: 600px;
+    font-size: 20px;
+    padding: 0px;
+}
+.login_button_box {
+    height: 50px;
+    border: none;
+    width: 100%;
+    font-size: 20px;
+    background-color: #5c7091;
+    color: white;
+    cursor: pointer;
+}
+.login_button_box:hover {
+    background-color: #6ba4ff;
+}
+
+.login_form_bottom {
+    padding: 0px 80px;
+    margin: 50px 0;
+    text-align: center;
+}
+.login_form_bottom-link {
+    text-decoration: none;
+}
+.login_form_bottom-link:visited,
+.login_form_bottom-link:active,
+.login_form_bottom-link:focus {
+    text-decoration: none;
+    color: black;
+}
+.login_form_bottom-link:hover {
+    color: rgba(255, 5, 80, 1);
+}

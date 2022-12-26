@@ -1,0 +1,167 @@
+html, body {
+    height: 100%;
+    background-color: #edf4ff;
+}
+.cursor {
+    cursor: pointer;
+}
+.container_background {
+    padding: 0px 40px;
+}
+.write_form_header {
+    position: fixed;
+    background-color: #9aafe6;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 95%;
+    height: 120px;
+    padding: 20px 40px;
+    padding-bottom: 5px;
+    z-index: 1000;
+}
+.write_form_header_first {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #edf4ff;
+}
+.write_form_header_icon {
+    margin-top: 10px;
+}
+.fa-x {
+    font-size: 20px;
+    position: relative;
+    left: 5px;
+    top: 5px;
+}
+.write_form_header_save {
+    border: none;
+    background-color: #063e99;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    width: 90px;
+    height: 45px;
+    padding: 6px 10px;
+    text-align: center;
+}
+.write_form_header_second {
+    box-shadow: 0 4px 4px -7px #222;
+}
+.write_form_header_second_text {
+    border: none;
+    width: 130px;
+    padding: 10px;
+    padding-left: 0px;
+    background-color: rgba(255, 227, 241, 0.1);
+    color: #222;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+}
+input:focus {
+    outline: none;
+}
+.fa-caret-down {
+    font-size: 18px;
+}
+.write_form_footer {
+    position: fixed;
+    left: 35%;
+    bottom: 10px;
+    width: 25%;
+    height: 25px;
+    padding: 15px 30px;
+    padding-top: 20px;
+    background-color: rgba(255, 5, 80, 1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.fa-pen-clip,
+.fa-image,
+.fa-text-slash,
+.fa-tag {
+    font-weight: 700;
+    font-size: 18px;
+    color: white;
+}
+.write_form_main {
+    margin-top: 160px;
+    z-index: 1;
+}
+.write_form_main_subject_text {
+    border: none;
+    width: 100%;
+    font-size: 19px;
+    font-weight: 600;
+    padding: 8px 16px;
+    padding-left: 0px;
+    background-color: #edf4ff;
+}
+.write_form_main_subject {
+    margin-bottom: 15px;
+}
+input::placeholder {
+    font-size: 16px;
+    font-weight: 500;
+}
+textarea::placeholder {
+    font-size: 14px;
+    font-weight: 500;
+}
+.write_form_main_content {
+    width: 100%;
+    border: none;
+    resize: none;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #edf4ff;
+}
+.write_form_main_content:focus {
+    outline: none;
+}
+
+/*달력*/
+.ui-widget-content,
+.ui-widget-header,
+.ui-state-default,
+.ui-state-active,
+.ui-state-active {
+    border: none !important;
+    background: white !important;
+    text-align: center !important;
+}
+.ui-state-default {
+    border-radius: 2px;
+    background-color: white !important;
+    padding: 12px 0px !important;
+}
+.ui-state-default:hover {
+    background: black !important;
+    color: white !important;
+    border-radius: 50%;
+}
+#ui-datepicker-div {
+    padding: 15px;
+    background-color: white !important;
+    box-shadow: 0 4px 4px -6px #222;
+}
+.ui-datepicker-header {
+    margin-bottom: 10px;
+    border-radius: 0%;
+    background-color: white !important;
+    border-bottom: 1px solid black !important;
+}
+.ui-datepicker-title {
+    color: #222;
+}
+.ui-state-hover {
+    border: none !important;
+    background: white !important;
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/user/myPage.css}" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <div class="write_form_header">
+
+            <div class="write_form_header_first">
+                <div class="write_form_header_icon cursor">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                </div>
+                <span class="write_form_header_save">사용자</span>
+            </div>
+
+        </div> <!--header-->
+
+        <!--main-->
+        <div class="content_main">
+            <!--동적 처리-->
+
+            <div class="content_main_user">
+                <!--동적 처리-->
+                <div class="content_main_user-detail cursor">
+
+
+                    <div class="content_main_user-detail-info">
+              <span class="content_main_user-detail-info-name">
+                user_id
+              </span>
+                        <div class="content_main_user-detail-info-changed">
+                            <i class="fa-solid fa-user-pen"></i>
+                        </div>
+                    </div>
+
+                    <!--버튼 누르면 등장
+
+                    <div>
+                      <form method="post" class="content_main_user-detail-info">
+                        <input type="text" class="content_main_user-detail-info-name-input" placeholder="이름을 입력하세요"/>
+                        <div class="content_main_user-detail-info-changed">   //js로 누르면 submit() 하기
+                          <i class="fa-regular fa-pen-to-square"></i>
+                        </div>
+                      </form>
+                    </div>
+
+                    -->
+
+                    <div class="content_main_user-detail-box">
+
+                        <div class="content_main_user-detail-info-id">
+                            email
+                        </div>
+                        <div class="content_main_user-detail-info-email">
+                            email@email
+                        </div>
+
+                    </div>
+
+                </div> <!--content_main_diary-detail-->
+
+            </div> <!--content_main_diary-->
+
+        </div> <!--content_main-->
+
+
+    </div> <!--background-->
+
+
+    <div class="content_main-second">
+        <!--동적 처리-->
+
+        <div class="content_main_user-second">
+            <!--동적 처리-->
+            <div class="content_main_user-detail-second cursor-second">
+
+                <div class="content_main_user-detail-info-second">
+            <span class="content_main_user-detail-info-name-second">
+              <!--총 일기 수-->
+              5
+            </span>
+                    <div class="content_main_user-detail-info-changed-second">
+                        전체
+                    </div>
+                </div>
+
+                <div class="content_main_user-detail-box-second">
+
+                    <div class="content_main_user-detail-info-id-second">
+                        <div class="one">일기 통계</div>
+                        <div class="twice">최근 일주일</div>
+                    </div>
+                    <div class="content_main_user-detail-info-email-second">
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">일</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">일</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">월</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">화</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">수</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">목</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">금</div>
+                        </div>
+
+                        <div class="diary_date_sun">
+                            <div class="diary_count_sun">0</div>
+                            <div class="diary_text_sun">토</div>
+                        </div>
+
+                    </div> <!--email-second-->
+
+                </div>
+
+
+                <div class="bye">
+                    <span>탈퇴하기</span>
+                </div>
+
+
+
+            </div> <!--content_main_diary-detail-->
+
+        </div> <!--content_main_diary-->
+
+    </div> <!--content_main-->
+</div>
+
+</body>
+</html>

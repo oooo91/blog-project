@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/user/join.css}" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <div class="join_form">
+
+            <div class="join_form_title">
+                <span class="join_form_title_detail">회원가입</span>
+            </div>
+
+            <div class="join_form_main">
+
+                <div class="join_form_main-userName">
+                    <div class="join_form_main-userName-title">
+                        User name
+                    </div>
+                    <input type="text" class="join_form_main-userName-text" placeholder="이름을 입력하세요">
+
+                    <div class="userName_check removeEvent">
+                        정확한 이름을 입력하세요
+                    </div>
+                </div> <!--userName-->
+
+                <div class="join_form_main-userId">
+                    <div class="join_form_main-userId-title">
+                        Id
+                    </div>
+                    <input type="text" class="join_form_main-userId-text" placeholder="영문 3자 이상 입력">
+                    <div class="userId_check removeEvent">
+                        정확한 아이디를 입력하세요
+                    </div>
+                </div>
+
+                <div class="join_form_main-userPwd">
+                    <div class="join_form_main-userPwd-title">
+                        Password
+                    </div>
+                    <input type="password" class="join_form_main-userPwd-text" placeholder="비밀번호를 입력하세요">
+                    <div class="userPwd_check removeEvent">
+                        정확한 비밀번호를 입력하세요
+                    </div>
+                </div>
+
+                <div class="join_form_main-userPwd">
+                    <div class="join_form_main-userPwd-title">
+                        Password-check
+                    </div>
+                    <input type="password" class="join_form_main-userPwd-text-recheck" placeholder="비밀번호를 입력하세요">
+                    <div class="userPwd_check-recheck removeEvent">
+                        비밀번호가 일치하지 않습니다
+                    </div>
+                </div>
+
+                <div class="join_form_main-userEmail">
+                    <div class="join_form_main-userEmail-title">
+                        Email
+                    </div>
+                    <input type="email" class="join_form_main-userEmail-text" placeholder="이메일을 입력하세요">
+                    <div class="userEmail_check removeEvent">
+                        정확한 이메일을 입력하세요
+                    </div>
+                </div>
+
+            </div> <!--main-->
+
+            <div class="join_form_btnBox">
+                <input type="button" value="가입" class="join_form_btn"/>
+                <input type="button" value="취소" class="join_form_btn"/>
+            </div>
+
+
+        </div> <!--join_form-->
+
+    </div>
+</div>
+
+</body>
+</html>

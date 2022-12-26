@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/user/withdrawal.css}" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <div class="withdrawal_form">
+
+            <div class="withdrawal_form_title">
+                <span class="withdrawal_form_title_detail">주의하세요!</span>
+            </div>
+
+            <div class="withdrawal_form_alert">
+          <span class="withdrawal_form_alert_detail">
+            탈퇴 시 삭제/유지되는 정보를 확인하세요! <br>
+            한 번 삭제된 정보는 복구가 불가능합니다.
+          </span>
+            </div>
+
+            <div class="withdrawal_form_main">
+                <p class="withdrawal_form_main_detail">
+                    계정 및 프로필 정보 삭제 <br><br>
+                    모든 데이터 복구 불가
+                </p>
+            </div>
+
+            <div class="withdrawal_form_btnBox">
+                <input type="button" value="탈퇴" class="join_form_btn"/>
+                <input type="button" value="취소" class="join_form_btn"/>
+            </div>
+
+        </div> <!--withdrawal form-->
+
+    </div>
+</div>
+
+</body>
+</html>

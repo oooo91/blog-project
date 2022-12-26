@@ -1,0 +1,68 @@
+html {
+    height: 100%;
+    background-color: #f7faff;
+}
+.container {
+    margin: auto;
+}
+.container_background {
+    margin-top: 20%;
+}
+.withdrawal_form {
+    background-color: white;
+    padding: 20px 25px 20px;
+    margin: 0 auto;
+    width: 40%;
+}
+.withdrawal_form_title {
+    margin-bottom: 10px;
+}
+.withdrawal_form_title_detail {
+    font-weight: 600;
+    font-size: 22px;
+}
+.withdrawal_form_alert {
+    padding: 10px;
+    padding-left: 0px;
+    margin-bottom: 40px;
+}
+.withdrawal_form_alert_detail {
+    font-size: 13px;
+    color: rgba(54, 54, 54, 1);
+}
+.withdrawal_form_main {
+    margin-bottom: 20px;
+}
+.withdrawal_form_main_detail {
+    font-weight: 700;
+    font-size: 16px;
+    color: black;
+}
+.withdrawal_form_btnBox {
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.join_form_btn {
+    margin-top: 15px;
+    border: none;
+    width: 128px;
+    font-weight: 600;
+    color: #fff;
+    background-color: rgba(54, 54, 54, 1);
+    padding: 0 18px;
+    height: 42px;
+    line-height: 40px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+}
+.join_form_btn:first-child {
+    margin-right: 5px;
+}
+.join_form_btn:nth-child(2) {
+    margin-left: 5px;
+}
