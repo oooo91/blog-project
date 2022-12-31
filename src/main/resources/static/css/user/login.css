@@ -42,12 +42,13 @@ html, body {
     height: 50px;
     display: flex;
     margin: 0 auto;
+    width: 100%;
 }
 .login_id_check,
 .login_pwd_check {
     margin-top: 5px;
     margin-bottom: 20px;
-    color:black;
+    color:#242d3a;
     font-size: 12px;
 }
 .login_form_main-id-img,
@@ -68,7 +69,7 @@ input:focus {
 .login_form_main-id-text,
 .login_form_main-pwd-text {
     border: none;
-    width: 600px;
+    width: 100%;
     font-size: 20px;
     padding: 0px;
 }
@@ -87,18 +88,33 @@ input:focus {
 
 .login_form_bottom {
     padding: 0px 80px;
-    margin: 50px 0;
+    margin: 45px 0;
+    margin-bottom: 20px;
     text-align: center;
 }
-.login_form_bottom-link {
+.login_form_bottom-link,
+.login_form_bottom-link-pwd {
     text-decoration: none;
 }
 .login_form_bottom-link:visited,
 .login_form_bottom-link:active,
 .login_form_bottom-link:focus {
     text-decoration: none;
-    color: black;
+    color: #242d3a;
 }
 .login_form_bottom-link:hover {
+    color: rgba(255, 5, 80, 1);
+}
+.login_form_bottom-pwd {
+    padding: 0px 80px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.login_form_bottom-text-pwd {
+    font-size: 13px;
+    color:#242d3a;
+    text-decoration: none;
+}
+.login_form_bottom-text-pwd:hover {
     color: rgba(255, 5, 80, 1);
 }

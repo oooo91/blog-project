@@ -1,6 +1,5 @@
 package com.portfolio.postproject.common.component;
 
-import com.portfolio.postproject.user.exception.JoinException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

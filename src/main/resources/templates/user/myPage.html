@@ -22,46 +22,31 @@
 
         </div> <!--header-->
 
-        <!--main-->
-        <div class="content_main">
+        <div class="content_main"> <!--main-->
             <!--동적 처리-->
 
             <div class="content_main_user">
                 <!--동적 처리-->
                 <div class="content_main_user-detail cursor">
 
-
                     <div class="content_main_user-detail-info">
-              <span class="content_main_user-detail-info-name">
-                user_id
-              </span>
+                      <span th:text="${myPageInfo.userName}" class="content_main_user-detail-info-name">
+                        user_name
+                      </span>
                         <div class="content_main_user-detail-info-changed">
-                            <i class="fa-solid fa-user-pen"></i>
+                            <a href="/user/password-checker.do">
+                                <i class="fa-solid fa-user-pen"></i>
+                            </a>
                         </div>
                     </div>
-
-                    <!--버튼 누르면 등장
-
-                    <div>
-                      <form method="post" class="content_main_user-detail-info">
-                        <input type="text" class="content_main_user-detail-info-name-input" placeholder="이름을 입력하세요"/>
-                        <div class="content_main_user-detail-info-changed">   //js로 누르면 submit() 하기
-                          <i class="fa-regular fa-pen-to-square"></i>
-                        </div>
-                      </form>
-                    </div>
-
-                    -->
 
                     <div class="content_main_user-detail-box">
-
                         <div class="content_main_user-detail-info-id">
-                            email
+                            Email
                         </div>
-                        <div class="content_main_user-detail-info-email">
+                        <div th:text="${myPageInfo.userEmail}" class="content_main_user-detail-info-email">
                             email@email
                         </div>
-
                     </div>
 
                 </div> <!--content_main_diary-detail-->
@@ -147,8 +132,6 @@
                 <div class="bye">
                     <span>탈퇴하기</span>
                 </div>
-
-
 
             </div> <!--content_main_diary-detail-->
 
