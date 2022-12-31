@@ -22,14 +22,6 @@ spring:
           starttls:
             enable: true
 
-  devtools:
-    livereload:
-      enabled: true
-    freemarker:
-      cache: false
-    thymeleaf:
-      cache: false
-
 logging:
   level:
     root: info
