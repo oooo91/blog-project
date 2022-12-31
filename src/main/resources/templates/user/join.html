@@ -2,81 +2,142 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Document</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet" />
     <link th:href="@{/css/user/join.css}" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#join_approve').on('click', function(){
+
+                //서버에서 유효성을 검사하고 백엔드 결과에 따라 프론트는 메시지만 노출한다.
+                let obj={
+                    "userName" : $("input[name='user_name']").val(),
+                    "userId" : $("input[name='user_id']").val(),
+                    "userPwd" : $("input[name='user_pwd']").val(),
+                    "userEmail" : $("input[name='user_email']").val()
+                };
+
+                var password = $('.join_form_main-userPwd-text').val();
+                var rePassword = $('.join_form_main-userPwd-text-recheck').val();
+
+                if(password != rePassword) {
+                   alert('비밀번호가 일치하지 않습니다');
+                } else {
+
+                    $.ajax({
+                        type: "post",
+                        url : "/user/join.do",
+                        headers: {'Content-Type': 'application/json'},
+                        data : JSON.stringify(obj),
+                        success : function (data){
+                            console.log(data);
+                            alert('회원가입이 완료되었습니다.');
+                            alert('이메일 인증을 완료하세요.');
+                            location.href = '/user/login.do';
+                        },
+                        error: function(request, status, error){
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            });
+
+            $('#join_reject').on('click', function(){
+                if(confirm('회원가입을 취소하겠습니까?')) {
+                    location.href="/user/login.do";
+                }
+            });
+
+        });
+    </script>
 </head>
 <body>
 <div class="container">
     <div class="container_background">
 
         <div class="join_form">
+            <form id="join_form" method="post" action="/user/join.do">
 
-            <div class="join_form_title">
-                <span class="join_form_title_detail">회원가입</span>
-            </div>
-
-            <div class="join_form_main">
-
-                <div class="join_form_main-userName">
-                    <div class="join_form_main-userName-title">
-                        User name
-                    </div>
-                    <input type="text" class="join_form_main-userName-text" placeholder="이름을 입력하세요">
-
-                    <div class="userName_check removeEvent">
-                        정확한 이름을 입력하세요
-                    </div>
-                </div> <!--userName-->
-
-                <div class="join_form_main-userId">
-                    <div class="join_form_main-userId-title">
-                        Id
-                    </div>
-                    <input type="text" class="join_form_main-userId-text" placeholder="영문 3자 이상 입력">
-                    <div class="userId_check removeEvent">
-                        정확한 아이디를 입력하세요
-                    </div>
+                <div class="join_form_title">
+                    <span class="join_form_title_detail">회원가입</span>
                 </div>
 
-                <div class="join_form_main-userPwd">
-                    <div class="join_form_main-userPwd-title">
-                        Password
+                <div class="join_form_main">
+
+                    <div class="join_form_main-userName">
+                        <div class="join_form_main-userName-title">
+                            User name
+                        </div>
+                        <input type="text" name="user_name" class="join_form_main-userName-text text" placeholder="이름을 입력하세요">
+                        <!--
+                        <div class="userName_check removeEvent">
+                            정확한 이름을 입력하세요
+                        </div>
+                        -->
+                    </div> <!--userName-->
+
+                    <div class="join_form_main-userId">
+                        <div class="join_form_main-userId-title">
+                            Id
+                        </div>
+                        <input type="text" name="user_id" class="join_form_main-userId-text" placeholder="영문 5자 이상 입력">
+                        <!--
+                        <div class="userId_check removeEvent">
+                            정확한 아이디를 입력하세요
+                        </div>
+                        -->
                     </div>
-                    <input type="password" class="join_form_main-userPwd-text" placeholder="비밀번호를 입력하세요">
-                    <div class="userPwd_check removeEvent">
-                        정확한 비밀번호를 입력하세요
+
+                    <div class="join_form_main-userPwd">
+                        <div class="join_form_main-userPwd-title">
+                            Password
+                        </div>
+                        <input type="password" name="user_pwd" class="join_form_main-userPwd-text" placeholder="영문 8글자 이상 입력">
+                        <!--
+                        <div class="userPwd_check removeEvent">
+                            정확한 비밀번호를 입력하세요
+                        </div>
+                        -->
                     </div>
+
+                    <div class="join_form_main-userPwd">
+                        <div class="join_form_main-userPwd-title">
+                            Password-check
+                        </div>
+                        <input type="password" class="join_form_main-userPwd-text-recheck" placeholder="비밀번호를 입력하세요">
+                        <!--
+                        <div class="userPwd_check-recheck removeEvent">
+                            비밀번호가 일치하지 않습니다
+                        </div>
+                        -->
+                    </div>
+
+                    <div class="join_form_main-userEmail">
+                        <div class="join_form_main-userEmail-title">
+                            Email
+                        </div>
+                        <input type="email" name="user_email" class="join_form_main-userEmail-text" placeholder="이메일을 입력하세요">
+                        <!--
+                        <div class="userEmail_check removeEvent">
+                            정확한 이메일을 입력하세요.
+                        </div>
+                        -->
+                        <!--
+                        <div class="userSubmit_check removeEvent" th:text="${errorMessage}">
+                            입력되지 않은 값이 있습니다.
+                        </div>
+                        -->
+                    </div>
+
+                </div> <!--main-->
+
+                <div class="join_form_btnBox">
+                    <input type="button" value="가입" class="join_form_btn" id="join_approve"/>
+                    <input type="button" value="취소" class="join_form_btn" id="join_reject"/>
                 </div>
-
-                <div class="join_form_main-userPwd">
-                    <div class="join_form_main-userPwd-title">
-                        Password-check
-                    </div>
-                    <input type="password" class="join_form_main-userPwd-text-recheck" placeholder="비밀번호를 입력하세요">
-                    <div class="userPwd_check-recheck removeEvent">
-                        비밀번호가 일치하지 않습니다
-                    </div>
-                </div>
-
-                <div class="join_form_main-userEmail">
-                    <div class="join_form_main-userEmail-title">
-                        Email
-                    </div>
-                    <input type="email" class="join_form_main-userEmail-text" placeholder="이메일을 입력하세요">
-                    <div class="userEmail_check removeEvent">
-                        정확한 이메일을 입력하세요
-                    </div>
-                </div>
-
-            </div> <!--main-->
-
-            <div class="join_form_btnBox">
-                <input type="button" value="가입" class="join_form_btn"/>
-                <input type="button" value="취소" class="join_form_btn"/>
-            </div>
-
+            </form>
 
         </div> <!--join_form-->
 
