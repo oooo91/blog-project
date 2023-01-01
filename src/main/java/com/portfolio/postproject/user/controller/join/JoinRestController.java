@@ -2,19 +2,15 @@ package com.portfolio.postproject.user.controller.join;
 
 import com.portfolio.postproject.common.param.ResponseError;
 import com.portfolio.postproject.user.exception.JoinException;
-import com.portfolio.postproject.user.param.join.EmailAuthParam;
 import com.portfolio.postproject.user.param.join.JoinParam;
-import com.portfolio.postproject.user.repository.DiaryUserRepository;
 import com.portfolio.postproject.user.service.join.JoinUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +31,6 @@ public class JoinRestController {
     public ResponseEntity<?> userJoinTry(@RequestBody @Valid JoinParam param, Errors error) {
         //이메일 유효성, 이름, 아이디 유효성, 비밀번호 유효성 체크
         List<ResponseError> joinErrorList = new ArrayList<>();
-        boolean result = false;
 
         if(error.hasErrors()) {
             error.getAllErrors().forEach((e) -> {

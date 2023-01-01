@@ -5,5 +5,5 @@ public interface DiaryUserCode {
     //user_status
     String STATUS_READY = "READY";
     String STATUS_ACTIVE = "ACTIVE";
-    String STATUS_STOP = "STOP";
+    String STATUS_WITHDRAW = "WITHDRAW";
 }

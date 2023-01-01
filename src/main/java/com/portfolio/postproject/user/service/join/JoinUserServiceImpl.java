@@ -3,7 +3,6 @@ package com.portfolio.postproject.user.service.join;
 import com.portfolio.postproject.common.component.MailComponents;
 import com.portfolio.postproject.user.entity.DiaryUser;
 import com.portfolio.postproject.user.param.join.EmailAuthParam;
-import com.portfolio.postproject.user.param.join.EmailAuthParamCode;
 import com.portfolio.postproject.user.param.join.JoinParam;
 import com.portfolio.postproject.user.repository.DiaryUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +44,7 @@ public class JoinUserServiceImpl implements JoinUserService {
                 .userId(param.getUserId())
                 .userName(param.getUserName())
                 .userEmail(param.getUserEmail())
-                .userPwd(enc)
+                .userPwd("{bcrypt}" + enc) //비밀번호 저장방식 바꿈
                 .createdAt(LocalDateTime.now())
                 .level(false)
                 .emailAuthKey(uuid)

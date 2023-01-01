@@ -16,7 +16,6 @@ public class ResponseError {
     //private String field;
     private String message;
 
-    //에러를 JoinResponseError 빌드 형식으로 커스텀하여 전달
     public static ResponseError of(FieldError e) {
         return ResponseError.builder()
                 //.field(e.getField())

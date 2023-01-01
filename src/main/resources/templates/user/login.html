@@ -8,6 +8,10 @@
     <title>Document</title>
 </head>
 <body>
+    <!--
+    spring security 구현 시 name은 각각 username, password로 한다.
+    또는 formLogin()에서 usernameParameter을 커스텀할 수 있다.
+    -->
 <div class="container">
     <div class="container_background">
 
@@ -16,31 +20,31 @@
         </div>
 
         <div class="login_form">
-
-            <div class="login_form_main">
-                <div class="login_form_main-id">
-                    <div class="login_form_main-id-img">
-                        <i class="fa-solid fa-user"></i>
+            <form method="post">
+                <div class="login_form_main">
+                    <div class="login_form_main-id">
+                        <div class="login_form_main-id-img">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <input type="text" name="username" placeholder=" Email or Id " class="login_form_main-id-text" required/>
                     </div>
-                    <input type="text" placeholder=" Email or Id " class="login_form_main-id-text"/>
-                </div>
 
-                <div class="login_id_check">아이디를 정확히 입력하세요(2~10)</div>
+                    <div class="login_id_check">아이디를 정확히 입력하세요(5자 이상)</div>
 
-                <div class="login_form_main-pwd">
-                    <div class="login_form_main-pwd-img">
-                        <i class="fa-solid fa-lock"></i>
+                    <div class="login_form_main-pwd">
+                        <div class="login_form_main-pwd-img">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <input type="password" name="password" placeholder=" Password " class="login_form_main-pwd-text" required/>
                     </div>
-                    <input type="password" placeholder=" Password " class="login_form_main-pwd-text"/>
-                </div>
 
-                <div class="login_pwd_check">비밀번호를 정확히 입력하세요(2~10)</div>
+                    <div class="login_pwd_check">비밀번호를 정확히 입력하세요(8자 이상)</div>
 
-                <div class="login_button">
-                    <input type="button" value="login" class="login_button_box"/>
-                </div>
-            </div> <!--login form main-->
-
+                    <div class="login_button">
+                        <input type="submit" value="login" class="login_button_box"/>
+                    </div>
+                </div> <!--login form main-->
+            </form>
 
             <div class="login_form_bottom">
                 <span class="login_form_bottom-text">New to Diary?</span>
@@ -48,12 +52,27 @@
                     <span class="login_form_bottom-text">Sign up</span>
                 </a>
             </div>
-
+            <div class="login_form_bottom-pwd">
+                <a class="login_form_bottom-link-pwd" href="#">
+                    <span class="login_form_bottom-text-pwd">아이디 / 비밀번호 찾기</span>
+                </a>
+            </div>
         </div> <!--login_form-->
+
+        <input type="hidden" th:value="${errorMessage}" class="errorMessage"/>
 
     </div> <!--container_background-->
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function(){
+        var message = $('.errorMessage').val();
 
-
+        if(message == null || message == "" || message == undefined || message == "undefinded") {
+        } else {
+            alert(message);
+        }
+    });
+</script>
 </body>
 </html>

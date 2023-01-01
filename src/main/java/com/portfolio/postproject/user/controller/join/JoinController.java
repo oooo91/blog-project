@@ -25,14 +25,13 @@ public class JoinController {
     //이메일 인증 창
     @GetMapping("/user/email-auth.do")
     public String emailAuth(HttpServletRequest request, Model model) {
-        //버튼 누르면 yn이 1이 되고 이제 인증할 수 있다고 알람 보낸다 -> 화면 닫힌다
+        //버튼 누르면 yn이 1이 되고 이제 인증할 수 있다고 알람을 보낸다
         String uuid = request.getParameter("uuid");
         System.out.println(uuid);
         EmailAuthParam result = joinUserService.emailAuth(uuid);
 
         model.addAttribute("result", result.getEmailAuthStatus());
 
-        //모델에 담아서 던지기
         return "/user/email-auth";
     }
 
