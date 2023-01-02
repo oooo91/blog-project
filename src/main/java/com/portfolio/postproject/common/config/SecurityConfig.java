@@ -2,22 +2,18 @@ package com.portfolio.postproject.common.config;
 
 import com.portfolio.postproject.user.enums.UserRole;
 import com.portfolio.postproject.user.service.login.LoginService;
+import com.portfolio.postproject.user.service.login.OAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -27,6 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     private final LoginService loginService;
+    private final OAuthService oAuthService;
 
     //예외 핸들러
     @Bean
@@ -87,16 +84,26 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .permitAll();
 
+
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout.do"))
                 .logoutSuccessUrl("/user/login.do")
                 .invalidateHttpSession(true); //세션 초기화
 
 
+        http.oauth2Login() //OAuth2 로그인 설정 시작점
+                .loginPage("/user/login.do")
+                .defaultSuccessUrl("/user/main.do")
+                .failureUrl("/user/login.do")
+                .userInfoEndpoint() //OAuth2 로그인 서공 후 사용자 정보 가져온다.
+                .userService(oAuthService); //사용자 정보 처리할 때 사용하는 서비스.
+
+
         http.sessionManagement()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false) //true인 경우 현재 요청하는 사용자의 인증 실패, false인 경우 기존 사용자의 세션 만료
                 .expiredUrl("/user/login.do");
+
 
         return http.build();
     }

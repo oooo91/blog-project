@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,10 @@ public class LoginServiceImpl implements LoginService {
         if(DiaryUser.STATUS_WITHDRAW.equals(diaryUser.getUserStatus())) {
             throw new UsernameNotFoundException("탈퇴한 회원입니다.");
         }
+
+        //로그인 날짜
+        diaryUser.setLoginAt(LocalDateTime.now());
+        diaryUserRepository.save(diaryUser);
 
         //인증 권한 생성
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

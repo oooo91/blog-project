@@ -27,13 +27,14 @@ public class DiaryUser implements DiaryUserCode {
     @NotBlank
     private String userEmail;
 
-    @NotBlank
     private String userPwd;
 
     @NotNull
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private LocalDateTime loginAt; //로그인 날짜
 
     @NotNull
     private boolean level;
