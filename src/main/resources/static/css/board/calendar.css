@@ -1,0 +1,142 @@
+html, body {
+    height: 100%;
+    background-color: #edf4ff;
+}
+.cursor {
+    cursor: pointer;
+}
+.container_background {
+    padding: 0px 40px;
+}
+.write_form_header {
+    position: fixed;
+    background-color: #9aafe6;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 95%;
+    height: 100px;
+    padding: 20px 40px;
+    padding-bottom: 5px;
+    z-index: 1000;
+}
+.write_form_header_first {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f7faff;
+}
+.write_form_header_icon {
+    margin-top: 10px;
+}
+.fa-arrow-left-long {
+    font-size: 20px;
+}
+.write_form_header_save {
+    color: black;
+    font-weight: 900;
+    font-size: 19px;
+    width: 80px;
+    padding: 10px;
+    text-align: center;
+}
+.write_form_header_second {
+    margin-top: 15px;
+    box-shadow: 0 4px 4px -7px #222;
+}
+.write_form_header_second_text {
+    border: none;
+    width: 130px;
+    padding: 10px;
+    padding-left: 0px;
+    background-color: #9aafe6;
+    color: #222;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+}
+input:focus {
+    outline: none;
+}
+.fa-caret-down {
+    font-size: 18px;
+}
+.content_footer_plus {
+    position: fixed;
+    right: 35px;
+    bottom: 35px;
+    height: 30px;
+    width: 30px;
+    padding: 20px;
+    padding-top: 22px;
+    border-radius: 50%;
+    background-color: #063e99;
+    text-align: center;
+    color: white;
+}
+.fa-plus {
+    font-size: 25px;
+}
+.content_main {
+    margin-top: 135px;
+}
+.content_main_diary {
+    margin-bottom: 15px;
+}
+.content_main_diary-detail {
+    padding: 15px;
+    border-bottom: 2px solid #9aafe6;
+}
+.content_main_diary-detail-date-day {
+    font-size: 25px;
+    font-weight: 600;
+}
+.content_main_diary-detail-date-month {
+    font-size: 14px;
+}
+.content_main_diary-detail-box-subject {
+    padding: 15px 0px 15px;
+    font-weight: 600;
+}
+
+
+/*달력*/
+.ui-widget-content,
+.ui-widget-header,
+.ui-state-default,
+.ui-state-active,
+.ui-state-active {
+    border: none !important;
+    background: white !important;
+    text-align: center !important;
+}
+.ui-state-default {
+    border-radius: 2px;
+    background-color: white !important;
+    padding: 12px 0px !important;
+}
+.ui-state-default:hover {
+    background: black !important;
+    color: white !important;
+    border-radius: 50%;
+}
+#ui-datepicker-div {
+    padding: 15px;
+    background-color: white !important;
+    box-shadow: 0 4px 4px -6px #222;
+}
+.ui-datepicker-header {
+    margin-bottom: 10px;
+    border-radius: 0%;
+    background-color: white !important;
+    border-bottom: 1px solid black !important;
+}
+.ui-datepicker-title {
+    color: #222;
+}
+.ui-state-hover {
+    border: none !important;
+    background: white !important;
+}

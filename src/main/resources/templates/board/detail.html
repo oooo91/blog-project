@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/board/calendar.css}" rel="stylesheet"/>
+    <link th:href="@{/css/board/detail.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(function() {
+
+            let paramId = $("input[name='paramId']").val();
+            let postId = $("input[name='postId']").val();
+
+            //x버튼 시 뒤로 가기
+            $('.fa-x').on('click', function() {
+                location.href = "/board/main/" + paramId + ".do";
+            });
+
+            //지우개 버튼 누를 시 삭제
+            $('.fa-eraser').on('click', function() {
+                if(confirm('삭제하시겠습니까?')) {
+
+                    $.ajax({
+                        type: "get",
+                        url : "/board/delete/" + paramId + ".do?postId=" + postId,
+                        headers: {'Content-Type': 'application/json'},
+                        success : function (data){
+                            alert("삭제되었습니다");
+                            location.href = "/board/main/" + paramId +".do";
+                        },
+                        error: function(request, status, error){
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            });
+
+            //수정 버튼 누를 시 수정 화면으로 이동
+            $('.fa-pencil').on('click', function() {
+                let paramId = $('.paramId').val();
+                let postId = $('.postId').val();
+
+                location.href = "/board/rewrite/" + paramId + ".do?postId=" + postId;
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="container_background">
+
+        <!--paramId-->
+        <input type="hidden" th:value="${paramId}" name="paramId"/>
+        <!--postId-->
+        <input type="hidden" th:value="${boardDTO.postId}" name="postId"/>
+
+        <div class="write_form_header">
+
+            <div class="write_form_header_first">
+                <div class="write_form_header_icon cursor">
+                    <i class="fa-solid fa-x"></i>
+                </div>
+                <div th:if="${comparison eq true}" class="write_form-right">
+                    <a th:href="'/board/rewrite/' + ${paramId} + '.do?postId=' + ${boardDTO.postId}">
+                        <div class="write_form_header_icon cursor">
+                            <i class="fa-solid fa-pencil"></i>
+                        </div>
+                    </a>
+                </div>
+                <div th:if="${comparison eq true}">
+                    <div class="write_form_header_icon cursor">
+                        <i class="fa-solid fa-eraser"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="write_form_header_second">
+                <input readonly th:value="${boardDTO.year}+년+' '+${boardDTO.month}+월+' '+${boardDTO.day}+일" type="text" id="date" size="10" class="write_form_header_second_text" />
+            </div>
+        </div> <!--header-->
+
+        <div class="write_form_main">
+            <div class="write_form_main_subject">
+                <input type="text" th:value="${boardDTO.postTitle}" readonly class="write_form_main_subject_text"/>
+            </div>
+            <textarea th:text="${boardDTO.postContent}" readonly onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
+        </div>
+
+    </div>
+</div>
+
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script>
+    function resize(obj) {
+        obj.style.height = '1px';
+        obj.style.height = (12 + obj.scrollHeight) + 'px';
+    }
+</script>
+</body>
+</html>

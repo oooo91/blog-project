@@ -19,9 +19,10 @@ public class MyPageServiceImpl implements MyPageService {
 
         //id기반 entity 정보 (name, email)
         Optional<DiaryUser> optionalDiaryUser = diaryUserRepository.findById(id);
+
         //id기반 작성한 일기 수 -> 다음주
 
-        if(!optionalDiaryUser.isPresent()) {
+        if (!optionalDiaryUser.isPresent()) {
             return null;
         }
         DiaryUser diaryUser = optionalDiaryUser.get();

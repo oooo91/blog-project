@@ -2,6 +2,7 @@ package com.portfolio.postproject.user.service.login;
 
 import com.portfolio.postproject.user.entity.DiaryUser;
 import com.portfolio.postproject.user.enums.UserRole;
+import com.portfolio.postproject.user.enums.UserStatus;
 import com.portfolio.postproject.user.repository.DiaryUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,19 +26,19 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<DiaryUser> optionalDiaryUser =  diaryUserRepository.findByUserId(username);
+        Optional<DiaryUser> optionalDiaryUser =  diaryUserRepository.findById(username);
         DiaryUser diaryUser = optionalDiaryUser.get();
-        System.out.println(diaryUser.getUserId());
+        System.out.println(diaryUser.getId());
 
-        if(!optionalDiaryUser.isPresent()) {
+        if (!optionalDiaryUser.isPresent()) {
             throw new UsernameNotFoundException("존재하지 않는 계정입니다. 회원가입 후 로그인해주세요.");
         }
 
-        if(DiaryUser.STATUS_READY.equals(diaryUser.getUserStatus())) {
+        if (UserStatus.STATUS_READY.toString().equals(diaryUser.getUserStatus())) {
             throw new UsernameNotFoundException("이메일 활성화 이후에 로그인 하세요");
         }
 
-        if(DiaryUser.STATUS_WITHDRAW.equals(diaryUser.getUserStatus())) {
+        if (UserStatus.STATUS_WITHDRAW.toString().equals(diaryUser.getUserStatus())) {
             throw new UsernameNotFoundException("탈퇴한 회원입니다.");
         }
 
@@ -50,10 +51,10 @@ public class LoginServiceImpl implements LoginService {
         grantedAuthorities.add(new SimpleGrantedAuthority(UserRole.USER.toString()));
 
         //만약 관리자라면 인증 권한 추가
-        if(diaryUser.isLevel()) {
+        if (diaryUser.isLevel()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.toString()));
         }
 
-        return new User(diaryUser.getUserId(), diaryUser.getUserPwd(), grantedAuthorities);
+        return new User(diaryUser.getId(), diaryUser.getUserPwd(), grantedAuthorities);
     }
 }

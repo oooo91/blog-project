@@ -60,18 +60,10 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
     //소셜 로그인 시 기존 회원이 존재하면 날짜 업데이트, 아니면 새로 저장
     private DiaryUser saveOrUpdate(OAuthAttributes attributes) {
-        Optional<DiaryUser> user = diaryUserRepository.findByUserId(attributes.getUserId());
+        Optional<DiaryUser> user = diaryUserRepository.findById(attributes.getUserId());
 
-        /*
-        return diaryUserRepository.save(diaryUser.toEntity); 를 한 경우엔
-        Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: 에러 발생했으나
-        DiaryUser diaryUser = attributes.toEntity();
-        return diaryUserRepository.save(diaryUser);
-        위처럼 작성하니 정상 작동한다...
-        */
-        if(!user.isPresent()) {
-            DiaryUser diaryUser = attributes.toEntity();
-            return diaryUserRepository.save(diaryUser);
+        if (!user.isPresent()) {
+            return diaryUserRepository.save(attributes.toEntity());
         }
 
         DiaryUser diaryUser = user.get();

@@ -23,7 +23,7 @@ public class JoinRestController {
 
     @ExceptionHandler(JoinException.class)
     public ResponseEntity<String> handlerUserJoinException(JoinException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST); //400
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); //500
     }
 
     //회원가입 시도
@@ -32,7 +32,7 @@ public class JoinRestController {
         //이메일 유효성, 이름, 아이디 유효성, 비밀번호 유효성 체크
         List<ResponseError> joinErrorList = new ArrayList<>();
 
-        if(error.hasErrors()) {
+        if (error.hasErrors()) {
             error.getAllErrors().forEach((e) -> {
                 joinErrorList.add(ResponseError.of((FieldError)e));
             });
@@ -40,19 +40,13 @@ public class JoinRestController {
         }
 
         //이메일 중복 체크
-        if(joinUserService.checkUserEmail(param.getUserEmail()) > 0) {
-            throw new JoinException("이미 가입된 이메일입니다.");
-        }
+        joinUserService.checkUserEmail(param.getUserEmail());
 
         //아이디 중복 체크
-        if(joinUserService.checkUserId(param.getUserId()) > 0) {
-            throw new JoinException("이미 가입된 아이디입니다.");
-        }
+        joinUserService.checkUserId(param.getUserId());
 
         //비밀번호 암호화하여 DB저장 & 메일 전송 -> 메일 전송 실패할 경우 throw
-        if(!joinUserService.saveUserInfo(param)) {
-            throw new JoinException("메일 전송에 실패하였습니다.");
-        }
+        joinUserService.saveUserInfo(param);
 
         //성공
         return ResponseEntity.ok().build();

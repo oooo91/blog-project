@@ -3,7 +3,7 @@ package com.portfolio.postproject.user.param.join;
 import lombok.Data;
 
 @Data
-public class EmailAuthParam implements EmailAuthParamCode{
+public class EmailAuthParam {
 
    String emailAuthStatus;
 
