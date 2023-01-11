@@ -14,7 +14,6 @@ public class MyPageDTO {
 
     private String userName;
     private String userEmail;
-    //private int userDiaryCount;
 
     public static MyPageDTO of(DiaryUser diaryUser) {
         return MyPageDTO.builder()

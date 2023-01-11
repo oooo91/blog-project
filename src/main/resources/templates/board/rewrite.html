@@ -3,15 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/reset.css}" rel="stylesheet" />
-    <link th:href="@{/css/user/write.css}" rel="stylesheet"/>
-    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/board/write.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(function() {
+
+            //x버튼 시 뒤로 가기
+            $('.fa-x').on('click', function() {
+                window.history.back();
+            });
+
+            //수정하기
+            $('.write_form_header_save').on('click', function() {
+
+                let obj={
+                    "paramId" :  $("input[name='paramId']").val(),
+                    "postDate" : $("input[name='date']").val(),
+                    "postTitle": $("input[name='postTitle']").val(),
+                    "postId" : $("input[name='postId']").val(),
+                    "postContent" : $(".write_form_main_content").val()
+                };
+
+                if(confirm('수정하시겠습니까?')) {
+
+                    $.ajax({
+                        type: "post",
+                        url : "/board/update.do",
+                        headers: {'Content-Type': 'application/json'},
+                        data : JSON.stringify(obj),
+                        success : function (data){
+
+                            let paramId = $("input[name='paramId']").val();
+                            let postId = $("input[name='postId']").val();
+
+                            location.href = "/board/detail/" + paramId +".do?postId=" + postId;
+                            alert("수정되었습니다");
+                        },
+                        error: function(request, status, error){
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
     <div class="container_background">
+
+        <!--userId-->
+        <input type="hidden" th:value="${paramId}" name="paramId"/>
+        <!--postId-->
+        <input type="hidden" th:value="${boardDTO.postId}" name="postId"/>
 
         <div class="write_form_header">
 
@@ -24,7 +71,7 @@
 
             <div class="write_form_header_second">
                 <!--동적으로 현재 날짜-->
-                <input readonly value="2022월 8월 5일" type="text" id="date" size="10" class="write_form_header_second_text" />
+                <input th:value="${boardDTO.year}+년+' '+${boardDTO.month}+월+' '+${boardDTO.day}+일" readonly type="text" name="date" id="date" size="10" class="write_form_header_second_text" />
                 <label for="date">
                     <i class="fa-solid fa-caret-down cursor"></i>
                 </label>
@@ -35,10 +82,11 @@
 
         <div class="write_form_main">
             <div class="write_form_main_subject">
-                <input type="text" placeholder="표제" class="write_form_main_subject_text"/>
+                <input th:value="${boardDTO.postTitle}" name="postTitle" type="text" placeholder="표제" class="write_form_main_subject_text"/>
             </div>
-            <textarea placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
+            <textarea th:text="${boardDTO.postContent}" placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
         </div>
+
 
     </div>
 </div>

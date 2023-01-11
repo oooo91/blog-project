@@ -1,5 +1,7 @@
 package com.portfolio.postproject.common.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserAuthenticationFailureHandler.class.getName());
 
     //AuthenticationFailureHandler 구현한 SimpleUrlAuthenticationFailureHandler -> setDefaultFailureUrl()
     @Override
@@ -49,7 +53,7 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
         setUseForward(true);
         setDefaultFailureUrl("/user/login.do?error=true"); //post
         request.setAttribute("errorMessage", message);
-        System.out.println(exception.getMessage());
+        logger.info("예외 메시지: " + exception.getMessage());
 
         super.onAuthenticationFailure(request, response, exception);
     }

@@ -33,10 +33,6 @@ spring:
     thymeleaf:
       cache: false
 
-logging:
-  level:
-    root: info
-
 mybatis:
   mapper-locations: mybatis/**/*.xml
   configuration:

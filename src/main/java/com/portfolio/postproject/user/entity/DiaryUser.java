@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
@@ -16,10 +17,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Data
-public class DiaryUser implements DiaryUserCode {
+public class DiaryUser {
 
     @Id
-    private String userId;
+    @Column(name = "userId")
+    private String Id;
 
     @NotBlank
     private String userName;
@@ -30,7 +32,7 @@ public class DiaryUser implements DiaryUserCode {
     private String userPwd;
 
     @NotNull
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; //mappedSuperclass - AssociateOverride 로 변경하기
 
     private LocalDateTime updatedAt;
 

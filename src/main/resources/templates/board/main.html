@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/board/main.css}" rel="stylesheet"/>
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            //올해 년도
+            let date = new Date();
+            $('.content_main_year_box').text(date.getFullYear());
+
+            //정렬 및 조회
+            $('.fa-arrow-down-up-across-line, .fa-magnifying-glass').on('click', function () {
+                let paramId = $("input[name='paramId']").val();
+                let searchText = $('.search-text').val();
+                let sortValue = $('.sort-value').val();
+
+                if (sortValue == 0) {
+                    sortValue = 1; //오름차순(0)을 내림차순(1)으로 변경
+                } else {
+                    sortValue = 0; //내림차순(1)을 오름차순(0)으로 변경
+                }
+                if (searchText != null && searchText != " ") {
+                    location.href = "/board/main/" + paramId + ".do?sortValue=" + sortValue + "&searchText=" + searchText;
+                } else {
+                    location.href = "/board/main/" + paramId + ".do?sortValue=" + sortValue;
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="container_background">
+
+        <!--paramId-->
+        <input type="hidden" th:value="${paramId}" name="paramId"/>
+
+        <!--커뮤니티 목록-->
+        <!--<a href="http://localhost:8080/board/main/ddddd.do">ddddd친구의 일기</a>-->
+
+        <!--header -->
+        <div class="content_header">
+
+            <div class="exit_icon cursor">
+                <a href="/user/logout.do" class="join_form_btn_a">
+                    <input type="button" value="로그아웃" class="join_form_btn"/>
+                </a>
+            </div>
+
+            <div class="search-flex">
+                <div class="search_icon cursor">
+                    <input type="text" class="search-text" th:value="${searchText}">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="sort_icon cursor">
+                    <input type="hidden" class="sort-value" th:value="${sortValue}"/>
+                    <i class="fa-solid fa-arrow-down-up-across-line"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <!--main-->
+        <div class="content_main">
+            <!--동적 처리-->
+            <div class="content_main_year">
+                <span class="content_main_year_box">2022</span>
+                <span th:text="${totalCount} + 개"></span>
+            </div> <!--content_main_year-->
+
+
+            <div th:if="${not #strings.isEmpty(list)}">
+                <th:block th:each="x : ${list}">
+                    <div class="content_main_diary">
+                        <!--동적 처리-->
+                        <a th:href="'/board/detail/' + ${paramId} + '.do?postId=' + ${x.postId}">
+                            <div class="content_main_diary-detail cursor">
+                                <div class="content_main_diary-detail-date">
+                                    <span th:text="${x.day}" class="content_main_diary-detail-date-day"></span>
+                                    <span th:text="${x.month}+월" class="content_main_diary-detail-date-month"></span>
+                                </div>
+
+                                <div class="content_main_diary-detail-box">
+                                    <div th:text="${x.postTitle}" class="content_main_diary-detail-box-subject"></div>
+                                    <div th:text="${x.postContent}" class="content_main_diary-detail-box-content"></div>
+                                </div>
+                            </div> <!--content_main_diary-detail-->
+                        </a>
+                    </div> <!--content_main_diary-->
+                </th:block>
+            </div>
+
+        </div> <!--content_main-->
+
+        <div class="content_footer">
+            <div class="content_footer_width">
+                <a th:href="'/board/calendar/' + ${paramId} + '.do'">
+                    <div class="content_footer_calendar cursor">
+                        <i class="fa-solid fa-calendar-week"></i>
+                    </div>
+                </a>
+                <!--paramId과 sessionId 같으면 작성 버튼 표시-->
+                <div th:if="${comparison eq true}">
+                    <a th:href="'/board/write/' + ${paramId} + '.do'">
+                        <div class="content_footer_plus cursor">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </a>
+                </div>
+                <!--paramId과 sessionId 다르면 내 일기장으로 돌아가기 버튼 표시-->
+                <div th:if="${comparison eq false}">
+                    <a th:href="'/board/main/' + ${userId} + '.do'">
+                        <div class="content_footer_back cursor">
+                            <i class="fa-solid fa-house-user"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <a th:href="'/board/myPage/' + ${paramId} + '.do'">
+                    <div class="content_footer_user cursor">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -6,10 +6,10 @@ import com.portfolio.postproject.user.param.join.JoinParam;
 public interface JoinUserService {
 
     //이메일 중복 체크
-    long checkUserEmail(String userEmail);
+    boolean checkUserEmail(String userEmail);
 
     //아이디 중복 체크
-    long checkUserId(String userId);
+    boolean checkUserId(String userId);
 
     //db 저장
     boolean saveUserInfo(JoinParam param);

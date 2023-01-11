@@ -17,8 +17,6 @@ public class MyPageController {
     @GetMapping("/user/myPage/{id}.do")
     public String userMyPage(@PathVariable("id") String id, Model model) {
 
-        //ID가 아니라 Principal
-
         //내 정보 불러오기
         MyPageDTO myPageInfo = myPageService.findMyPageInfo(id);
         model.addAttribute("myPageInfo", myPageInfo);

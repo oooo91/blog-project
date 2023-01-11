@@ -2,10 +2,15 @@ package com.portfolio.postproject.user.service.join;
 
 import com.portfolio.postproject.common.component.MailComponents;
 import com.portfolio.postproject.user.entity.DiaryUser;
+import com.portfolio.postproject.user.enums.EmailAuth;
+import com.portfolio.postproject.user.enums.UserStatus;
+import com.portfolio.postproject.user.exception.JoinException;
 import com.portfolio.postproject.user.param.join.EmailAuthParam;
 import com.portfolio.postproject.user.param.join.JoinParam;
 import com.portfolio.postproject.user.repository.DiaryUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +25,25 @@ public class JoinUserServiceImpl implements JoinUserService {
     private final DiaryUserRepository diaryUserRepository;
     private final MailComponents mailComponents;
 
-    //이메일 중복 체크
+    //이메일 중복 체크 (true면 에러)
     @Override
-    public long checkUserEmail(String userEmail) {
-       return diaryUserRepository.countByUserEmail(userEmail);
+    public boolean checkUserEmail(String userEmail) {
+
+        boolean result = diaryUserRepository.existsByUserEmail(userEmail);
+        if (result) {
+            throw new JoinException("이미 가입된 이메일입니다.");
+        }
+        return false;
     }
 
     //아이디 중복 체크
     @Override
-    public long checkUserId(String userId) {
-        return diaryUserRepository.countByUserId(userId);
+    public boolean checkUserId(String userId) {
+        boolean result = diaryUserRepository.existsById(userId);
+        if (result) {
+            throw new JoinException("이미 가입된 아이디입니다.");
+        }
+        return false;
     }
 
     //비밀번호 암호화, 이메일 인증키값 DB저장, 이메일 전송
@@ -41,7 +55,7 @@ public class JoinUserServiceImpl implements JoinUserService {
 
         //DB저장
         DiaryUser user = DiaryUser.builder()
-                .userId(param.getUserId())
+                .Id(param.getUserId())
                 .userName(param.getUserName())
                 .userEmail(param.getUserEmail())
                 .userPwd("{bcrypt}" + enc) //비밀번호 저장방식 바꿈
@@ -49,7 +63,7 @@ public class JoinUserServiceImpl implements JoinUserService {
                 .level(false)
                 .emailAuthKey(uuid)
                 .emailAuthYn(false)
-                .userStatus(DiaryUser.STATUS_READY)
+                .userStatus(UserStatus.STATUS_READY.toString())
                 .build();
         diaryUserRepository.save(user);
 
@@ -62,7 +76,11 @@ public class JoinUserServiceImpl implements JoinUserService {
                 "<a target='_blank' href='http://localhost:8080/user/email-auth.do?uuid=" + uuid + "'> 가입완료 </a>" +
                 "</div>";
 
-        return mailComponents.sendEmail(email, title, contents);
+        boolean result = mailComponents.sendEmail(email, title, contents);
+        if (!result) {
+            throw new JoinException("메일 전송에 실패하였습니다.");
+        }
+        return true;
     }
 
     //이메일 인증 체크 및 유저 상태 활성화
@@ -72,24 +90,24 @@ public class JoinUserServiceImpl implements JoinUserService {
         EmailAuthParam emailAuthParam = new EmailAuthParam();
         System.out.println(optionalDiaryUser);
 
-        if(!optionalDiaryUser.isPresent()) {
-            emailAuthParam.setEmailAuthStatus(EmailAuthParam.AUTH_FAIL);
+        if (!optionalDiaryUser.isPresent()) {
+            emailAuthParam.setEmailAuthStatus(EmailAuth.AUTH_FAIL.toString());
             return emailAuthParam;
         }
 
         DiaryUser diaryUser = optionalDiaryUser.get();
 
-        if(diaryUser.isEmailAuthYn()){
-            emailAuthParam.setEmailAuthStatus(EmailAuthParam.AUTH_DONE);
+        if (diaryUser.isEmailAuthYn()){
+            emailAuthParam.setEmailAuthStatus(EmailAuth.AUTH_DONE.toString());
             return emailAuthParam;
         }
 
         diaryUser.setEmailAuthYn(true);
         diaryUser.setEmailAuthDt(LocalDateTime.now());
-        diaryUser.setUserStatus(DiaryUser.STATUS_ACTIVE);
+        diaryUser.setUserStatus(UserStatus.STATUS_ACTIVE.toString());
         diaryUserRepository.save(diaryUser);
 
-        emailAuthParam.setEmailAuthStatus(EmailAuthParam.AUTH_SUCCESS);
+        emailAuthParam.setEmailAuthStatus(EmailAuth.AUTH_SUCCESS.toString());
         return emailAuthParam;
     }
 }

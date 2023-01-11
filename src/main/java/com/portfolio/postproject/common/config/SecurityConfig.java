@@ -20,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final LoginService loginService;
@@ -77,7 +78,6 @@ public class SecurityConfig {
 
         http.formLogin()
                 .loginPage("/user/login.do")
-                .defaultSuccessUrl("/user/main.do")
                 .successHandler(getSuccessHandler())
                 .failureHandler(getFailureHandler())
                 .usernameParameter("username")
@@ -93,7 +93,7 @@ public class SecurityConfig {
 
         http.oauth2Login() //OAuth2 로그인 설정 시작점
                 .loginPage("/user/login.do")
-                .defaultSuccessUrl("/user/main.do")
+                .successHandler(getSuccessHandler())
                 .failureUrl("/user/login.do")
                 .userInfoEndpoint() //OAuth2 로그인 서공 후 사용자 정보 가져온다.
                 .userService(oAuthService); //사용자 정보 처리할 때 사용하는 서비스.
@@ -103,7 +103,6 @@ public class SecurityConfig {
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false) //true인 경우 현재 요청하는 사용자의 인증 실패, false인 경우 기존 사용자의 세션 만료
                 .expiredUrl("/user/login.do");
-
 
         return http.build();
     }

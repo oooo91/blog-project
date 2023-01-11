@@ -1,16 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/reset.css}" rel="stylesheet" />
-    <link th:href="@{/css/user/write.css}" rel="stylesheet"/>
-    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <link th:href="@{/css/board/write.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            //오늘 날짜
+            const date = new Date();
+
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const format = year+"년 "+(("00"+month.toString()).slice(-2))+"월 "+(("00"+day.toString()).slice(-2))+"일";
+
+            $('.write_form_header_second_text').val(format);
+
+            //x버튼 시 뒤로 가기
+            $('.fa-x').on('click', function() {
+                window.history.back();
+            });
+
+            //수정하기
+            $('.write_form_header_save').on('click', function() {
+
+                let obj={
+                    "paramId" :  $("input[name='paramId']").val(),
+                    "postDate" : $("input[name='date']").val(),
+                    "postTitle": $("input[name='postTitle']").val(),
+                    "postContent" : $(".write_form_main_content").val()
+                };
+
+                if(confirm('저장하시겠습니까?')) {
+
+                    $.ajax({
+                        type: "post",
+                        url : "/board/save.do",
+                        headers: {'Content-Type': 'application/json'},
+                        data : JSON.stringify(obj),
+                        success : function (data){
+                            let paramId = $("input[name='paramId']").val();
+                            location.href = "/board/detail/" + paramId +".do?postId=" + data;
+                            alert("저장되었습니다");
+                        },
+                        error: function(data, status, error){
+                            alert(data.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
     <div class="container_background">
+
+        <!--userId-->
+        <input type="hidden" th:value="${paramId}" name="paramId"/>
 
         <div class="write_form_header">
 
@@ -23,7 +74,7 @@
 
             <div class="write_form_header_second">
                 <!--동적으로 현재 날짜-->
-                <input readonly value="2022월 8월 5일" type="text" id="date" size="10" class="write_form_header_second_text" />
+                <input readonly name="date" value="" type="text" id="date" size="10" class="write_form_header_second_text" />
                 <label for="date">
                     <i class="fa-solid fa-caret-down cursor"></i>
                 </label>
@@ -34,21 +85,10 @@
 
         <div class="write_form_main">
             <div class="write_form_main_subject">
-                <input type="text" placeholder="표제" class="write_form_main_subject_text"/>
+                <input type="text" name="postTitle" placeholder="표제" class="write_form_main_subject_text"/>
             </div>
             <textarea placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
         </div>
-
-
-
-
-        <div class="write_form_footer">
-            <i class="fa-solid fa-pen-clip cursor"></i> <!--그림-->
-            <i class="fa-solid fa-image cursor"></i> <!--사진-->
-            <i class="fa-solid fa-text-slash cursor"></i> <!--색상 변경-->
-            <i class="fa-solid fa-tag cursor"></i> <!--태그-->
-        </div> <!--footer-->
-
 
 
     </div>
