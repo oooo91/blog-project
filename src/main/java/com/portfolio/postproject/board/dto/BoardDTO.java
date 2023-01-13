@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +52,23 @@ public class BoardDTO {
             diaryDTOlist.add(BoardDTO.of(post));
         }
         return diaryDTOlist;
+    }
+
+    //Page<entity> -> Page<dto>
+    public static Page<BoardDTO> of(Page<DiaryPost> list) {
+        if (list == null) {
+            return null;
+        }
+        Page<BoardDTO> newList = list.map(post -> BoardDTO.builder()
+                .postId(post.getId())
+                .postTitle(post.getPostTitle())
+                .postContent(post.getPostContent())
+                .postDate(post.getPostDate())
+                .year(post.getPostDate().getYear())
+                .month(String.format("%02d", post.getPostDate().getMonthValue()))
+                .day(String.format("%02d", post.getPostDate().getDayOfMonth()))
+                .build());
+
+        return newList;
     }
 }
