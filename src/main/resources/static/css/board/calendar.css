@@ -15,21 +15,20 @@ html, body {
     left: 0px;
     right: 0px;
     width: 95%;
-    height: 100px;
     padding: 20px 40px;
-    padding-bottom: 5px;
     z-index: 1000;
 }
 .write_form_header_first {
     display: flex;
     justify-content: start;
     width: 100%;
-    padding-bottom: 5px;
+    padding-bottom: 20px;
     margin-bottom: 10px;
     border-bottom: 1px solid #f7faff;
 }
 .write_form_header_icon {
     margin-top: 10px;
+    margin-right: auto;
 }
 .fa-arrow-left-long {
     font-size: 20px;
@@ -80,7 +79,8 @@ input:focus {
     font-size: 25px;
 }
 .content_main {
-    margin-top: 135px;
+    margin-top: 185px;
+    margin-right: 400px;
 }
 .content_main_diary {
     margin-bottom: 15px;
@@ -95,12 +95,51 @@ input:focus {
 }
 .content_main_diary-detail-date-month {
     font-size: 14px;
+    margin-left: 5px;
 }
 .content_main_diary-detail-box-subject {
     padding: 15px 0px 15px;
     font-weight: 600;
 }
-
+.content_main_year {
+    padding: 15px 0px;
+    font-size: 14px;
+    cursor: default;
+    display: flex;
+    justify-content: space-between;
+}
+.search-flex {
+    display: flex;
+}
+.search_icon {
+    margin-right: 20px;
+    display: flex;
+}
+.fa-magnifying-glass,
+.fa-arrow-down-up-across-line,
+.search-text {
+    color: black;
+    font-size: 23px;
+    right: 20px;
+    position: relative;
+    bottom: -13px;
+}
+.search-text {
+    position: relative;
+    bottom: -7px;
+    margin-right: 10px;
+    border-radius: 30px;
+    border: none;
+    height: 30px;
+    width: 300px;
+    padding: 3px;
+    font-size: 13px;
+    text-decoration-line: none;
+}
+input:focus {
+    outline: none;
+    text-decoration: none;
+}
 
 /*달력*/
 .ui-widget-content,
@@ -139,4 +178,50 @@ input:focus {
 .ui-state-hover {
     border: none !important;
     background: white !important;
+}
+/*달력 html*/
+.demi {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.search-btn {
+    font-size: 14px;
+    margin-left: 20px;
+    margin-top: 3px;
+    padding: 5px 10px;
+    height: 28px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #222;
+    cursor: pointer;
+}
+/*페이징*/
+.paging {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    margin-right: 400px;
+}
+.paging-left {
+    margin-right: 15px;
+}
+.paging-right {
+    margin-left: 15px;
+}
+.fa-circle-chevron-left,
+.fa-circle-chevron-right {
+    font-size: 25px;
+    color: #222;
+    cursor: pointer;
+}
+.fa-circle-chevron-left:hover,
+.fa-circle-chevron-right:hover {
+    color: #063e99;
+}
+.remove {
+    display: none;
 }
