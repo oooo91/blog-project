@@ -41,7 +41,7 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
         if (exception instanceof BadCredentialsException) {
             message = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해주세요.";
         } else if (exception instanceof InternalAuthenticationServiceException) {
-            message = "내부 시스템 문제로 로그인 요청을 처리할 수 없습니다. 관리자에게 문의하세요. ";
+            message = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해주세요.";
         } else if (exception instanceof UsernameNotFoundException) {
             message = exception.getMessage();
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {

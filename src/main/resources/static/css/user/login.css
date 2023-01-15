@@ -43,6 +43,7 @@ html, body {
     display: flex;
     margin: 0 auto;
     width: 100%;
+    margin-bottom: 10px;
 }
 .login_id_check,
 .login_pwd_check {
@@ -112,11 +113,14 @@ input:focus {
     margin-bottom: 25px;
     text-align: center;
 }
-.login_form_bottom-text-pwd {
+.login_form_bottom-text-id,
+.login_form_bottom-text-pwd,
+.login_form_bottom-text-none {
     font-size: 13px;
     color:#242d3a;
     text-decoration: none;
 }
+.login_form_bottom-text-id:hover,
 .login_form_bottom-text-pwd:hover {
     color: rgba(255, 5, 80, 1);
 }

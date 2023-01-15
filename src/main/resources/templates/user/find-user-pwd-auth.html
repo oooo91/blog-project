@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/user/find-user-info-auth.css}" rel="stylesheet" />
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(function() {
+      //아이디 찾기를 위한 인증번호 메일 받기
+      $('#find_btn').on('click', function () {
+
+        let obj={
+          "userEmail" : $("input[name='userEmail']").val(),
+          "userId" : $("input[name='userId']").val()
+        };
+
+        $.ajax({
+          type: "post",
+          url: "/user/find-userPwd-auth-send.do",
+          headers: {'Content-Type': 'application/json'},
+          data : JSON.stringify(obj),
+          success: function (data) {
+            alert("인증키가 발송되었습니다.");
+          },
+          error: function (request, status, error) {
+            alert(request.responseText);
+          }
+        });
+
+        //인증번호 확인
+        $('#find_second_btn').on('click', function(){
+
+          let obj={
+            "userId" : $("input[name='userId']").val(),
+            "userEmail" : $("input[name='userEmail']").val(),
+            "userEmailAuthKey" : $("input[name='userEmailAuthKey']").val()
+          };
+
+          $.ajax({
+            type: "post",
+            url : "/user/find-userPwd-auth-check.do",
+            headers: {'Content-Type': 'application/json'},
+            data : JSON.stringify(obj),
+            success : function (data){
+              alert("해당 이메일로 비밀번호가 재발급되었습니다.");
+              alert("변경된 비밀번호로 재로그인하세요.")
+              location.href = "/user/login.do";
+            },
+            error: function(request, status, error){
+              alert(request.responseText);
+            }
+          });
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="message_box">
+  <div class="message_contents">이메일을 입력하세요.</div>
+  <div class="btn">
+    <d1>
+      <dd class="dd">
+        <input type="email" name="userEmail" placeholder="12345@12345.com" class="join_form_email"/>
+        <input type="button" value="인증번호 받기" class="join_form_btn" id="find_btn"/>
+      </dd>
+      <dd>
+        <input type="text" name="userEmailAuthKey" placeholder="J48F37U" class="join_form_email"/>
+        <input type="button" value="다음" class="join_form_btn second_btn" id="find_second_btn"/>
+      </dd>
+    </d1>
+  </div>
+</div>
+<input type="hidden" th:value="${userId}" name="userId"/>
+</body>
+</html>

@@ -45,10 +45,15 @@ public class DiaryUser {
     private boolean emailAuthYn;
     private LocalDateTime emailAuthDt;
 
-    private String newPasswordKey;
-    private LocalDateTime newPasswordLimitDt;
-
     @NotBlank
     private String userStatus;
 
+    //아이디, 비밀번호 찾기 인증키 추가
+    private String findIdEmailAuthKey;
+    private boolean findIdEmailAuthYn;
+    private LocalDateTime findIdLimitDt; //아이디 인증키 유효기간
+
+    private String findPwdEmailAuthKey;
+    private boolean findPwdEmailAuthYn;
+    private LocalDateTime findPwdLimitDt; //비밀번호 인증키 유효기간
 }

@@ -18,7 +18,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: hyelneu29@gmail.com
-    password: qsbtunudiovqzgtl
+    password: hgdkhptmzwjlewxa
     properties:
       mail:
         smtp:
@@ -38,3 +38,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    property:
+      prefix: ENC(
+      suffix: )
+    password: testpassword

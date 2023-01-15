@@ -3,20 +3,18 @@ package com.portfolio.postproject.board.controller.write;
 import com.portfolio.postproject.board.exception.PostException;
 import com.portfolio.postproject.board.param.PostParam;
 import com.portfolio.postproject.board.service.write.WriteBoardService;
-import com.portfolio.postproject.common.param.ResponseError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,13 +35,9 @@ public class WriteRestController {
                                          Principal principal) {
 
         //제목, 내용 유효성 체크
-        List<ResponseError> postErrorList = new ArrayList<>();
-
         if (error.hasErrors()) {
-            error.getAllErrors().forEach((e) -> {
-                postErrorList.add(ResponseError.of((FieldError) e));
-            });
-            return new ResponseEntity<>(postErrorList, HttpStatus.BAD_REQUEST); //400
+            List<String> errors = error.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
 
         //postId로 제목, 내용, 날짜 update
@@ -74,20 +68,16 @@ public class WriteRestController {
                                          Principal principal) {
 
         //제목, 내용 유효성 체크
-        List<ResponseError> postErrorList = new ArrayList<>();
-
         if (error.hasErrors()) {
-            error.getAllErrors().forEach((e) -> {
-                postErrorList.add(ResponseError.of((FieldError) e));
-            });
-            return new ResponseEntity<>(postErrorList, HttpStatus.BAD_REQUEST); //400
+            List<String> errors = error.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
 
         //postId로 제목, 내용, 날짜 save
-        int postId = writeBoardService.saveBoard(param);
-        String ss = String.valueOf(postId);
+        int id = writeBoardService.saveBoard(param);
+        String postId = String.valueOf(id);
 
         //성공
-        return new ResponseEntity<>(ss, HttpStatus.OK);
+        return new ResponseEntity<>(postId, HttpStatus.OK);
     }
 }

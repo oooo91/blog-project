@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,20 +20,22 @@ public class MainBoardServiceImpl implements MainBoardService {
 
     //정렬&조회
     @Override
-    public List<BoardDTO> boardMain(String paramId, int sortValue, String searchText) {
-        Optional<List<DiaryPost>> optional;
-        searchText = searchText.trim();
+    public List<BoardDTO> boardMain(String paramId, Map<String, String> map) {
+        List<DiaryPost> list;
+
+        String searchText = map.get("searchText").trim();
+        int sortValue = Integer.parseInt(map.get("sortValue"));
 
         if(sortValue == 0) {
-            optional = diaryPostRepository.findAllByUserIdAndDateAscInMain(paramId, LocalDate.now(), searchText);
+            list = diaryPostRepository.findAllByUserIdAndDateAscInMain(paramId, LocalDate.now(), searchText);
         } else {
-            optional =  diaryPostRepository.findAllByUserIdAndDateDescInMain(paramId, LocalDate.now(), searchText);
+            list =  diaryPostRepository.findAllByUserIdAndDateDescInMain(paramId, LocalDate.now(), searchText);
         }
 
-        if (!optional.isPresent()) {
+        if (list == null || list.isEmpty()) {
             return new ArrayList<>();
         }
         //list<entity> -> list<dto>
-        return BoardDTO.of(optional.get());
+        return BoardDTO.of(list);
     }
 }
