@@ -41,10 +41,82 @@
 
             //수정 버튼 누를 시 수정 화면으로 이동
             $('.fa-pencil').on('click', function() {
-                let paramId = $('.paramId').val();
-                let postId = $('.postId').val();
-
                 location.href = "/board/rewrite/" + paramId + ".do?postId=" + postId;
+            });
+
+            //댓글 수정 버튼
+            $('.update_btn').on('click', function(){
+                $('.first_comments_btn_save').removeClass('removement');
+                $('.comments_btn_update_delete').addClass('removement');
+                $(this).closest(".comments_list").find("textarea").attr("readonly", false);
+            });
+
+
+            //댓글 수정
+            $('.first_save_btn').on('click', function(){
+
+                let obj={
+                    "commentsId" :  $(this).next().val(),
+                    "commentsDetail": $(this).closest(".comments_list").find("textarea").val()
+                };
+
+                $.ajax({
+                    type: "post",
+                    url : "/comments/update.do",
+                    headers: {'Content-Type': 'application/json'},
+                    data : JSON.stringify(obj),
+                    success : function (data){
+                        alert("수정되었습니다");
+                        window.location.reload();
+                    },
+                    error: function(data, status, error){
+                        alert(data.responseText);
+                    }
+                });
+            });
+
+
+            //댓글 삭제
+            $('.delete_btn').on('click', function(){
+
+                let commentsId = $(this).next().val();
+
+                $.ajax({
+                    type: "post",
+                    url : "/comments/delete.do",
+                    data : 'commentsId=' + commentsId,
+                    success : function (data){
+                        alert("삭제되었습니다");
+                        window.location.reload();
+                    },
+                    error: function(data, status, error){
+                        alert(data.responseText);
+                    }
+                });
+            });
+
+
+            //댓글 작성
+            $('.second_save_btn').on('click', function(){
+
+                let obj = {
+                    "postId" : $("input[name='postId']").val(),
+                    "commentsDetail": $(this).closest(".comments_main").find("textarea").val()
+                };
+
+                $.ajax({
+                    type: "post",
+                    url : "/comments/write.do",
+                    headers: {'Content-Type': 'application/json'},
+                    data : JSON.stringify(obj),
+                    success : function (data){
+                        alert("댓글이 작성되었습니다");
+                        window.location.reload();
+                    },
+                    error: function(data, status, error){
+                        alert(data.responseText);
+                    }
+                });
             });
         });
     </script>
@@ -87,11 +159,64 @@
             <div class="write_form_main_subject">
                 <input type="text" th:value="${boardDTO.postTitle}" readonly class="write_form_main_subject_text"/>
             </div>
-            <textarea th:text="${boardDTO.postContent}" readonly onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
+            <textarea th:text="${boardDTO.postContent}" readonly onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content aaaa"></textarea>
+        </div> <!--main-->
+
+        <div class="dddd">
+            댓글
         </div>
 
-    </div>
-</div>
+        <div class="comments_list_main" th:if="${not #strings.isEmpty(commentsList)}">
+
+            <div class="comments_list" th:each="x : ${commentsList}">
+                <div class="comments_writer">
+
+                    <div class="comments_writer_info">
+                        <span th:text="${x.userName} + ' (' + ${x.userId} + ')'">닉네임</span>
+                        <span th:text="${x.createdDate}">날짜</span>
+                    </div> <!--comments_writer_info-->
+
+                    <!--내 아이디만-->
+                    <div class="comments_btn_box" th:if="${x.comparison eq true}">
+                        <!--수정, 삭제 버튼 누르면-->
+                        <div class="comments_btn_save first_comments_btn_save removement">
+                            <input type="button" value="저장" class="comments_btn first_save_btn"/>
+                            <input type="hidden" th:value="${x.commentId}"/> <!--댓글 id-->
+                        </div>
+                        <div class="comments_btn_update_delete">
+                            <input type="button" value="수정" class="comments_btn update_btn"/>
+                            <input type="button" value="삭제" class="comments_btn delete_btn"/>
+                            <input type="hidden" th:value="${x.commentId}"/> <!--댓글 id-->
+                        </div>
+                    </div> <!--comments_btn_box-->
+                </div> <!--comments_writer-->
+
+                <textarea th:text="${x.commentsDetail}" readonly onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content comments first_comments_save">와아아</textarea>
+            </div> <!--comments_list-->
+        </div> <!--comments_list_main-->
+
+
+        <div class="comments_main" th:if="${not #strings.isEmpty(userName)}">
+            <div class="comments_writer">
+
+                <div class="comments_writer_info">
+                    <span th:text="${userName}">닉네임</span>
+                </div> <!--comments_writer_info-->
+
+                <div class="comments_btn_box">
+                    <div class="comments_btn_save">
+                        <input type="button" value="저장" class="comments_btn second_save_btn"/>
+                    </div>
+                </div> <!--comments_btn_box-->
+
+            </div> <!--comments_writer-->
+            <textarea onkeydown="resize(this)" style="overflow-y:scroll" onkeyup="resize(this)" class="write_form_main_content comments second_comments_save"></textarea>
+        </div> <!--comments_main-->
+
+    </div> <!--container_background-->
+</div> <!--container-->
+
+
 
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script>

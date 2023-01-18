@@ -43,7 +43,7 @@ public class OAuthAttributes {
 
     public DiaryUser toEntity() {
         return DiaryUser.builder()
-                .Id(userId)
+                .id(userId)
                 .userEmail(userEmail)
                 .userName(userName)
                 .createdAt(LocalDateTime.now())

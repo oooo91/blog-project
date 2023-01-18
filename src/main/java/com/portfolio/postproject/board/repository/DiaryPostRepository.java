@@ -10,29 +10,27 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface DiaryPostRepository extends JpaRepository<DiaryPost, Integer> {
+public interface DiaryPostRepository extends JpaRepository<DiaryPost, Long> {
 
     //main 페이지 - 오름차순, 조회
-    @Query("select dp from DiaryPost dp where dp.diaryUser.Id = :paramId and dp.postDate = :date and dp.postContent like %:searchText% order by dp.Id asc")
+    @Query("select dp from DiaryPost dp where dp.diaryUser.id = :paramId and dp.postContent like %:searchText% order by dp.id asc")
     List<DiaryPost> findAllByUserIdAndDateAscInMain(@Param("paramId") String paramId,
-                                                              @Param("date") LocalDate date,
                                                               @Param("searchText") String searchText);
 
     //main 페이지 - 내림차순, 조회
-    @Query("select dp from DiaryPost dp where dp.diaryUser.Id = :paramId and dp.postDate = :date and dp.postContent like %:searchText% order by dp.Id desc")
+    @Query("select dp from DiaryPost dp where dp.diaryUser.id = :paramId and dp.postContent like %:searchText% order by dp.id desc")
     List<DiaryPost> findAllByUserIdAndDateDescInMain(@Param("paramId") String paramId,
-                                                               @Param("date") LocalDate date,
                                                                @Param("searchText") String searchText);
 
     //calendar 페이지 - 오름차순, 조회
-    @Query("select dp from DiaryPost dp where dp.diaryUser.Id = :paramId and dp.postDate between :startDate and :endDate and dp.postTitle like %:searchText% order by dp.Id asc")
+    @Query("select dp from DiaryPost dp where dp.diaryUser.id = :paramId and dp.postDate between :startDate and :endDate and dp.postTitle like %:searchText% order by dp.id asc")
     Page<DiaryPost> findAllByUserIdAndDateAscInCalendar(@Param("paramId") String paramId,
                                                                   @Param("startDate") LocalDate startDate,
                                                                   @Param("endDate") LocalDate endDate,
                                                                   @Param("searchText") String searchText, Pageable pageable);
 
     //calendar 페이지 - 내림차순, 조회
-    @Query("select dp from DiaryPost dp where dp.diaryUser.Id = :paramId and dp.postDate between :startDate and :endDate and dp.postTitle like %:searchText% order by dp.Id desc")
+    @Query("select dp from DiaryPost dp where dp.diaryUser.id = :paramId and dp.postDate between :startDate and :endDate and dp.postTitle like %:searchText% order by dp.id desc")
     Page<DiaryPost> findAllByUserIdAndDateDescInCalendar(@Param("paramId") String paramId,
                                                                   @Param("startDate") LocalDate startDate,
                                                                   @Param("endDate") LocalDate endDate,

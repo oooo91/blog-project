@@ -125,7 +125,6 @@
                     </div> <!--content_main_diary-->
                 </th:block>
             </div>
-
         </div> <!--content_main-->
 
         <div th:if="${not #strings.isEmpty(list)}" class="paging">
@@ -133,18 +132,9 @@
                 <input type="hidden" th:value="${previous}" class="paging-value"/>
                 <i class="fa-solid fa-circle-chevron-left"></i>
             </div>
-            <div th:if="${hasPrev eq false}" class="paging-left">
-                <input type="hidden" th:value="${previous}" class="paging-value"/>
-                <i class="fa-solid fa-circle-chevron-left remove"></i>
-            </div>
-
             <div th:if="${hasNext eq true}" class="paging-right">
                 <input type="hidden" th:value="${next}" class="paging-value"/>
                 <i class="fa-solid fa-circle-chevron-right"></i>
-            </div>
-            <div th:if="${hasNext eq false}" class="paging-right">
-                <input type="hidden" th:value="${next}" class="paging-value"/>
-                <i class="fa-solid fa-circle-chevron-right remove"></i>
             </div>
         </div> <!--paging-->
 

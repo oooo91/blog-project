@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 public class BoardDTO {
 
-    private int postId;
+    private long postId;
     private String postTitle;
     private String postContent;
     private LocalDate postDate; //년,월,일만 필요

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Builder
@@ -15,10 +16,10 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 public class PostComments {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    @Column(name = "comment_id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
@@ -28,7 +29,8 @@ public class PostComments {
     @JoinColumn(name = "user_id")
     private DiaryUser diaryUser;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String commentDetail;
 
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate; //년,월,일 시간
 }

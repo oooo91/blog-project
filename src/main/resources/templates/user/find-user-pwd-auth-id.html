@@ -15,7 +15,7 @@
 
         $.ajax({
           type: "post",
-          url : "/user/find-userPwd-for-checkId.do",
+          url : "/user/find-userPwd-checkId.do",
           data: 'userId=' + userId,
           success : function (data){
             location.href="/user/find-user-pwd-auth.do?userId=" + data;

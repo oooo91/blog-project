@@ -27,7 +27,6 @@ public class FindUserServiceImpl implements FindUserService {
     //이메일 유무 체크
     @Override
     public boolean checkEmailForUserId(String userEmail) {
-        logger.info("이메일 유무 체크: " + userEmail);
         boolean result = diaryUserRepository.existsByUserEmail(userEmail);
 
         if (!result) {
@@ -73,18 +72,18 @@ public class FindUserServiceImpl implements FindUserService {
     public boolean checkAuthKeyForUserId(String userEmail, String userEmailAuthKey) {
         Optional<DiaryUser> optional = diaryUserRepository.findByFindIdEmailAuthKey(userEmailAuthKey);
 
-        //인증키가 있는가
+        //인증키 유무
         if (!optional.isPresent()) {
             throw new FindException("인증키를 먼저 발급 받으세요.");
         }
         DiaryUser user = optional.get();
 
-        //인증키가 동일한가
+        //인증키 동일한지
         if (!userEmailAuthKey.equals(user.getFindIdEmailAuthKey())) {
             throw new FindException("잘못된 인증번호입니다. 다시 입력하세요.");
         }
 
-        //인증키가 유효한가
+        //인증키 유효한지
         if (user.getFindIdLimitDt().isBefore(LocalDateTime.now())) {
             throw new FindException("유효한 날짜가 아닙니다.");
         }
@@ -161,18 +160,18 @@ public class FindUserServiceImpl implements FindUserService {
     public boolean checkAuthKeyForUserPwd(String userId, String userEmailAuthKey) {
         Optional<DiaryUser> optional = diaryUserRepository.findById(userId);
 
-        //인증키가 있는가
+        //인증키 유무
         if (!optional.isPresent()) {
             throw new FindException("인증키를 먼저 발급 받으세요.");
         }
         DiaryUser user = optional.get();
 
-        //인증키가 동일한가
+        //인증키 동일한지
         if (!userEmailAuthKey.equals(user.getFindPwdEmailAuthKey())) {
             throw new FindException("잘못된 인증번호입니다. 다시 입력하세요.");
         }
 
-        //인증키가 유효한가
+        //인증키 유효한지
         if (user.getFindPwdLimitDt().isBefore(LocalDateTime.now())) {
             throw new FindException("유효한 날짜가 아닙니다.");
         }

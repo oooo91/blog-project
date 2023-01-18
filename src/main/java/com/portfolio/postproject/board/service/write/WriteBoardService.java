@@ -6,14 +6,14 @@ import com.portfolio.postproject.board.param.PostParam;
 public interface WriteBoardService {
 
     //디테일 페이지
-    BoardDTO getDetail(int postId);
+    BoardDTO getDetail(long postId);
 
     //수정하기
     void updateBoard(PostParam param);
 
     //삭제하기
-    void deleteBoard(int postId);
+    void deleteBoard(long postId);
 
     //저장하기
-    int saveBoard(PostParam param);
+    long saveBoard(PostParam param);
 }

@@ -24,9 +24,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 public class CalendarController {
-
     private static final Logger logger = LoggerFactory.getLogger(MainController.class.getName());
-
     private final CalendarService calendarService;
     private final CalendarComponents calendarComponents;
     private final CheckBtnComponents checkBtnValidationComponents;

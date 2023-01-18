@@ -5,12 +5,9 @@ import com.portfolio.postproject.board.entity.DiaryPost;
 import com.portfolio.postproject.board.repository.DiaryPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +24,9 @@ public class MainBoardServiceImpl implements MainBoardService {
         int sortValue = Integer.parseInt(map.get("sortValue"));
 
         if(sortValue == 0) {
-            list = diaryPostRepository.findAllByUserIdAndDateAscInMain(paramId, LocalDate.now(), searchText);
+            list = diaryPostRepository.findAllByUserIdAndDateAscInMain(paramId, searchText);
         } else {
-            list =  diaryPostRepository.findAllByUserIdAndDateDescInMain(paramId, LocalDate.now(), searchText);
+            list =  diaryPostRepository.findAllByUserIdAndDateDescInMain(paramId, searchText);
         }
 
         if (list == null || list.isEmpty()) {
