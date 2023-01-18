@@ -55,11 +55,19 @@
                     <span class="login_form_bottom-text">Sign up</span>
                 </a>
             </div>
+
             <div class="login_form_bottom-pwd">
-                <a class="login_form_bottom-link-pwd" href="#">
-                    <span class="login_form_bottom-text-pwd">아이디 / 비밀번호 찾기</span>
+                <a class="login_form_bottom-link-pwd" href="/user/find-user-id-auth.do">
+                    <span class="login_form_bottom-text-id">아이디</span>
                 </a>
-            </div>
+                <span class="login_form_bottom-text-none">/</span>
+                <a class="login_form_bottom-link-pwd" href="/user/find-user-pwd-auth-id.do">
+                    <span class="login_form_bottom-text-pwd">비밀번호</span>
+                </a>
+                <span class="login_form_bottom-text-none">찾기</span>
+            </div> <!--아이디/비번 찾기-->
+
+
         </div> <!--login_form-->
 
         <input type="hidden" th:value="${errorMessage}" class="errorMessage"/>

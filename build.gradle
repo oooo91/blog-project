@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    compileOnly 'com.github.ulisesbocchio:jasypt-spring-boot:3.0.4'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -40,4 +41,5 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    systemProperty "jasypt.encryptor.password", System.getProperties().get("jasypt.encryptor.password")
 }

@@ -9,19 +9,18 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface DiaryPostRepository extends JpaRepository<DiaryPost, Integer> {
 
     //main 페이지 - 오름차순, 조회
     @Query("select dp from DiaryPost dp where dp.diaryUser.Id = :paramId and dp.postDate = :date and dp.postContent like %:searchText% order by dp.Id asc")
-    Optional<List<DiaryPost>> findAllByUserIdAndDateAscInMain(@Param("paramId") String paramId,
+    List<DiaryPost> findAllByUserIdAndDateAscInMain(@Param("paramId") String paramId,
                                                               @Param("date") LocalDate date,
                                                               @Param("searchText") String searchText);
 
     //main 페이지 - 내림차순, 조회
     @Query("select dp from DiaryPost dp where dp.diaryUser.Id = :paramId and dp.postDate = :date and dp.postContent like %:searchText% order by dp.Id desc")
-    Optional<List<DiaryPost>> findAllByUserIdAndDateDescInMain(@Param("paramId") String paramId,
+    List<DiaryPost> findAllByUserIdAndDateDescInMain(@Param("paramId") String paramId,
                                                                @Param("date") LocalDate date,
                                                                @Param("searchText") String searchText);
 
