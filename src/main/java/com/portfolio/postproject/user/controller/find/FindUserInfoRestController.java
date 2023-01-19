@@ -64,8 +64,8 @@ public class FindUserInfoRestController {
 
     /*비밀번호*/
     //비밀번호 찾기 위해 아이디 체크
-    @PostMapping("/user/find-userPwd-for-checkId.do")
-    public ResponseEntity<?> findUserPwdForCheckId(@RequestParam String userId) {
+    @PostMapping("/user/find-userPwd-checkId.do")
+    public ResponseEntity<?> findUserPwdCheckId(@RequestParam String userId) {
 
         //아이디 유무 체크
         findUserService.checkIdForUserPwd(userId);

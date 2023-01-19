@@ -22,7 +22,7 @@ public class DiaryPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private int Id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -38,6 +38,7 @@ public class DiaryPost {
     private LocalDate postDate; //년,월,일만 필요
 
     @OneToMany(mappedBy = "diaryPost", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy()
     private List<PostComments> numOfComments; //댓글수 조회
 
 }

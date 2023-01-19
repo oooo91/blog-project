@@ -9,8 +9,6 @@ import com.portfolio.postproject.user.param.join.EmailAuthParam;
 import com.portfolio.postproject.user.param.join.JoinParam;
 import com.portfolio.postproject.user.repository.DiaryUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +53,7 @@ public class JoinUserServiceImpl implements JoinUserService {
 
         //DB저장
         DiaryUser user = DiaryUser.builder()
-                .Id(param.getUserId())
+                .id(param.getUserId())
                 .userName(param.getUserName())
                 .userEmail(param.getUserEmail())
                 .userPwd("{bcrypt}" + enc) //비밀번호 저장방식 바꿈

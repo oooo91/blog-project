@@ -21,7 +21,7 @@ public class DiaryUser {
 
     @Id
     @Column(name = "userId")
-    private String Id;
+    private String id;
 
     @NotBlank
     private String userName;

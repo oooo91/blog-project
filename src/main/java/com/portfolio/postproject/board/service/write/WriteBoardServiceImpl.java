@@ -27,7 +27,7 @@ public class WriteBoardServiceImpl implements WriteBoardService {
 
     //디테일 페이지
     @Override
-    public BoardDTO getDetail(int postId) {
+    public BoardDTO getDetail(long postId) {
         Optional<DiaryPost> optional = diaryPostRepository.findById(postId);
 
         if(!optional.isPresent()) {
@@ -40,7 +40,7 @@ public class WriteBoardServiceImpl implements WriteBoardService {
     //수정하기
     @Override
     public void updateBoard(PostParam param) {
-        Integer postId = Integer.parseInt(param.getPostId());
+        long postId = Long.parseLong(param.getPostId());
         Optional<DiaryPost> optional = diaryPostRepository.findById(postId);
 
         if(!optional.isPresent()) {
@@ -66,7 +66,7 @@ public class WriteBoardServiceImpl implements WriteBoardService {
 
     //삭제하기
     @Override
-    public void deleteBoard(int postId) {
+    public void deleteBoard(long postId) {
         Optional<DiaryPost> optional = diaryPostRepository.findById(postId);
 
         if(!optional.isPresent()) {
@@ -80,7 +80,7 @@ public class WriteBoardServiceImpl implements WriteBoardService {
 
     //저장하기
     @Override
-    public int saveBoard(PostParam param) {
+    public long saveBoard(PostParam param) {
 
         //작성자 찾기
         Optional<DiaryUser> optional = diaryUserRepository.findById(param.getParamId());

@@ -8,9 +8,6 @@ html, body {
 .container_background {
     padding: 0px 40px;
 }
-.content_main_diary-detail-box {
-    margin-top: 8px;
-}
 .write_form_header {
     position: fixed;
     background-color: #9aafe6;
@@ -25,7 +22,7 @@ html, body {
 }
 .write_form_header_first {
     display: flex;
-    justify-content: start;
+    justify-content: end;
     width: 100%;
     padding-bottom: 20px;
     margin-bottom: 10px;
@@ -62,17 +59,19 @@ input:focus {
 }
 .write_form_main {
     margin-top: 170px;
+    padding: 0px 30px;
+    margin-bottom: 80px;
 }
 .write_form_main_subject_text {
     border: none;
     width: 100%;
     font-size: 19px;
     font-weight: 600;
-    padding-top: 8px;
+    padding: 8px 8px;
     background-color: #f7faff;
 }
 .write_form_main_subject {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 input::placeholder {
     font-size: 16px;
@@ -83,17 +82,77 @@ textarea::placeholder {
     font-weight: 500;
 }
 .write_form_main_content {
+    padding: 0px;
     width: 100%;
     border: none;
     resize: none;
     overflow: hidden;
-    font-size: 16px;
     font-weight: 600;
     background-color: #f7faff;
+    margin-bottom: 20px;
 }
 .write_form_main_content:focus {
     outline: none;
 }
 .write_form-right {
     margin-right: 20px;
+}
+.comments_list {
+    margin: 0px 30px;
+    margin-top: 30px;
+    border-bottom: 1px solid #9aafe6;
+}
+.comments_main {
+    margin-top: 20px;
+    padding: 0px 30px;
+    margin-bottom: 20px;
+    height: 100px;
+    margin-left: 30px;
+    background-color: #9aafe6;
+}
+.comments_writer {
+    margin-bottom: 10px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.comments_writer_info {
+    align-self: center;
+}
+.comments {
+    font-weight: 400;
+    font-size: 13px;
+    border-radius: 3px;
+    margin-bottom: 0px;
+}
+.comments_btn_box {
+    display: flex;
+    justify-content: end;
+    margin-top: 8px;
+}
+.comments_btn {
+    border: none;
+    background-color: #9aafe6;
+    border-radius: 3px;
+    padding: 4px 12px;
+    color: #222;
+    font-weight: 600;
+}
+.comments_save {
+    border: none;
+}
+.comments_list_main {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: auto;
+}
+.dddd {
+    margin: 0 30px;
+    font-size: 14px;
+}
+.aaaa {
+    padding-bottom: 30px;
+}
+.removement {
+    display: none;
 }

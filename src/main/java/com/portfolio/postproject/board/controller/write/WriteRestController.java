@@ -28,6 +28,7 @@ public class WriteRestController {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); //500
     }
 
+
     //권한 확인 및 수정하기
     @PreAuthorize("isAuthenticated() and (#param.paramId == principal.name)")
     @PostMapping("/board/update.do")
@@ -54,7 +55,7 @@ public class WriteRestController {
                               Principal principal, HttpServletRequest request) {
 
         //postId로 해당 게시글 삭제
-        int postId = Integer.parseInt(request.getParameter("postId"));
+        long postId = Long.parseLong(request.getParameter("postId"));
         writeBoardService.deleteBoard(postId);
 
         //성공
@@ -74,7 +75,7 @@ public class WriteRestController {
         }
 
         //postId로 제목, 내용, 날짜 save
-        int id = writeBoardService.saveBoard(param);
+        long id = writeBoardService.saveBoard(param);
         String postId = String.valueOf(id);
 
         //성공
