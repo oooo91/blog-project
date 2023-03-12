@@ -39,12 +39,12 @@
 
                     $.ajax({
                         type: "post",
-                        url : "/board/save.do",
+                        url : "/board/save",
                         headers: {'Content-Type': 'application/json'},
                         data : JSON.stringify(obj),
                         success : function (data){
                             let paramId = $("input[name='paramId']").val();
-                            location.href = "/board/detail/" + paramId +".do?postId=" + data;
+                            location.href = "/board/detail/" + paramId +"?postId=" + data;
                             alert("저장되었습니다");
                         },
                         error: function(data, status, error){

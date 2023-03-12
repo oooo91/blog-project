@@ -25,7 +25,7 @@
                     sortValue = 0; //내림차순(1)을 오름차순(0)으로 변경
                 }
 
-                location.href = "/board/main/" + paramId + ".do?sortValue=" + sortValue + "&searchText=" + searchText;
+                location.href = "/board/main/" + paramId + "?sortValue=" + sortValue + "&searchText=" + searchText;
             });
         });
 
@@ -46,7 +46,7 @@
         <div class="content_header">
 
             <div class="exit_icon cursor">
-                <a href="/user/logout.do" class="join_form_btn_a">
+                <a href="/user/logout" class="join_form_btn_a">
                     <input type="button" value="로그아웃" class="join_form_btn"/>
                 </a>
             </div>
@@ -77,7 +77,7 @@
                 <th:block th:each="x : ${list}">
                     <div class="content_main_diary">
                         <!--동적 처리-->
-                        <a th:href="'/board/detail/' + ${paramId} + '.do?postId=' + ${x.postId}">
+                        <a th:href="'/board/detail/' + ${paramId} + '?postId=' + ${x.postId}">
                             <div class="content_main_diary-detail cursor">
                                 <div class="content_main_diary-detail-date">
                                     <span th:text="${x.day}" class="content_main_diary-detail-date-day"></span>
@@ -98,14 +98,14 @@
 
         <div class="content_footer">
             <div class="content_footer_width">
-                <a th:href="'/board/calendar/' + ${paramId} + '.do'">
+                <a th:href="'/board/calendar/' + ${paramId}">
                     <div class="content_footer_calendar cursor">
                         <i class="fa-solid fa-calendar-week"></i>
                     </div>
                 </a>
                 <!--paramId과 sessionId 같으면 작성 버튼 표시-->
                 <div th:if="${comparison eq true}">
-                    <a th:href="'/board/write/' + ${paramId} + '.do'">
+                    <a th:href="'/board/write/' + ${paramId}">
                         <div class="content_footer_plus cursor">
                             <i class="fa-solid fa-plus"></i>
                         </div>
@@ -113,14 +113,14 @@
                 </div>
                 <!--paramId과 sessionId 다르면 내 일기장으로 돌아가기 버튼 표시-->
                 <div th:if="${comparison eq false}">
-                    <a th:href="'/board/main/' + ${userId} + '.do'">
+                    <a th:href="'/board/main/' + ${userId}">
                         <div class="content_footer_back cursor">
                             <i class="fa-solid fa-house-user"></i>
                         </div>
                     </a>
                 </div>
 
-                <a th:href="'/board/myPage/' + ${paramId} + '.do'">
+                <a th:href="'/board/myPage/' + ${paramId}">
                     <div class="content_footer_user cursor">
                         <i class="fa-solid fa-user"></i>
                     </div>

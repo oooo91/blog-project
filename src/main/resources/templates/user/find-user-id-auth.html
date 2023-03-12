@@ -16,7 +16,7 @@
 
         $.ajax({
             type: "post",
-            url : "/user/find-userId-auth-send.do",
+            url : "/user/find-userId-auth-send",
             data: 'userEmail=' + userEmail,
             success : function (data){
               alert("인증키가 발송되었습니다.");
@@ -37,12 +37,12 @@
 
         $.ajax({
             type: "post",
-            url : "/user/find-userId-auth-check.do",
+            url : "/user/find-userId-auth-check",
             headers: {'Content-Type': 'application/json'},
             data : JSON.stringify(obj),
             success : function (data){
               alert("인증되었습니다.");
-              location.href = "/user/find-user-id.do?userEmailAuthKey=" + data; //인증키와 함께 전송
+              location.href = "/user/find-user-id?userEmailAuthKey=" + data; //인증키와 함께 전송
             },
             error: function(request, status, error){
               alert(request.responseText);

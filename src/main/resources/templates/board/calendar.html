@@ -15,7 +15,7 @@
 
             //x버튼 시 뒤로 가기
             $('.fa-arrow-left-long').on('click', function () {
-                location.href="/board/main/" + paramId + ".do";
+                location.href="/board/main/" + paramId;
             });
 
             //정렬 및 조회
@@ -33,7 +33,7 @@
                 }
 
                 location.href = "/board/calendar/" + paramId +
-                    ".do?sortValue=" + sortValue + "&searchText=" + searchText +
+                    "?sortValue=" + sortValue + "&searchText=" + searchText +
                     "&searchStartDate=" + searchStartDate + "&searchEndDate=" + searchEndDate;
             });
 
@@ -45,7 +45,7 @@
                 let searchEndDate = $("input[name='searchEndDate']").val();
 
                 location.href = "/board/calendar/" + paramId +
-                    ".do?sortValue=" + sortValue + "&searchText=" + searchText +
+                    "?sortValue=" + sortValue + "&searchText=" + searchText +
                     "&searchStartDate=" + searchStartDate + "&searchEndDate=" + searchEndDate + "&page=" + page;
             });
         });
@@ -91,7 +91,7 @@
                             <input type="text" readonly th:value="${searchEndDate}" class="date datepicker inpType write_form_header_second_text" name="searchEndDate" id="searchEndDate" >
                             <i class="fa-solid fa-caret-down cursor btncalendar dateclick"></i>
                         </span>
-                        <span class="search-btn"/>기간조회</span>
+                        <span class="search-btn">기간조회</span>
                     </div>
             </div> <!--header_second-->
         </div> <!--header-->
@@ -109,7 +109,7 @@
                 <th:block th:each="x : ${list}">
                     <div class="content_main_diary">
                         <!--동적 처리-->
-                        <a th:href="'/board/detail/' + ${paramId} + '.do?postId=' + ${x.postId}">
+                        <a th:href="'/board/detail/' + ${paramId} + '?postId=' + ${x.postId}">
                             <div class="content_main_diary-detail cursor">
                                 <div class="content_main_diary-detail-date">
                                     <span th:text="${x.day}" class="content_main_diary-detail-date-day"></span>
@@ -142,7 +142,7 @@
 
         <!--paramId과 sessionId 같으면 작성 버튼 표시-->
         <div th:if="${comparison eq true}">
-            <a th:href="'/board/write/' + ${paramId} + '.do'">
+            <a th:href="'/board/write/' + ${paramId}">
                 <div class="content_footer_plus cursor">
                     <i class="fa-solid fa-plus"></i>
                 </div>
