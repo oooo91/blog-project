@@ -19,7 +19,7 @@
 
         $.ajax({
           type: "post",
-          url: "/user/find-userPwd-auth-send.do",
+          url: "/user/find-userPwd-auth-send",
           headers: {'Content-Type': 'application/json'},
           data : JSON.stringify(obj),
           success: function (data) {
@@ -41,13 +41,13 @@
 
           $.ajax({
             type: "post",
-            url : "/user/find-userPwd-auth-check.do",
+            url : "/user/find-userPwd-auth-check",
             headers: {'Content-Type': 'application/json'},
             data : JSON.stringify(obj),
             success : function (data){
               alert("해당 이메일로 비밀번호가 재발급되었습니다.");
               alert("변경된 비밀번호로 재로그인하세요.")
-              location.href = "/user/login.do";
+              location.href = "/user/login";
             },
             error: function(request, status, error){
               alert(request.responseText);

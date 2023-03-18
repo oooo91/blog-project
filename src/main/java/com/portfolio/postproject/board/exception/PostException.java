@@ -1,7 +1,11 @@
 package com.portfolio.postproject.board.exception;
 
-public class PostException extends RuntimeException {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
+public class PostException extends RuntimeException {
     public PostException(String message) {
         super(message);
     }

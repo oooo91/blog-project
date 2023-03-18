@@ -17,7 +17,7 @@
 
             //x버튼 시 뒤로 가기
             $('.fa-x').on('click', function() {
-                location.href="/board/main/" + paramId + ".do";
+                location.href="/board/main/" + paramId;
             });
 
             //지우개 버튼 누를 시 삭제
@@ -26,11 +26,11 @@
 
                     $.ajax({
                         type: "get",
-                        url : "/board/delete/" + paramId + ".do?postId=" + postId,
+                        url : "/board/delete/" + paramId + "?postId=" + postId,
                         headers: {'Content-Type': 'application/json'},
                         success : function (data){
                             alert("삭제되었습니다");
-                            location.href = "/board/main/" + paramId +".do";
+                            location.href = "/board/main/" + paramId;
                         },
                         error: function(request, status, error){
                             alert(request.responseText);
@@ -41,7 +41,7 @@
 
             //수정 버튼 누를 시 수정 화면으로 이동
             $('.fa-pencil').on('click', function() {
-                location.href = "/board/rewrite/" + paramId + ".do?postId=" + postId;
+                location.href = "/board/rewrite/" + paramId + "?postId=" + postId;
             });
 
             //댓글 수정 버튼
@@ -50,7 +50,6 @@
                 $('.comments_btn_update_delete').addClass('removement');
                 $(this).closest(".comments_list").find("textarea").attr("readonly", false);
             });
-
 
             //댓글 수정
             $('.first_save_btn').on('click', function(){
@@ -61,8 +60,8 @@
                 };
 
                 $.ajax({
-                    type: "post",
-                    url : "/comments/update.do",
+                    type: "put",
+                    url : "/comments/update",
                     headers: {'Content-Type': 'application/json'},
                     data : JSON.stringify(obj),
                     success : function (data){
@@ -75,15 +74,14 @@
                 });
             });
 
-
             //댓글 삭제
             $('.delete_btn').on('click', function(){
 
                 let commentsId = $(this).next().val();
 
                 $.ajax({
-                    type: "post",
-                    url : "/comments/delete.do",
+                    type: "delete",
+                    url : "/comments/delete",
                     data : 'commentsId=' + commentsId,
                     success : function (data){
                         alert("삭제되었습니다");
@@ -95,7 +93,6 @@
                 });
             });
 
-
             //댓글 작성
             $('.second_save_btn').on('click', function(){
 
@@ -106,7 +103,7 @@
 
                 $.ajax({
                     type: "post",
-                    url : "/comments/write.do",
+                    url : "/comments/write",
                     headers: {'Content-Type': 'application/json'},
                     data : JSON.stringify(obj),
                     success : function (data){
@@ -128,7 +125,7 @@
         <!--paramId-->
         <input type="hidden" th:value="${paramId}" name="paramId"/>
         <!--postId-->
-        <input type="hidden" th:value="${boardDTO.postId}" name="postId"/>
+        <input type="hidden" th:value="${boardResponseDto.postId}" name="postId"/>
 
         <div class="write_form_header">
 
@@ -137,7 +134,7 @@
                     <i class="fa-solid fa-x"></i>
                 </div>
                 <div th:if="${comparison eq true}" class="write_form-right">
-                    <a th:href="'/board/rewrite/' + ${paramId} + '.do?postId=' + ${boardDTO.postId}">
+                    <a th:href="'/board/rewrite/' + ${paramId} + '?postId=' + ${boardResponseDto.postId}">
                         <div class="write_form_header_icon cursor">
                             <i class="fa-solid fa-pencil"></i>
                         </div>
@@ -151,15 +148,15 @@
             </div>
 
             <div class="write_form_header_second">
-                <input readonly th:value="${boardDTO.year}+년+' '+${boardDTO.month}+월+' '+${boardDTO.day}+일" type="text" id="date" size="10" class="write_form_header_second_text" />
+                <input readonly th:value="${boardResponseDto.year}+년+' '+${boardResponseDto.month}+월+' '+${boardResponseDto.day}+일" type="text" id="date" size="10" class="write_form_header_second_text" />
             </div>
         </div> <!--header-->
 
         <div class="write_form_main">
             <div class="write_form_main_subject">
-                <input type="text" th:value="${boardDTO.postTitle}" readonly class="write_form_main_subject_text"/>
+                <input type="text" th:value="${boardResponseDto.postTitle}" readonly class="write_form_main_subject_text"/>
             </div>
-            <textarea th:text="${boardDTO.postContent}" readonly onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content aaaa"></textarea>
+            <textarea th:text="${boardResponseDto.postContent}" readonly onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content aaaa"></textarea>
         </div> <!--main-->
 
         <div class="dddd">

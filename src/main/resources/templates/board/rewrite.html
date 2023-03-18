@@ -30,8 +30,8 @@
                 if(confirm('수정하시겠습니까?')) {
 
                     $.ajax({
-                        type: "post",
-                        url : "/board/update.do",
+                        type: "put",
+                        url : "/board/update",
                         headers: {'Content-Type': 'application/json'},
                         data : JSON.stringify(obj),
                         success : function (data){
@@ -39,7 +39,7 @@
                             let paramId = $("input[name='paramId']").val();
                             let postId = $("input[name='postId']").val();
 
-                            location.href = "/board/detail/" + paramId +".do?postId=" + postId;
+                            location.href = "/board/detail/" + paramId +"?postId=" + postId;
                             alert("수정되었습니다");
                         },
                         error: function(request, status, error){
@@ -58,7 +58,7 @@
         <!--userId-->
         <input type="hidden" th:value="${paramId}" name="paramId"/>
         <!--postId-->
-        <input type="hidden" th:value="${boardDTO.postId}" name="postId"/>
+        <input type="hidden" th:value="${boardResponseDto.postId}" name="postId"/>
 
         <div class="write_form_header">
 
@@ -71,7 +71,7 @@
 
             <div class="write_form_header_second">
                 <!--동적으로 현재 날짜-->
-                <input th:value="${boardDTO.year}+년+' '+${boardDTO.month}+월+' '+${boardDTO.day}+일" readonly type="text" name="date" id="date" size="10" class="write_form_header_second_text" />
+                <input th:value="${boardResponseDto.year}+년+' '+${boardResponseDto.month}+월+' '+${boardResponseDto.day}+일" readonly type="text" name="date" id="date" size="10" class="write_form_header_second_text" />
                 <label for="date">
                     <i class="fa-solid fa-caret-down cursor"></i>
                 </label>
@@ -82,9 +82,9 @@
 
         <div class="write_form_main">
             <div class="write_form_main_subject">
-                <input th:value="${boardDTO.postTitle}" name="postTitle" type="text" placeholder="표제" class="write_form_main_subject_text"/>
+                <input th:value="${boardResponseDto.postTitle}" name="postTitle" type="text" placeholder="표제" class="write_form_main_subject_text"/>
             </div>
-            <textarea th:text="${boardDTO.postContent}" placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
+            <textarea th:text="${boardResponseDto.postContent}" placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
         </div>
 
 

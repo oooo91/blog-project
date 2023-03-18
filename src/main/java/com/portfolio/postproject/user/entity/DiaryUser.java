@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Builder
@@ -23,30 +21,21 @@ public class DiaryUser {
     @Column(name = "userId")
     private String id;
 
-    @NotBlank
     private String userName;
-
-    @NotBlank
     private String userEmail;
-
     private String userPwd;
 
-    @NotNull
     private LocalDateTime createdAt; //mappedSuperclass - AssociateOverride 로 변경하기
-
     private LocalDateTime updatedAt;
 
-    private LocalDateTime loginAt; //로그인 날짜
-
-    @NotNull
-    private boolean level;
+    private LocalDateTime loginAt;
 
     private String emailAuthKey;
     private boolean emailAuthYn;
     private LocalDateTime emailAuthDt;
 
-    @NotBlank
     private String userStatus;
+    private boolean level;
 
     //아이디, 비밀번호 찾기 인증키 추가
     private String findIdEmailAuthKey;
