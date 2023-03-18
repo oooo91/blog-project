@@ -2,6 +2,10 @@ spring:
   profiles:
     include: oauth
 
+  output:
+    ansi:
+      enabled: always
+
   datasource:
     url: jdbc:mariadb://localhost:3306/post
     driver-class-name: org.mariadb.jdbc.Driver

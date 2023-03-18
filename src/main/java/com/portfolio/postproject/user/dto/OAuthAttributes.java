@@ -1,6 +1,5 @@
 package com.portfolio.postproject.user.dto;
 
-import com.portfolio.postproject.user.components.OauthIdComponents;
 import com.portfolio.postproject.user.entity.DiaryUser;
 import com.portfolio.postproject.user.enums.UserStatus;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +33,7 @@ public class OAuthAttributes {
                                             Map<String, Object> attributes) {
 
         return OAuthAttributes.builder()
-                .userId(OauthIdComponents.getOauthId((String)attributes.get("email")))
+                .userId((String) attributes.get("sub"))
                 .userEmail((String) attributes.get("email"))
                 .userName((String) attributes.get("name"))
                 .attributes(attributes)
@@ -49,7 +47,7 @@ public class OAuthAttributes {
                 .userEmail(userEmail)
                 .userName(userName)
                 .createdAt(LocalDateTime.now())
-                .userStatus(UserStatus.STATUS_ACTIVE.toString())
+                .userStatus(UserStatus.STATUS_ACTIVE.getUserStatus())
                 .build();
     }
 }

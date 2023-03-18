@@ -39,7 +39,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         Map<String, Object> attributes = oAuth2User.getAttributes(); //user info
 
         OAuthAttributes attr = OAuthAttributes.of(registrationId, userNameAttributeName, attributes); //OAuth 서비스에 종속적이지 않는 객체를 얻는다.
-        DiaryUser diaryUser = saveOrUpdate(attr);         //db 저장
+        DiaryUser diaryUser = saveOrUpdate(attr); //db 저장
 
         httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser)); //세션 정보를 저장하는 직렬화된 dto 클래스
 

@@ -14,8 +14,6 @@ import java.io.IOException;
 
 public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    OauthIdComponents oauthIdComponents = new OauthIdComponents();
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
@@ -25,7 +23,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
         Object principal = authentication.getPrincipal();
 
         if (principal instanceof DefaultOAuth2User) {
-            String userId = oauthIdComponents.getOauthId(String.valueOf(((DefaultOAuth2User) principal).getAttributes().get("email")));
+            String userId = (String)((DefaultOAuth2User) principal).getAttributes().get("sub");
             response.sendRedirect("/board/main/" + userId);
         }
 

@@ -1,6 +1,5 @@
 package com.portfolio.postproject.board.controller;
 
-import com.portfolio.postproject.board.components.HostComponents;
 import com.portfolio.postproject.board.service.CommentsService;
 import com.portfolio.postproject.board.service.WriteBoardService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ public class WriteController {
 
 	private final WriteBoardService writeBoardService;
 	private final CommentsService commentsService;
-	private final HostComponents hostComponents;
 
 	//디테일 페이지 이동
 	@GetMapping("/detail/{paramId}")
@@ -27,9 +25,8 @@ public class WriteController {
 		Principal principal, Model model, HttpServletRequest request) {
 
 		model.addAttribute("userName", commentsService.getUserName(principal));
-
 		model.addAttribute("commentsList", commentsService.getComments(request, principal));
-		model.addAttribute("boardDTO", writeBoardService.getDetail(request));
+		model.addAttribute("boardResponseDto", writeBoardService.getDetail(request));
 		model.addAttribute("comparison", paramId.equals(principal.getName()));
 		model.addAttribute("paramId", paramId);
 
@@ -38,12 +35,12 @@ public class WriteController {
 
 
 	//수정 페이지 이동
-	@PreAuthorize("isAuthenticated() and (#paramId == principal.username)")
+	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/rewrite/{paramId}")
 	public String boardRewrite(@PathVariable("paramId") String paramId,
 		Principal principal, Model model, HttpServletRequest request) {
 
-		model.addAttribute("boardDTO", writeBoardService.getDetail(request));
+		model.addAttribute("boardResponseDto", writeBoardService.getDetail(request));
 		model.addAttribute("paramId", paramId);
 
 		return "/board/rewrite";
@@ -51,7 +48,7 @@ public class WriteController {
 
 
 	//작성 페이지 이동
-	@PreAuthorize("isAuthenticated() and (#paramId == principal.username)")
+	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/write/{paramId}")
 	public String boardWrite(@PathVariable("paramId") String paramId,
 		Principal principal, Model model) {

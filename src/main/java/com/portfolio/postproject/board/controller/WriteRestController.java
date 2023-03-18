@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class WriteRestController {
     private final ValidationComponent validationComponent;
 
 	//수정
-	@PreAuthorize("isAuthenticated() and (#param.paramId == principal.username)")
+	@PreAuthorize("isAuthenticated() and (#postReqeustDto.paramId == principal.name)")
 	@PutMapping("/update")
 	public ResponseEntity<?> boardUpdate(@RequestBody @Valid PostReqeustDto postReqeustDto, Errors error,
 		Principal principal) {
@@ -37,7 +35,7 @@ public class WriteRestController {
 	}
 
 	//삭제
-	@PreAuthorize("isAuthenticated() and (#paramId == principal.username)")
+	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/delete/{paramId}")
 	public ResponseEntity<?> boardDelete(@PathVariable("paramId") String paramId,
 		Principal principal, HttpServletRequest request) {
@@ -47,7 +45,7 @@ public class WriteRestController {
 	}
 
 	//저장
-	@PreAuthorize("isAuthenticated() and (#param.paramId == principal.username)")
+	@PreAuthorize("isAuthenticated() and (#postReqeustDto.paramId == principal.name)")
 	@PostMapping("/save")
 	public ResponseEntity<?> boardSave(@RequestBody @Valid PostReqeustDto postReqeustDto, Errors error,
 		Principal principal) {

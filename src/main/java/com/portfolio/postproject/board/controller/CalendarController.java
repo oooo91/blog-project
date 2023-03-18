@@ -40,12 +40,15 @@ public class CalendarController {
         model.addAttribute("searchEndDate", sortDto.getSearchEndDate());
         model.addAttribute("sortValue", sortDto.getSortValue());
 
+        if (list != null) {
+            model.addAttribute("list", list);
+            model.addAttribute("hasNext", list.hasNext());
+            model.addAttribute("hasPrev", list.hasPrevious());
+            model.addAttribute("totalCount", list.getTotalElements()); //총 개수
+        }
+
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); //페이징 정보
         model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("list", list);
-        model.addAttribute("hasNext", list.hasNext());
-        model.addAttribute("hasPrev", list.hasPrevious());
-        model.addAttribute("totalCount", list.getTotalElements()); //총 개수
         model.addAttribute("comparison", paramId.equals(principal.getName())); //버튼 유무
 
         return "/board/calendar";

@@ -1,6 +1,5 @@
 package com.portfolio.postproject.user.enums;
 
-
 import lombok.Getter;
 
 @Getter

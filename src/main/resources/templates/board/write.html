@@ -43,9 +43,9 @@
                         headers: {'Content-Type': 'application/json'},
                         data : JSON.stringify(obj),
                         success : function (data){
+                            alert("저장되었습니다");
                             let paramId = $("input[name='paramId']").val();
                             location.href = "/board/detail/" + paramId +"?postId=" + data;
-                            alert("저장되었습니다");
                         },
                         error: function(data, status, error){
                             alert(data.responseText);
