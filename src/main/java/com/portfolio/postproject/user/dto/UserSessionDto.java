@@ -29,6 +29,6 @@ public class UserSessionDto implements Serializable {
         this.userEmail = diaryUser.getUserEmail();
         this.nickname  = diaryUser.getNickname();
         this.userStatus = diaryUser.getUserStatus();
-        this.userRoles = diaryUser.getUserRoles(); //세션에는 Role안붙을듯?
+        this.userRoles = diaryUser.getUserRoles();
     }
 }

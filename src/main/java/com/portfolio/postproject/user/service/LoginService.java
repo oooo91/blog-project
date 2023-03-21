@@ -40,9 +40,8 @@ public class LoginService implements UserDetailsService {
             throw new UsernameNotFoundException("탈퇴한 회원입니다.");
         }
 
-        log.info("여기에 안들ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ어온ㄴ다거나?//*??????*/");
         httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser));
         diaryUser.setLoginAt(LocalDateTime.now());
-        return new CustomUserDetails(diaryUser); //Authentication에 저장..근데 세션 아이디가 널이래욤...
+        return new CustomUserDetails(diaryUser);
     }
 }

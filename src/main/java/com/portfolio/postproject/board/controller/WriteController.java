@@ -51,23 +51,10 @@ public class WriteController {
 
 
 	//작성 페이지 이동
-	@PreAuthorize("isAuthenticated() and (#paramId.equals(principal.getName()))") //Property or field 'name' cannot be found on object of type 'org.springframework.security.core.userdetails.User'
+	@PreAuthorize("isAuthenticated() and (#paramId.equals(principal.getName()))")
 	@GetMapping("/write/{paramId}")
-	public String boardWrite(@PathVariable("paramId") String paramId,
-		Authentication authentication, Principal principal, Model model) {
-
-		log.info("principal: " + principal); //OAuth2AuthenticationToken [Principal=Name: [113408037234379197684], Granted Authorities: [[ROLE_SOC...
-		log.info("authentication: " + authentication); //OAuth2AuthenticationToken [Principal=Name: [113408037234379197684], Granted Authorit...
-
-		//저 Principal의 name을 꺼내는듯
-		log.info("principal의 getName: " + principal.getName()); //113408037234379197684
-		log.info("authentication name: " + authentication.getName()); //113408037234379197684
-
-		//저 Principal의 내용을 꺼내는듯
-		log.info("authentication principal: " + authentication.getPrincipal()); //Name: [113408037234379197684], Granted Authorities: [[ROLE_SOCIAL]], User ...
-
-		//Token의 찐 클래스를 알려주는 듯
-		log.info("뭐가 다르지- getName: " + principal.getClass().getName()); //org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken
+	public String boardWrite(@PathVariable("paramId") String paramId, Principal principal,
+		Model model) {
 
 		model.addAttribute("paramId", paramId);
 		return "/board/write";
