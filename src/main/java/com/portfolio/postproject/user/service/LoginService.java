@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,10 +40,9 @@ public class LoginService implements UserDetailsService {
             throw new UsernameNotFoundException("탈퇴한 회원입니다.");
         }
 
+        log.info("여기에 안들ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ어온ㄴ다거나?//*??????*/");
+        httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser));
         diaryUser.setLoginAt(LocalDateTime.now());
-        httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser)); //여기서 Creation of SecureRandom instance for session ID generation using
-
-        return new CustomUserDetails(diaryUser);
-
+        return new CustomUserDetails(diaryUser); //Authentication에 저장..근데 세션 아이디가 널이래욤...
     }
 }

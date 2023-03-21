@@ -14,7 +14,6 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		System.out.println("여기로 와지나????????//");
 		Collection<GrantedAuthority> collection = new ArrayList<>();
 		collection.add(() -> diaryUser.getUserRoles().getUserRole()); //여기는 role 붙어야됨
 		return collection;

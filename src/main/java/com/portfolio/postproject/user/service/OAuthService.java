@@ -45,7 +45,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(diaryUser.getUserRoles().getUserRole())), //권한 부여 (여기는 role 붙음)
                 attributes,
-                userNameAttributeName); //왜 핸들러로 안가?
+                userNameAttributeName); //Authentication에 저장...
     }
 
     //소셜 로그인 시 기존 회원이 존재하면 날짜 업데이트, 아니면 새로 저장

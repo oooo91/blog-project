@@ -1,10 +1,12 @@
 package com.portfolio.postproject.user.config;
 
-import com.portfolio.postproject.user.exception.UserAuthenticationFailureHandler;
-import com.portfolio.postproject.user.exception.UserAuthenticationSuccessHandler;
+import com.portfolio.postproject.user.handler.UserAuthenticationFailureHandler;
+import com.portfolio.postproject.user.handler.UserAuthenticationSuccessHandler;
 import com.portfolio.postproject.user.enums.UserRoles;
 import com.portfolio.postproject.user.service.LoginService;
 import com.portfolio.postproject.user.service.OAuthService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +16,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -59,42 +64,50 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable(); //CSRF protection ignore
-        http.headers().frameOptions().sameOrigin(); //header ignore
+        http
+            .csrf()
+            .disable()
+            .headers()
+            .frameOptions()
+            .sameOrigin() //header ignore
 
-        http.authorizeRequests()
-                .antMatchers("/user/signup",
-                                        "/user/login",
-                                        "/user/find-password")
-                                        .permitAll();
+            .and()
+            .authorizeRequests()
+            .antMatchers("/user/signup",
+                                    "/user/login",
+                                    "/user/find-password")
+                                    .permitAll()
+            .antMatchers("/admin/**")
+            .hasAnyAuthority(UserRoles.ADMIN.getUserRole())
+            .anyRequest().authenticated()
 
-        http.authorizeRequests()
-                .antMatchers("/admin/**")
-                .hasAnyAuthority(UserRoles.ADMIN.getUserRole());
+            .and()
+            .formLogin()
+            .loginPage("/user/login")
+            .usernameParameter("username")
+            .passwordParameter("password")
+            .successHandler(getSuccessHandler())
+            .failureHandler(getFailureHandler())
 
-        http.formLogin()
-                .loginPage("/user/login")
-                .successHandler(getSuccessHandler())
-                .failureHandler(getFailureHandler())
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .permitAll();
+            .and()
+            .logout()
+            .logoutUrl("/user/logout")
+            .logoutSuccessUrl("/user/login")
+            .deleteCookies("JSESSIONID")
+            .permitAll()
 
-        http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/user/login")
-                .invalidateHttpSession(true); //세션 초기화
+            .and()
+            .oauth2Login()
+            .userInfoEndpoint()
+            .userService(oAuthService)
 
-        http.oauth2Login() //OAuth2 로그인 설정 시작점
-                .loginPage("/user/login")
-                .failureUrl("/user/login")
-                .userInfoEndpoint() //OAuth2 로그인 서공 후 사용자 정보 가져온다.
-                .userService(oAuthService); //사용자 정보 처리할 때 사용하는 서비스.
+            .and()
+            .successHandler(getSuccessHandler())
+            .failureHandler(getFailureHandler())
 
-        http.sessionManagement()
-                .maximumSessions(2)
-                .maxSessionsPreventsLogin(false) //true인 경우 현재 요청하는 사용자의 인증 실패, false인 경우 기존 사용자의 세션 만료
-                .expiredUrl("/user/login");
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 
         return http.build();
     }

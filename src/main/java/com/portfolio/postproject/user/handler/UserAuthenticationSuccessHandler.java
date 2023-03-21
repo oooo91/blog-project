@@ -1,7 +1,9 @@
-package com.portfolio.postproject.user.exception;
+package com.portfolio.postproject.user.handler;
 
 import com.portfolio.postproject.user.dto.CustomUserDetails;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -18,15 +20,13 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
                                         Authentication authentication)
             throws IOException, ServletException {
 
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof DefaultOAuth2User) {
-            String userId = ((DefaultOAuth2User) principal).getName();
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            String userId = ((DefaultOAuth2User) authentication.getPrincipal()).getName();
             response.sendRedirect("/board/main/" + userId);
         }
 
-        if (principal instanceof CustomUserDetails) {
-            String userId = ((CustomUserDetails) principal).getName();
+        if (authentication instanceof UsernamePasswordAuthenticationToken) {
+            String userId = ((CustomUserDetails) authentication.getPrincipal()).getName();
             response.sendRedirect("/board/main/" + userId);
         }
     }
