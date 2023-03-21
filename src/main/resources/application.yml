@@ -13,6 +13,7 @@ spring:
     password: zerobase
 
   jpa:
+    open-in-view: false
     generate-ddl: true
     hibernate:
       ddl-auto: update
@@ -36,12 +37,6 @@ spring:
       cache: false
     thymeleaf:
       cache: false
-
-mybatis:
-  mapper-locations: mybatis/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 jasypt:
   encryptor:
