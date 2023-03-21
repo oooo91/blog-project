@@ -3,13 +3,16 @@ package com.portfolio.postproject.user.service;
 import com.portfolio.postproject.user.components.MailComponents;
 import com.portfolio.postproject.user.entity.DiaryUser;
 import com.portfolio.postproject.user.enums.EmailAuth;
+import com.portfolio.postproject.user.enums.UserRoles;
 import com.portfolio.postproject.user.enums.UserStatus;
 import com.portfolio.postproject.user.exception.AlreadyExistedUserException;
 import com.portfolio.postproject.user.exception.EmailException;
 import com.portfolio.postproject.user.dto.EmailAuthResponseDto;
 import com.portfolio.postproject.user.dto.JoinRequestDto;
 import com.portfolio.postproject.user.repository.UserRepository;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class JoinService {
 
     private final UserRepository userRepository;
@@ -31,6 +35,10 @@ public class JoinService {
             throw new AlreadyExistedUserException("이미 가입된 아이디입니다.");
         }
 
+        if (userRepository.existsByNickname(joinRequestDto.getUserName())) {
+            throw new AlreadyExistedUserException("이미 가입된 이름입니다.");
+        }
+
         if (userRepository.existsByUserEmail(joinRequestDto.getUserEmail())) {
             throw new AlreadyExistedUserException("이미 가입된 이메일입니다.");
         }
@@ -39,23 +47,27 @@ public class JoinService {
 
         DiaryUser user = DiaryUser.builder()
                 .id(joinRequestDto.getUserId())
-                .userName(joinRequestDto.getUserName())
+                .nickname(joinRequestDto.getUserName())
                 .userEmail(joinRequestDto.getUserEmail())
                 .userPwd(passwordEncoder.encode(joinRequestDto.getUserPwd()))
                 .createdAt(LocalDateTime.now())
-                .level(false)
+                .userRoles(UserRoles.USER)
+                .socialType("none")
                 .emailAuthKey(uuid)
                 .emailAuthYn(false)
                 .userStatus(UserStatus.STATUS_READY.getUserStatus())
                 .build();
         userRepository.save(user);
 
+        log.info("userRoles 알아봐야됨 : " + UserRoles.USER); //USER
+        log.info("userRoles get은? : " + UserRoles.USER.getUserRole()); //ROLE_USER
+
         String email = joinRequestDto.getUserEmail();
         String title = "diary 사이트 가입을 축하드립니다.";
         String contents = "<p> fastlms 사이트 가입을 축하드립니다. </p>" +
                 "<p> 아래 링크를 클릭하셔서 가입을 완료하세요 </p>" +
                 "<div>" +
-                "<a target='_blank' href='http://localhost:8080/user/email-auth.do?uuid=" + uuid + "'> 가입완료 </a>" +
+                "<a target='_blank' href='http://localhost:8080/user/email-auth?uuid=" + uuid + "'> 가입완료 </a>" +
                 "</div>";
 
         if (!mailComponents.sendEmail(email, title, contents)) {
@@ -63,6 +75,7 @@ public class JoinService {
         }
     }
 
+    @Transactional
     public EmailAuthResponseDto emailAuth(String uuid) {
         Optional<DiaryUser> optionalDiaryUser = userRepository.findByEmailAuthKey(uuid);
         EmailAuthResponseDto emailAuthResponseDto = new EmailAuthResponseDto();

@@ -20,15 +20,16 @@ import java.security.Principal;
 public class WriteRestController {
 
 	private final WriteBoardService writeBoardService;
-    private final ValidationComponent validationComponent;
+	private final ValidationComponent validationComponent;
 
 	//수정
 	@PreAuthorize("isAuthenticated() and (#postReqeustDto.paramId == principal.name)")
 	@PutMapping("/update")
-	public ResponseEntity<?> boardUpdate(@RequestBody @Valid PostReqeustDto postReqeustDto, Errors error,
+	public ResponseEntity<?> boardUpdate(@RequestBody @Valid PostReqeustDto postReqeustDto,
+		Errors error,
 		Principal principal) {
 
-        validationComponent.validation(error);
+		validationComponent.validation(error);
 		writeBoardService.updateBoard(postReqeustDto);
 
 		return ResponseEntity.ok().build();
@@ -47,10 +48,11 @@ public class WriteRestController {
 	//저장
 	@PreAuthorize("isAuthenticated() and (#postReqeustDto.paramId == principal.name)")
 	@PostMapping("/save")
-	public ResponseEntity<?> boardSave(@RequestBody @Valid PostReqeustDto postReqeustDto, Errors error,
-		Principal principal) {
+	public ResponseEntity<?> boardSave(@RequestBody @Valid PostReqeustDto postReqeustDto,
+		Errors error, Principal principal) {
 
 		validationComponent.validation(error);
-		return new ResponseEntity<>(String.valueOf(writeBoardService.saveBoard(postReqeustDto)), HttpStatus.OK);
+		return new ResponseEntity<>(String.valueOf(writeBoardService.saveBoard(postReqeustDto)),
+			HttpStatus.OK);
 	}
 }

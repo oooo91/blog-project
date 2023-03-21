@@ -3,7 +3,6 @@ package com.portfolio.postproject.user.service;
 import com.portfolio.postproject.user.dto.OAuthAttributes;
 import com.portfolio.postproject.user.dto.UserSessionDto;
 import com.portfolio.postproject.user.entity.DiaryUser;
-import com.portfolio.postproject.user.enums.UserRoles;
 import com.portfolio.postproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,13 +37,13 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
         Map<String, Object> attributes = oAuth2User.getAttributes(); //user info
 
-        OAuthAttributes attr = OAuthAttributes.of(registrationId, userNameAttributeName, attributes); //OAuth 서비스에 종속적이지 않는 객체를 얻는다.
-        DiaryUser diaryUser = saveOrUpdate(attr); //db 저장
+        OAuthAttributes attr = OAuthAttributes.of(registrationId, userNameAttributeName, attributes); //OAuth 서비스에 종속적이지 않는 객체
+        DiaryUser diaryUser = saveOrUpdate(attr);
 
-        httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser)); //세션 정보를 저장하는 직렬화된 dto 클래스
+        httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser));
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(UserRoles.SOCIAL.getUserRole())), //권한 부여
+                Collections.singleton(new SimpleGrantedAuthority(diaryUser.getUserRoles().getUserRole())),
                 attributes,
                 userNameAttributeName);
     }

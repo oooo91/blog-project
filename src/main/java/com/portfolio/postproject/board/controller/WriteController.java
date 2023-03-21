@@ -3,7 +3,9 @@ package com.portfolio.postproject.board.controller;
 import com.portfolio.postproject.board.service.CommentsService;
 import com.portfolio.postproject.board.service.WriteBoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class WriteController {
@@ -48,10 +51,10 @@ public class WriteController {
 
 
 	//작성 페이지 이동
-	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
+	@PreAuthorize("isAuthenticated() and (#paramId.equals(principal.getName()))")
 	@GetMapping("/write/{paramId}")
-	public String boardWrite(@PathVariable("paramId") String paramId,
-		Principal principal, Model model) {
+	public String boardWrite(@PathVariable("paramId") String paramId, Principal principal,
+		Model model) {
 
 		model.addAttribute("paramId", paramId);
 		return "/board/write";

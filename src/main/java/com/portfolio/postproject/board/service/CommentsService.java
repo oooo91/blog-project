@@ -42,7 +42,7 @@ public class CommentsService {
 	public String getUserName(Principal principal) {
 		DiaryUser user = userRepository.findById(principal.getName())
 			.orElseThrow(() -> new NotFoundUserException("아이디가 존재하지 않습니다."));
-		return user.getUserName();
+		return user.getNickname();
 	}
 
 	//수정
