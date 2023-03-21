@@ -1,6 +1,7 @@
 package com.portfolio.postproject.user.dto;
 
 import com.portfolio.postproject.user.entity.DiaryUser;
+import com.portfolio.postproject.user.enums.UserRoles;
 import com.portfolio.postproject.user.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,9 +46,11 @@ public class OAuthAttributes {
         return DiaryUser.builder()
                 .id(userId)
                 .userEmail(userEmail)
-                .userName(userName)
+                .nickname(userName)
+                .socialType("google")
                 .createdAt(LocalDateTime.now())
                 .userStatus(UserStatus.STATUS_ACTIVE.getUserStatus())
+                .userRoles(UserRoles.SOCIAL)
                 .build();
     }
 }

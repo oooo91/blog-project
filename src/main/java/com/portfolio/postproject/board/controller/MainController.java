@@ -4,7 +4,6 @@ import com.portfolio.postproject.board.components.SortComponents;
 import com.portfolio.postproject.board.dto.BoardResponseDto;
 import com.portfolio.postproject.board.dto.SortDto;
 import com.portfolio.postproject.board.service.MainBoardService;
-import com.portfolio.postproject.board.components.HostComponents;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ import java.util.List;
 public class MainController {
 
     private final MainBoardService mainBoardService;
-    private final HostComponents hostComponents;
     private final SortComponents sortComponents;
 
     //메인 페이지 이동

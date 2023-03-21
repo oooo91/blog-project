@@ -1,9 +1,7 @@
 package com.portfolio.postproject.user.exception;
 
-import com.portfolio.postproject.user.components.OauthIdComponents;
+import com.portfolio.postproject.user.dto.CustomUserDetails;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -23,12 +21,12 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
         Object principal = authentication.getPrincipal();
 
         if (principal instanceof DefaultOAuth2User) {
-            String userId = (String)((DefaultOAuth2User) principal).getAttributes().get("sub");
+            String userId = ((DefaultOAuth2User) principal).getName();
             response.sendRedirect("/board/main/" + userId);
         }
 
-        if (principal instanceof User) {
-            String userId = ((UserDetails) principal).getUsername();
+        if (principal instanceof CustomUserDetails) {
+            String userId = ((CustomUserDetails) principal).getName();
             response.sendRedirect("/board/main/" + userId);
         }
     }

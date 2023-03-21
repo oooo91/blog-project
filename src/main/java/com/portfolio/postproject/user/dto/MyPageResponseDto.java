@@ -17,7 +17,7 @@ public class MyPageResponseDto {
 
     public static MyPageResponseDto of(DiaryUser diaryUser) {
         return MyPageResponseDto.builder()
-                .userName(diaryUser.getUserName())
+                .userName(diaryUser.getNickname())
                 .userEmail(diaryUser.getUserEmail())
                 .build();
     }

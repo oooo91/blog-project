@@ -28,8 +28,7 @@ public class CommentsResponseDto {
         return CommentsResponseDto.builder()
                 .commentsDetail(postComments.getCommentDetail())
                 .commentId(postComments.getId())
-                .userId(ProtectIdComponents.getChangeId(postComments.getDiaryUser().getId()))
-                .userName(postComments.getDiaryUser().getUserName())
+                .userName(postComments.getDiaryUser().getNickname())
                 .comparison(HostComponents.checkHostComment(postComments, userId))
                 .createdDate(postComments.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")))
                 .build();

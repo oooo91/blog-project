@@ -16,21 +16,21 @@
     </script>
 </head>
 <body>
-<div th:if="${#strings.equals(result, 'AUTH_SUCCESS')}" class="message_box">
+<div th:if="${#strings.equals(result.getEmailAuthStatus(), 'SUCCESS')}" class="message_box">
     <div class="message_contents">회원님의 계정이 활성화되었습니다.</div>
     <div class="btn">
         <input type="button" value="돌아가기" class="join_form_btn"/>
     </div>
 </div>
 
-<div th:if="${#strings.equals(result, 'AUTH_FAIL')}" class="message_box">
+<div th:if="${#strings.equals(result.getEmailAuthStatus(), 'FAIL')}" class="message_box">
     <div class="message_contents">회원님의 계정 활성화에 실패하였습니다.</div>
     <div class="btn">
         <input type="button" value="돌아가기" class="join_form_btn"/>
     </div>
 </div>
 
-<div th:if="${#strings.equals(result, 'AUTH_DONE')}" class="message_box">
+<div th:if="${#strings.equals(result.getEmailAuthStatus(), 'DONE')}" class="message_box">
     <div class="message_contents">계정이 이미 활성화되었습니다.</div>
     <div class="btn">
         <input type="button" value="돌아가기" class="join_form_btn"/>

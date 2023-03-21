@@ -3,7 +3,6 @@ package com.portfolio.postproject.user.service;
 import com.portfolio.postproject.user.dto.OAuthAttributes;
 import com.portfolio.postproject.user.dto.UserSessionDto;
 import com.portfolio.postproject.user.entity.DiaryUser;
-import com.portfolio.postproject.user.enums.UserRoles;
 import com.portfolio.postproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,9 +43,9 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         httpSession.setAttribute("diaryUser", new UserSessionDto(diaryUser)); //세션 정보를 저장하는 직렬화된 dto 클래스
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(UserRoles.SOCIAL.getUserRole())), //권한 부여
+                Collections.singleton(new SimpleGrantedAuthority(diaryUser.getUserRoles().getUserRole())), //권한 부여 (여기는 role 붙음)
                 attributes,
-                userNameAttributeName);
+                userNameAttributeName); //왜 핸들러로 안가?
     }
 
     //소셜 로그인 시 기존 회원이 존재하면 날짜 업데이트, 아니면 새로 저장

@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -22,19 +22,19 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근하면 권한 및 인증을 미리 체크
 public class SecurityConfig {
 
     private final LoginService loginService;
     private final OAuthService oAuthService;
 
     @Bean
-	UserAuthenticationFailureHandler getFailureHandler() {
+	public UserAuthenticationFailureHandler getFailureHandler() {
         return new UserAuthenticationFailureHandler();
     }
 
     @Bean
-	UserAuthenticationSuccessHandler getSuccessHandler() {
+	public UserAuthenticationSuccessHandler getSuccessHandler() {
         return new UserAuthenticationSuccessHandler();
     }
 
@@ -43,15 +43,15 @@ public class SecurityConfig {
         DaoAuthenticationProvider bean = new DaoAuthenticationProvider();
         bean.setHideUserNotFoundExceptions(false);
         bean.setUserDetailsService(loginService);
-
         return bean;
     }
 
     @Bean
-    PasswordEncoder getPasswordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
+    //staticResource ignore
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()));
@@ -87,13 +87,12 @@ public class SecurityConfig {
 
         http.oauth2Login() //OAuth2 로그인 설정 시작점
                 .loginPage("/user/login")
-                .successHandler(getSuccessHandler())
                 .failureUrl("/user/login")
                 .userInfoEndpoint() //OAuth2 로그인 서공 후 사용자 정보 가져온다.
                 .userService(oAuthService); //사용자 정보 처리할 때 사용하는 서비스.
 
         http.sessionManagement()
-                .maximumSessions(1)
+                .maximumSessions(2)
                 .maxSessionsPreventsLogin(false) //true인 경우 현재 요청하는 사용자의 인증 실패, false인 경우 기존 사용자의 세션 만료
                 .expiredUrl("/user/login");
 
