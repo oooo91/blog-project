@@ -51,7 +51,7 @@ public class WriteController {
 
 
 	//작성 페이지 이동
-	@PreAuthorize("isAuthenticated() and (#paramId.equals(principal.getName()))")
+	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/write/{paramId}")
 	public String boardWrite(@PathVariable("paramId") String paramId, Principal principal,
 		Model model) {
