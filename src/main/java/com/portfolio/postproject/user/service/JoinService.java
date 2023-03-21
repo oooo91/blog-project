@@ -59,9 +59,6 @@ public class JoinService {
                 .build();
         userRepository.save(user);
 
-        log.info("userRoles 알아봐야됨 : " + UserRoles.USER); //USER
-        log.info("userRoles get은? : " + UserRoles.USER.getUserRole()); //ROLE_USER
-
         String email = joinRequestDto.getUserEmail();
         String title = "diary 사이트 가입을 축하드립니다.";
         String contents = "<p> fastlms 사이트 가입을 축하드립니다. </p>" +
