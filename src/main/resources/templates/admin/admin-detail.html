@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/admin/admin-detail.css}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script>
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="container_background">
+
+      <div class="container_menu">
+        <div class="container_menu-title">
+          <h1>Diary</h1>
+          <h3>Administration</h3>
+        </div>
+      </div>
+
+      <div class="container_main">
+        <div class="container_main-user-status">
+
+          <div class="container_main-user-status-header">
+            <h2>상태 관리</h2>
+            <span>
+                <button class="btn">뒤로 가기</button>
+              </span>
+          </div>
+
+
+          <div class="container_main-user-status-details">
+            <div class="container_main-user-status-details-name">
+              <span>이름</span>
+              <span>|</span>
+              <span>이혜린</span>
+            </div>
+
+            <div class="container_main-user-status-details-status">
+              <span class="status">상태</span>
+              <span>|</span>
+              <span class="status-details">ACTIVE</span>
+              <div class="dropdown">
+                <button class="dropbtn btn">
+                  <span class="dropbtn_icon">상태 수정</span>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">ACTIVE</a>
+                  <a href="#">WITHDRAWAL</a>
+                </div>
+              </div> <!--drophown-->
+            </div> <!--container_main-user-status-details-status-->
+          </div> <!--container_main-user-status-details-->
+        </div> <!--container_main-user-status-->
+
+
+        <div class="container_main-user-board">
+          <h2>글 관리</h2>
+          <div class="container_main-user-board-list">
+            <div class="container_main-user-board-list-title">
+              <span>제목</span>
+              <span id="content">내용</span>
+              <span>날짜</span>
+              <span></span>
+            </div>
+          </div> <!--list-->
+
+          <div class="container_main-user-board-list"> <!--여기가 반복-->
+            <div class="container_main-user-board-list-content">
+              <span>아아아</span>
+              <span id="content-detail">아아아아아아아아..</span>
+              <span>2023.01.19</span>
+              <span id="btn-span">
+                  <button class="btn">삭제</button>
+                </span>
+            </div>
+          </div>
+        </div>
+
+      </div> <!--container-main-->
+    </div> <!--container_background-->
+  </div> <!--container-->
+</body>
+</html>

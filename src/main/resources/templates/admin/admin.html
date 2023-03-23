@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/admin/admin.css}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script>
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="container_background">
+
+      <div class="container_menu">
+        <div class="container_menu-title">
+          <h1>Diary</h1>
+          <h3>Administration</h3>
+        </div>
+      </div>
+
+
+      <div class="container_main">
+        <div class="container_main-title">
+          <h1>회원 관리</h1>
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="      아이디 또는 이름을 입력하세요."/>
+        </div> <!--title-->
+
+        <div class="container_main-lists">
+          <div class="container_main-list">
+            <div class="container_main-list-title">
+              <span>회원 아이디</span>
+              <span>회원 이름</span>
+              <span>가입 일자</span>
+              <span>회원 상태</span>
+              <span>전체 작성수</span>
+            </div>
+          </div> <!--list-->
+
+          <div class="container_main-list"> <!--여기가 반복-->
+            <div class="container_main-list-content">
+              <span>hyelneu</span>
+              <span>이혜린</span>
+              <span>2023.01.19</span>
+              <span>ACTIVE</span>
+              <span>6</span>
+            </div>
+            <div class="container_main-list-update">
+              <i class="fa-solid fa-pen"></i>
+            </div>
+          </div> <!--list-->
+
+        </div> <!--lists-->
+      </div> <!--main-->
+
+    </div>
+  </div>
+</body>
+</html>
