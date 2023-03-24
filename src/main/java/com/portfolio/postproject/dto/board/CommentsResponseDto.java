@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
 public class CommentsResponseDto {
 
     private Long commentId; //댓글 아이디

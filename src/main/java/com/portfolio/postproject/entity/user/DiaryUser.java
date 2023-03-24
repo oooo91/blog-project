@@ -1,8 +1,12 @@
 package com.portfolio.postproject.entity.user;
 
+import com.portfolio.postproject.entity.board.DiaryPost;
 import com.portfolio.postproject.enums.UserRoles;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +41,10 @@ public class DiaryUser {
 
     @Enumerated(EnumType.STRING)
     private UserRoles userRoles;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "diaryUser")
+    private List<DiaryPost> diaryPost = new ArrayList<>();
 
     private String emailAuthKey;
     private boolean emailAuthYn;

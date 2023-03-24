@@ -65,10 +65,18 @@ html, body {
 .container_main-user-status-details-name span:last-child {
   padding: 0 30px;
 }
-.status,
-.status-details {
+.status {
   padding: 0 30px;
 }
+.status-detail {
+  border: none;
+  width: 60px;
+  text-align: center;
+  margin: 0 20px;
+  color: #45474b;
+  background-color: #c8ced7;
+}
+
 
 
 /*글 관리*/

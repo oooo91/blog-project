@@ -3,7 +3,7 @@ package com.portfolio.postproject.service.board;
 import com.portfolio.postproject.dto.board.BoardResponseDto;
 import com.portfolio.postproject.entity.board.DiaryPost;
 import com.portfolio.postproject.exception.board.PostException;
-import com.portfolio.postproject.dto.board.PostReqeustDto;
+import com.portfolio.postproject.dto.board.PostRequestDto;
 import com.portfolio.postproject.repository.board.PostRepository;
 import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.repository.user.UserRepository;
@@ -33,15 +33,15 @@ public class WriteBoardService {
 	}
 
 	//수정
-	public void updateBoard(PostReqeustDto postReqeustDto) {
-		DiaryPost diaryPost = postRepository.findById(Long.parseLong(postReqeustDto.getPostId()))
+	public void updateBoard(PostRequestDto postRequestDto) {
+		DiaryPost diaryPost = postRepository.findById(Long.parseLong(postRequestDto.getPostId()))
 			.orElseThrow(() -> new PostException("게시글을 저장할 수 없습니다."));
 
-		diaryPost.setPostDate(LocalDate.parse(postReqeustDto.getPostDate(),
+		diaryPost.setPostDate(LocalDate.parse(postRequestDto.getPostDate(),
 			DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
 
-		diaryPost.setPostTitle(postReqeustDto.getPostTitle());
-		diaryPost.setPostContent(postReqeustDto.getPostContent());
+		diaryPost.setPostTitle(postRequestDto.getPostTitle());
+		diaryPost.setPostContent(postRequestDto.getPostContent());
 	}
 
 	//삭제
@@ -53,15 +53,15 @@ public class WriteBoardService {
 	}
 
 	//저장
-	public long saveBoard(PostReqeustDto postReqeustDto) {
-		DiaryUser diaryUser = userRepository.findById(postReqeustDto.getParamId())
+	public long saveBoard(PostRequestDto postRequestDto) {
+		DiaryUser diaryUser = userRepository.findById(postRequestDto.getParamId())
 			.orElseThrow(() -> new PostException("작성자가 존재하지 않습니다.")); //작성자 찾기
 
 		DiaryPost diaryPost = DiaryPost.builder()
 			.diaryUser(diaryUser)
-			.postDate(LocalDate.parse(postReqeustDto.getPostDate(), DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")))
-			.postContent(postReqeustDto.getPostContent())
-			.postTitle(postReqeustDto.getPostTitle())
+			.postDate(LocalDate.parse(postRequestDto.getPostDate(), DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")))
+			.postContent(postRequestDto.getPostContent())
+			.postTitle(postRequestDto.getPostTitle())
 			.build();
 
 		return postRepository.save(diaryPost).getId(); //postId값 추출

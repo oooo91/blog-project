@@ -23,7 +23,7 @@ public class CalendarController {
     private final CalendarService calendarService;
     private final SortComponents sortComponents;
 
-    //캘린터 페이지 이동
+    //캘린터 페이지
     @GetMapping("/board/calendar/{paramId}")
     public String boardCalendar(@PathVariable("paramId") String paramId,
                                 Principal principal, Model model, HttpServletRequest request,
@@ -34,7 +34,7 @@ public class CalendarController {
 
         model.addAttribute("paramId", paramId); //아이디
 
-        model.addAttribute("searchStartDate", sortDto.getSearchStartDate()); //정렬 요소
+        model.addAttribute("searchStartDate", sortDto.getSearchStartDate());
         model.addAttribute("searchEndDate", sortDto.getSearchEndDate());
         model.addAttribute("sortValue", sortDto.getSortValue());
 

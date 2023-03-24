@@ -1,6 +1,6 @@
 package com.portfolio.postproject.controller.board;
 
-import com.portfolio.postproject.dto.board.PostReqeustDto;
+import com.portfolio.postproject.dto.board.PostRequestDto;
 import com.portfolio.postproject.service.board.WriteBoardService;
 import com.portfolio.postproject.components.common.ValidationComponent;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +23,14 @@ public class WriteRestController {
 	private final ValidationComponent validationComponent;
 
 	//수정
-	@PreAuthorize("isAuthenticated() and (#postReqeustDto.paramId == principal.name)")
+	@PreAuthorize("isAuthenticated() and (#postRequestDto.paramId == principal.name)")
 	@PutMapping("/update")
-	public ResponseEntity<?> boardUpdate(@RequestBody @Valid PostReqeustDto postReqeustDto,
+	public ResponseEntity<?> boardUpdate(@RequestBody @Valid PostRequestDto postRequestDto,
 		Errors error,
 		Principal principal) {
 
 		validationComponent.validation(error);
-		writeBoardService.updateBoard(postReqeustDto);
+		writeBoardService.updateBoard(postRequestDto);
 
 		return ResponseEntity.ok().build();
 	}
@@ -46,13 +46,13 @@ public class WriteRestController {
 	}
 
 	//저장
-	@PreAuthorize("isAuthenticated() and (#postReqeustDto.paramId == principal.name)")
+	@PreAuthorize("isAuthenticated() and (#postRequestDto.paramId == principal.name)")
 	@PostMapping("/save")
-	public ResponseEntity<?> boardSave(@RequestBody @Valid PostReqeustDto postReqeustDto,
+	public ResponseEntity<?> boardSave(@RequestBody @Valid PostRequestDto postRequestDto,
 		Errors error, Principal principal) {
 
 		validationComponent.validation(error);
-		return new ResponseEntity<>(String.valueOf(writeBoardService.saveBoard(postReqeustDto)),
+		return new ResponseEntity<>(String.valueOf(writeBoardService.saveBoard(postRequestDto)),
 			HttpStatus.OK);
 	}
 }

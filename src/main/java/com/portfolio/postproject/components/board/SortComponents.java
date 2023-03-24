@@ -15,7 +15,7 @@ public class SortComponents {
 	public SortDto calendarOf(HttpServletRequest request) {
 
 		if (request.getParameter("searchStartDate") == null ||
-			request.getParameter("searchStartDate").equals("")) {
+			request.getParameter("searchStartDate").trim().equals("")) {
 
 			LocalDate local = LocalDate.now();
 			String year = local.getYear() + "년";
@@ -32,14 +32,14 @@ public class SortComponents {
 		}
 
 		if (request.getParameter("sortValue") == null ||
-			request.getParameter("sortValue").equals("")) {
+			request.getParameter("sortValue").trim().equals("")) {
 			sortDto.setSortValue(0);
 		} else {
-			sortDto.setSortValue(Integer.valueOf(request.getParameter("sortValue")));
+			sortDto.setSortValue(Integer.parseInt(request.getParameter("sortValue")));
 		}
 
 		if (request.getParameter("searchText") == null ||
-			request.getParameter("searchText").equals("")) {
+			request.getParameter("searchText").trim().equals("")) {
 			sortDto.setSearchText("");
 		} else {
 			sortDto.setSearchText(request.getParameter("searchText").trim());
@@ -48,14 +48,16 @@ public class SortComponents {
 	}
 
 	public SortDto mainOf(HttpServletRequest request) {
-		if (request.getParameter("sortValue") == null || request.getParameter("sortValue").equals("")) {
+		if (request.getParameter("sortValue") == null || request.getParameter("sortValue").trim()
+			.equals("")) {
 			sortDto.setSortValue(0);
 		} else {
-			sortDto.setSortValue(Integer.valueOf(request.getParameter("sortValue")));
+			sortDto.setSortValue(Integer.parseInt(request.getParameter("sortValue")));
 		}
 
 		//문자열 조회
-		if (request.getParameter("searchText") == null || request.getParameter("searchText").equals("")) {
+		if (request.getParameter("searchText") == null || request.getParameter("searchText").trim()
+			.equals("")) {
 			sortDto.setSearchText("");
 		} else {
 			sortDto.setSearchText(request.getParameter("searchText").trim());

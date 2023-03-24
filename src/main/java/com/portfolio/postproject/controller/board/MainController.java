@@ -34,13 +34,16 @@ public class MainController {
         SortDto sortDto = sortComponents.mainOf(request);
         List<BoardResponseDto> list = mainBoardService.boardMain(paramId, sortDto);
 
+        if (list != null) {
+            model.addAttribute("list", list);
+            model.addAttribute("totalCount", list.size());
+            model.addAttribute("sortValue", sortDto.getSortValue());
+        } else {
+            model.addAttribute("totalCount", 0);
+        }
+
         model.addAttribute("paramId", paramId);
         model.addAttribute("userId", principal.getName());
-
-        model.addAttribute("list", list);
-        model.addAttribute("totalCount", list.size());
-        model.addAttribute("sortValue", sortDto.getSortValue());
-
         model.addAttribute("comparison", paramId.equals(principal.getName()));
 
         return "/board/main";

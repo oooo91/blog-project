@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link th:href="@{/css/reset.css}" rel="stylesheet" />
-  <link th:href="@{/css/admin/admin-detail.css}" rel="stylesheet" />
+  <link th:href="@{/css/admin/detail.css}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
   <script>
@@ -42,14 +42,14 @@
             <div class="container_main-user-status-details-status">
               <span class="status">상태</span>
               <span>|</span>
-              <span class="status-details">ACTIVE</span>
+              <input type="text" value="ACTIVE" class="status-detail"/>
               <div class="dropdown">
                 <button class="dropbtn btn">
                   <span class="dropbtn_icon">상태 수정</span>
                 </button>
                 <div class="dropdown-content">
                   <a href="#">ACTIVE</a>
-                  <a href="#">WITHDRAWAL</a>
+                  <a href="#">WITHDRAW</a>
                 </div>
               </div> <!--drophown-->
             </div> <!--container_main-user-status-details-status-->

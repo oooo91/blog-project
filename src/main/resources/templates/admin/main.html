@@ -4,10 +4,16 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link th:href="@{/css/reset.css}" rel="stylesheet" />
-  <link th:href="@{/css/admin/admin.css}" rel="stylesheet" />
+  <link th:href="@{/css/admin/main.css}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
   <script>
+    $(function() {
+      $('.search-btn').on('click', function(){
+        let searchText = $("input[name='search-text']").val();
+        location.href = "/admin/main?searchText=" + searchText;
+      });
+    });
   </script>
 </head>
 <body>
@@ -26,7 +32,8 @@
         <div class="container_main-title">
           <h1>회원 관리</h1>
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" placeholder="      아이디 또는 이름을 입력하세요."/>
+          <input type="text" placeholder="      아이디 또는 이름을 입력하세요." name="search-text"/>
+          <input type="submit" value="조회" class="search-btn"/>
         </div> <!--title-->
 
         <div class="container_main-lists">

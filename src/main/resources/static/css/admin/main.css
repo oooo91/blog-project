@@ -33,7 +33,7 @@ html, body {
   padding-left: 18px;
 }
 .container_main-title input[type='text'] {
-  width: 70%;
+  width: 20%;
   padding: 5px 30px;
   height: 25px;
   border: 1px solid #c8ced7;
@@ -84,4 +84,16 @@ html, body {
 .container_main-list-update i {
   padding: 3px;
   font-size: 18px;
+}
+.search-btn {
+  font-size: 14px;
+  padding: 0 12px;
+  height: 32px;
+  width: 60px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #222;
+  position: relative;
+  top: 1px;
 }
