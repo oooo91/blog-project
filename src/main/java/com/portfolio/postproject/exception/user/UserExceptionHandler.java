@@ -3,6 +3,7 @@ package com.portfolio.postproject.exception.user;
 import com.portfolio.postproject.exception.common.ErrorMessage;
 import com.portfolio.postproject.controller.user.FindUserRestController;
 import com.portfolio.postproject.controller.user.SignUpRestController;
+import com.portfolio.postproject.exception.common.NotFoundUserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

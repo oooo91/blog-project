@@ -33,6 +33,6 @@ public class CalendarService {
 			page = postRepository.findByUserIdAndDateDescInCalendar(paramId, startDate,
 				endDate, sortDto.getSearchText(), pageable);
 		}
-		return BoardResponseDto.of(page); //list<entity> -> list<dto>
+		return BoardResponseDto.of(page);
 	}
 }

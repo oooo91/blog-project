@@ -39,28 +39,36 @@
         <div class="container_main-lists">
           <div class="container_main-list">
             <div class="container_main-list-title">
-              <span>회원 아이디</span>
               <span>회원 이름</span>
               <span>가입 일자</span>
               <span>회원 상태</span>
+              <span>ROLE</span>
               <span>전체 작성수</span>
             </div>
-          </div> <!--list-->
+          </div> <!--container_main-list-->
 
-          <div class="container_main-list"> <!--여기가 반복-->
-            <div class="container_main-list-content">
-              <span>hyelneu</span>
-              <span>이혜린</span>
-              <span>2023.01.19</span>
-              <span>ACTIVE</span>
-              <span>6</span>
-            </div>
-            <div class="container_main-list-update">
-              <i class="fa-solid fa-pen"></i>
-            </div>
-          </div> <!--list-->
+          <div th:if="${not #strings.isEmpty(list)}">
+            <th:block th:each="x : ${list}">
+              <div class="container_main-list"> <!--여기가 반복-->
+                <div class="container_main-list-content">
+                  <input type="hidden" th:value="${x.userId}" name="userId"/>
+                  <span th:text="${x.nickName}"></span>
+                  <span th:text="${x.createdAt}"></span>
+                  <span th:text="${x.userStatus}"></span>
+                  <span th:text="${x.userRole}"></span>
+                  <span th:text="${x.totalPosts}"></span>
+                </div>
+                <div class="container_main-list-update">
+                  <a th:href="'/admin/detail?userId=' + ${x.userId}">
+                    <i class="fa-solid fa-pen"></i>
+                  </a>
+                </div>
+              </div> <!--container_main-list-->
+            </th:block>
+          </div>
 
-        </div> <!--lists-->
+
+        </div> <!--container_main-lists-->
       </div> <!--main-->
 
     </div>

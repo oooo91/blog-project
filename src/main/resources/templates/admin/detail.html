@@ -8,6 +8,53 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
   <script>
+
+    $(function() {
+
+      $('.userStatus-active, .userStatus-withdraw').on('click', function(){
+        $('.status-detail').val($(this).val());
+
+        let obj = {
+          "userStatus" : $(this).val(),
+          "userId" : $("input[name='userId']").val()
+        };
+
+        $.ajax({
+          type: "put",
+          url: "/admin/update-userStatus",
+          headers: {'Content-Type': 'application/json'},
+          data : JSON.stringify(obj),
+          success : function (data){
+            window.location.reload();
+          },
+          error: function(data, status, error){
+            alert(data.responseText);
+          }
+        });
+      });
+
+      //삭제
+      $('.delete-btn').on('click', function(){
+        let postId = $(this).next().val();
+
+        if(confirm('삭제하시겠습니까?')) {
+          $.ajax({
+            type: "delete",
+            url: "/admin/delete-board",
+            data: 'postId=' + postId,
+            success: function (data) {
+              alert("삭제되었습니다");
+              window.location.reload();
+            },
+            error: function (data, status, error) {
+              alert(data.responseText);
+            }
+          });
+        }
+      });
+
+    });
+
   </script>
 </head>
 <body>
@@ -31,25 +78,26 @@
               </span>
           </div>
 
+          <input type="hidden" th:value="${userId}" name="userId"/>
 
           <div class="container_main-user-status-details">
             <div class="container_main-user-status-details-name">
               <span>이름</span>
               <span>|</span>
-              <span>이혜린</span>
+              <span th:text="${userDto.nickName}">이혜린</span>
             </div>
 
             <div class="container_main-user-status-details-status">
               <span class="status">상태</span>
               <span>|</span>
-              <input type="text" value="ACTIVE" class="status-detail"/>
+              <input type="text" th:value="${userDto.userStatus}" class="status-detail" readonly/>
               <div class="dropdown">
                 <button class="dropbtn btn">
                   <span class="dropbtn_icon">상태 수정</span>
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">ACTIVE</a>
-                  <a href="#">WITHDRAW</a>
+                  <input type="text" readonly value="ACTIVE" class="userStatus-active"/>
+                  <input type="text" readonly value="WITHDRAW" class="userStatus-withdraw"/>
                 </div>
               </div> <!--drophown-->
             </div> <!--container_main-user-status-details-status-->
@@ -68,16 +116,22 @@
             </div>
           </div> <!--list-->
 
-          <div class="container_main-user-board-list"> <!--여기가 반복-->
-            <div class="container_main-user-board-list-content">
-              <span>아아아</span>
-              <span id="content-detail">아아아아아아아아..</span>
-              <span>2023.01.19</span>
-              <span id="btn-span">
-                  <button class="btn">삭제</button>
-                </span>
-            </div>
+          <div th:if="${not #strings.isEmpty(boardList)}">
+            <th:block th:each="x : ${boardList}">
+              <div class="container_main-user-board-list"> <!--여기가 반복-->
+                <div class="container_main-user-board-list-content">
+                  <span th:text="${x.postTitle}"></span>
+                  <span th:text="${x.postContent}" id="content-detail"></span>
+                  <span th:text="${x.postDate}"></span>
+                  <span id="btn-span">
+                    <button class="btn delete-btn">삭제</button>
+                    <input type="hidden" th:value="${x.postId}"/>
+                  </span>
+                </div>
+              </div>
+            </th:block>
           </div>
+
         </div>
 
       </div> <!--container-main-->

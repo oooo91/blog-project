@@ -3,7 +3,6 @@ package com.portfolio.postproject.dto.board;
 import com.portfolio.postproject.entity.board.DiaryPost;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,13 +20,12 @@ public class BoardResponseDto {
     private long postId;
     private String postTitle;
     private String postContent;
-    private LocalDate postDate; //년,월,일만 필요
+    private LocalDate postDate;
     private int year;
     private String month;
     private String day;
-    private int numOfComments; //댓글수
+    private int numOfComments;
 
-    //entity -> dto
     public static BoardResponseDto of(DiaryPost post) {
 
         return BoardResponseDto.builder()
@@ -41,7 +39,6 @@ public class BoardResponseDto {
                 .build();
     }
 
-    //list<entity> -> list<dto>
     public static List<BoardResponseDto> of(List<DiaryPost> list) {
         if (list.isEmpty()) {
             return new ArrayList<>();
@@ -54,7 +51,6 @@ public class BoardResponseDto {
         return diaryDtolist;
     }
 
-    //Page<entity> -> Page<dto>
     public static Page<BoardResponseDto> of(Page<DiaryPost> list) {
         if (list.isEmpty()) {
             return null;

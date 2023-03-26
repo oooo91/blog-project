@@ -19,7 +19,6 @@ public class CommentsRestController {
 	private final CommentsService commentsService;
 	private final ValidationComponent validationComponent;
 
-	//댓글 수정
 	@PutMapping("/update")
 	public ResponseEntity<?> commentsUpdate(@RequestBody @Valid CommentsRequestDto commentsRequestDto,
 											Errors error, Principal principal) {
@@ -29,7 +28,6 @@ public class CommentsRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	//댓글 삭제
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> commentsDelete(@RequestParam String commentsId, Principal principal) {
 
@@ -37,7 +35,6 @@ public class CommentsRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	//댓글 작성
 	@PostMapping("/write")
 	public ResponseEntity<?> commentsWrite(@RequestBody @Valid CommentsRequestDto commentsRequestDto,
 									       Errors error, Principal principal) {

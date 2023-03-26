@@ -31,5 +31,5 @@ public class PostComments {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String commentDetail;
 
-    private LocalDateTime createdDate; //년,월,일 시간
+    private LocalDateTime createdDate;
 }

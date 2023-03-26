@@ -7,7 +7,7 @@ import com.portfolio.postproject.dto.user.FindUserInfoRequestDto.EmailAuthToFind
 import com.portfolio.postproject.dto.user.FindUserInfoRequestDto.IdAuthToFindPwd;
 import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.exception.user.EmailException;
-import com.portfolio.postproject.exception.user.NotFoundUserException;
+import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;

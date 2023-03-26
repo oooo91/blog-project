@@ -22,7 +22,6 @@ public class WriteRestController {
 	private final WriteBoardService writeBoardService;
 	private final ValidationComponent validationComponent;
 
-	//수정
 	@PreAuthorize("isAuthenticated() and (#postRequestDto.paramId == principal.name)")
 	@PutMapping("/update")
 	public ResponseEntity<?> boardUpdate(@RequestBody @Valid PostRequestDto postRequestDto,
@@ -35,7 +34,6 @@ public class WriteRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	//삭제
 	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/delete/{paramId}")
 	public ResponseEntity<?> boardDelete(@PathVariable("paramId") String paramId,
@@ -45,7 +43,6 @@ public class WriteRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	//저장
 	@PreAuthorize("isAuthenticated() and (#postRequestDto.paramId == principal.name)")
 	@PostMapping("/save")
 	public ResponseEntity<?> boardSave(@RequestBody @Valid PostRequestDto postRequestDto,

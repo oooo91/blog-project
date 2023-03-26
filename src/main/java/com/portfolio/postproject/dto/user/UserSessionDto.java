@@ -22,7 +22,6 @@ public class UserSessionDto implements Serializable {
     private String userStatus;
     private UserRoles userRoles;
 
-    //Entity -> Dto
     public UserSessionDto(DiaryUser diaryUser) {
         this.id = diaryUser.getId();
         this.userPwd = diaryUser.getUserPwd();

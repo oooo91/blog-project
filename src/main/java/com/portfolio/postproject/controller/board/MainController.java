@@ -23,7 +23,6 @@ public class MainController {
     private final MainBoardService mainBoardService;
     private final SortComponents sortComponents;
 
-    //메인 페이지 이동
     @RequestMapping("/board/main/{paramId}")
     public String boardMain(@PathVariable("paramId") String paramId,
                             Principal principal, Model model, HttpServletRequest request) {

@@ -55,7 +55,7 @@ public class WriteBoardService {
 	//저장
 	public long saveBoard(PostRequestDto postRequestDto) {
 		DiaryUser diaryUser = userRepository.findById(postRequestDto.getParamId())
-			.orElseThrow(() -> new PostException("작성자가 존재하지 않습니다.")); //작성자 찾기
+			.orElseThrow(() -> new PostException("작성자가 존재하지 않습니다."));
 
 		DiaryPost diaryPost = DiaryPost.builder()
 			.diaryUser(diaryUser)
@@ -64,6 +64,6 @@ public class WriteBoardService {
 			.postTitle(postRequestDto.getPostTitle())
 			.build();
 
-		return postRepository.save(diaryPost).getId(); //postId값 추출
+		return postRepository.save(diaryPost).getId();
 	}
 }

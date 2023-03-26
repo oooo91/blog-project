@@ -21,7 +21,6 @@ public class WriteController {
 	private final WriteBoardService writeBoardService;
 	private final CommentsService commentsService;
 
-	//디테일 페이지 이동
 	@GetMapping("/detail/{paramId}")
 	public String boardDetail(@PathVariable("paramId") String paramId,
 		Principal principal, Model model, HttpServletRequest request) {
@@ -36,7 +35,6 @@ public class WriteController {
 	}
 
 
-	//수정 페이지 이동
 	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/rewrite/{paramId}")
 	public String boardRewrite(@PathVariable("paramId") String paramId,
@@ -49,7 +47,6 @@ public class WriteController {
 	}
 
 
-	//작성 페이지 이동
 	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/write/{paramId}")
 	public String boardWrite(@PathVariable("paramId") String paramId, Principal principal,

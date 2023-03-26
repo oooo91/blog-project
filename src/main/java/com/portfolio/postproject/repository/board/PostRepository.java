@@ -38,5 +38,5 @@ public interface PostRepository extends JpaRepository<DiaryPost, Long> {
 
     //admin detail 페이지
     @Query("select dp from DiaryPost dp where dp.diaryUser.id = :userId")
-    List<DiaryPost> findByUserId(String userId);
+    List<DiaryPost> findByUserId(@Param("userId") String userId);
 }

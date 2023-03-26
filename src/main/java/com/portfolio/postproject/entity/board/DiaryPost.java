@@ -35,9 +35,9 @@ public class DiaryPost {
     private String postContent;
 
     @NotNull
-    private LocalDate postDate; //년,월,일만 필요
+    private LocalDate postDate;
 
     @OneToMany(mappedBy = "diaryPost", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<PostComments> numOfComments; //댓글수 조회
+    private List<PostComments> numOfComments;
 
 }

@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
-public class AdminMainResponseDto {
-	private String userId;
+public class AdminDetailStatusResponseDto {
 	private String nickName;
-	private String createdAt;
 	private String userStatus;
-	private String userRole;
-	private int totalPosts;
 }

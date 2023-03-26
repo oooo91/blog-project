@@ -48,7 +48,6 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
                 userNameAttributeName);
     }
 
-    //소셜 로그인 시 기존 회원이 존재하면 날짜 업데이트, 아니면 새로 저장
     private DiaryUser saveOrUpdate(OAuthAttributes attributes) {
         Optional<DiaryUser> user = userRepository.findById(attributes.getUserId());
 

@@ -23,7 +23,6 @@ public class OAuthAttributes {
     private String userName;
     private String userEmail;
 
-    //어떤 소셜인지, pk값, 유저의 속성
     public static OAuthAttributes of(String registrationId,
                                      String userNameAttributeName,
                                      Map<String, Object> attributes) {

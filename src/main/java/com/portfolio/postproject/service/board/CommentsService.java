@@ -8,7 +8,7 @@ import com.portfolio.postproject.dto.board.CommentsRequestDto;
 import com.portfolio.postproject.repository.board.PostRepository;
 import com.portfolio.postproject.repository.board.CommentsRepository;
 import com.portfolio.postproject.entity.user.DiaryUser;
-import com.portfolio.postproject.exception.user.NotFoundUserException;
+import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.user.UserRepository;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;

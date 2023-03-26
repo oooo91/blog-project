@@ -23,7 +23,6 @@ public class CalendarController {
     private final CalendarService calendarService;
     private final SortComponents sortComponents;
 
-    //캘린터 페이지
     @GetMapping("/board/calendar/{paramId}")
     public String boardCalendar(@PathVariable("paramId") String paramId,
                                 Principal principal, Model model, HttpServletRequest request,
@@ -47,9 +46,9 @@ public class CalendarController {
             model.addAttribute("totalCount", 0);
         }
 
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber()); //페이징 정보
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("comparison", paramId.equals(principal.getName())); //버튼 유무
+        model.addAttribute("comparison", paramId.equals(principal.getName()));
 
         return "/board/calendar";
     }

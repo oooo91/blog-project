@@ -55,7 +55,6 @@ public class SortComponents {
 			sortDto.setSortValue(Integer.parseInt(request.getParameter("sortValue")));
 		}
 
-		//문자열 조회
 		if (request.getParameter("searchText") == null || request.getParameter("searchText").trim()
 			.equals("")) {
 			sortDto.setSearchText("");

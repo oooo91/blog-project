@@ -39,7 +39,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() { //비번 확인
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider bean = new DaoAuthenticationProvider();
         bean.setHideUserNotFoundExceptions(false);
         bean.setUserDetailsService(loginService);
