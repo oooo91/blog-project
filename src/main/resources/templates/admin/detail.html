@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/admin/detail.css}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script>
+
+    $(function() {
+
+      $('.userStatus-active, .userStatus-withdraw').on('click', function(){
+        $('.status-detail').val($(this).val());
+
+        let obj = {
+          "userStatus" : $(this).val(),
+          "userId" : $("input[name='userId']").val()
+        };
+
+        $.ajax({
+          type: "put",
+          url: "/admin/update-userStatus",
+          headers: {'Content-Type': 'application/json'},
+          data : JSON.stringify(obj),
+          success : function (data){
+            window.location.reload();
+          },
+          error: function(data, status, error){
+            alert(data.responseText);
+          }
+        });
+      });
+
+      //삭제
+      $('.delete-btn').on('click', function(){
+        let postId = $(this).next().val();
+
+        if(confirm('삭제하시겠습니까?')) {
+          $.ajax({
+            type: "delete",
+            url: "/admin/delete-board",
+            data: 'postId=' + postId,
+            success: function (data) {
+              alert("삭제되었습니다");
+              window.location.reload();
+            },
+            error: function (data, status, error) {
+              alert(data.responseText);
+            }
+          });
+        }
+      });
+
+    });
+
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="container_background">
+
+      <div class="container_menu">
+        <div class="container_menu-title">
+          <h1>Diary</h1>
+          <h3>Administration</h3>
+        </div>
+      </div>
+
+      <div class="container_main">
+        <div class="container_main-user-status">
+
+          <div class="container_main-user-status-header">
+            <h2>상태 관리</h2>
+            <span>
+                <button class="btn">뒤로 가기</button>
+              </span>
+          </div>
+
+          <input type="hidden" th:value="${userId}" name="userId"/>
+
+          <div class="container_main-user-status-details">
+            <div class="container_main-user-status-details-name">
+              <span>이름</span>
+              <span>|</span>
+              <span th:text="${userDto.nickName}">이혜린</span>
+            </div>
+
+            <div class="container_main-user-status-details-status">
+              <span class="status">상태</span>
+              <span>|</span>
+              <input type="text" th:value="${userDto.userStatus}" class="status-detail" readonly/>
+              <div class="dropdown">
+                <button class="dropbtn btn">
+                  <span class="dropbtn_icon">상태 수정</span>
+                </button>
+                <div class="dropdown-content">
+                  <input type="text" readonly value="ACTIVE" class="userStatus-active"/>
+                  <input type="text" readonly value="WITHDRAW" class="userStatus-withdraw"/>
+                </div>
+              </div> <!--drophown-->
+            </div> <!--container_main-user-status-details-status-->
+          </div> <!--container_main-user-status-details-->
+        </div> <!--container_main-user-status-->
+
+
+        <div class="container_main-user-board">
+          <h2>글 관리</h2>
+          <div class="container_main-user-board-list">
+            <div class="container_main-user-board-list-title">
+              <span>제목</span>
+              <span id="content">내용</span>
+              <span>날짜</span>
+              <span></span>
+            </div>
+          </div> <!--list-->
+
+          <div th:if="${not #strings.isEmpty(boardList)}">
+            <th:block th:each="x : ${boardList}">
+              <div class="container_main-user-board-list"> <!--여기가 반복-->
+                <div class="container_main-user-board-list-content">
+                  <span th:text="${x.postTitle}"></span>
+                  <span th:text="${x.postContent}" id="content-detail"></span>
+                  <span th:text="${x.postDate}"></span>
+                  <span id="btn-span">
+                    <button class="btn delete-btn">삭제</button>
+                    <input type="hidden" th:value="${x.postId}"/>
+                  </span>
+                </div>
+              </div>
+            </th:block>
+          </div>
+
+        </div>
+
+      </div> <!--container-main-->
+    </div> <!--container_background-->
+  </div> <!--container-->
+</body>
+</html>

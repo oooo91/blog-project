@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/board/feed.css}" rel="stylesheet"/>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+
+
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="container_background">
+
+      <!--header -->
+      <div class="content_header">
+        <div class="logo cursor">
+          <a href="#" class="logo_a">
+            <span>Diary</span>
+          </a>
+        </div>
+
+        <div class="search-flex">
+          <div class="search_icon cursor">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="search-text">
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <span class="dropbtn_icon">My Menu</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Home</a>
+              <a href="#">로그아웃</a>
+            </div>
+          </div>
+          <div th:if="${comparison eq true}">
+            <a href="/admin/main">
+              <button class="adminbtn">Admin</button> <!--admin 페이지로 이동-->
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

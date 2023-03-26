@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/admin/main.css}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script>
+    $(function() {
+      $('.search-btn').on('click', function(){
+        let searchText = $("input[name='search-text']").val();
+        location.href = "/admin/main?searchText=" + searchText;
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="container_background">
+
+      <div class="container_menu">
+        <div class="container_menu-title">
+          <h1>Diary</h1>
+          <h3>Administration</h3>
+        </div>
+      </div>
+
+
+      <div class="container_main">
+        <div class="container_main-title">
+          <h1>회원 관리</h1>
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="      아이디 또는 이름을 입력하세요." name="search-text"/>
+          <input type="submit" value="조회" class="search-btn"/>
+        </div> <!--title-->
+
+        <div class="container_main-lists">
+          <div class="container_main-list">
+            <div class="container_main-list-title">
+              <span>회원 이름</span>
+              <span>가입 일자</span>
+              <span>회원 상태</span>
+              <span>ROLE</span>
+              <span>전체 작성수</span>
+            </div>
+          </div> <!--container_main-list-->
+
+          <div th:if="${not #strings.isEmpty(list)}">
+            <th:block th:each="x : ${list}">
+              <div class="container_main-list"> <!--여기가 반복-->
+                <div class="container_main-list-content">
+                  <input type="hidden" th:value="${x.userId}" name="userId"/>
+                  <span th:text="${x.nickName}"></span>
+                  <span th:text="${x.createdAt}"></span>
+                  <span th:text="${x.userStatus}"></span>
+                  <span th:text="${x.userRole}"></span>
+                  <span th:text="${x.totalPosts}"></span>
+                </div>
+                <div class="container_main-list-update">
+                  <a th:href="'/admin/detail?userId=' + ${x.userId}">
+                    <i class="fa-solid fa-pen"></i>
+                  </a>
+                </div>
+              </div> <!--container_main-list-->
+            </th:block>
+          </div>
+
+
+        </div> <!--container_main-lists-->
+      </div> <!--main-->
+
+    </div>
+  </div>
+</body>
+</html>

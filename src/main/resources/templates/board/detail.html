@@ -52,9 +52,8 @@
             });
 
             //댓글 수정
-            $('.first_save_btn').on('click', function(){
-
-                let obj={
+            $('.first_save_btn').on('click', function() {
+                let obj = {
                     "commentsId" :  $(this).next().val(),
                     "commentsDetail": $(this).closest(".comments_list").find("textarea").val()
                 };
