@@ -4,6 +4,7 @@ import com.portfolio.postproject.service.admin.AdminService;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class AdminController {
 
 	private final AdminService adminService;
 
-	//관리자 페이지 (권한 설정)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/main")
 	public String admin(Model model, HttpServletRequest request) {
 
@@ -25,7 +26,7 @@ public class AdminController {
 		return "/admin/main";
 	}
 
-	//관리자 디테일 페이지 이동 (권한 설정)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/detail")
 	public String adminDetail(HttpServletRequest request, Model model) {
 
