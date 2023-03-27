@@ -19,9 +19,9 @@ public class MainBoardService {
         List<DiaryPost> list;
 
         if (sortDto.getSortValue() == 0) {
-            list = postRepository.findByUserIdAndDateAscInMain(paramId, sortDto.getSearchText());
+            list = postRepository.findAllByUserIdAndDateAscInMain(paramId, sortDto.getSearchText());
         } else {
-            list =  postRepository.findByUserIdAndDateDescInMain(paramId, sortDto.getSearchText());
+            list =  postRepository.findAllByUserIdAndDateDescInMain(paramId, sortDto.getSearchText());
         }
         return BoardResponseDto.of(list);
     }

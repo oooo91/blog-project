@@ -20,6 +20,7 @@ public class BoardResponseDto {
     private long postId;
     private String postTitle;
     private String postContent;
+    private String icon;
     private LocalDate postDate;
     private int year;
     private String month;
@@ -32,6 +33,7 @@ public class BoardResponseDto {
                 .postId(post.getId())
                 .postTitle(post.getPostTitle())
                 .postContent(post.getPostContent())
+                .icon(post.getIcon())
                 .postDate(post.getPostDate())
                 .year(post.getPostDate().getYear())
                 .month(String.format("%02d", post.getPostDate().getMonthValue()))

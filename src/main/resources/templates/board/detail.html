@@ -15,6 +15,25 @@
             let paramId = $("input[name='paramId']").val();
             let postId = $("input[name='postId']").val();
 
+            //날씨 아이콘
+            $(document).ready(function(){
+                let weatherIcon = {
+                    '01' : 'fas fa-sun weather-icon-i',
+                    '02' : 'fas fa-cloud-sun weather-icon-i',
+                    '03' : 'fas fa-cloud weather-icon-i',
+                    '04' : 'fas fa-cloud-meatball weather-icon-i',
+                    '09' : 'fas fa-cloud-sun-rain weather-icon-i',
+                    '10' : 'fas fa-cloud-showers-heavy weather-icon-i',
+                    '11' : 'fas fa-poo-storm weather-icon-i',
+                    '13' : 'far fa-snowflake weather-icon-i',
+                    '50' : 'fas fa-smog weather-icon-i'
+                };
+
+                let icon =  $("input[name='icon']").val().substring(0,2);
+                $('.weather-icon').append('<i class="' + weatherIcon[icon] + '"></i>');
+            });
+
+
             //x버튼 시 뒤로 가기
             $('.fa-x').on('click', function() {
                 location.href="/board/main/" + paramId;
@@ -125,6 +144,8 @@
         <input type="hidden" th:value="${paramId}" name="paramId"/>
         <!--postId-->
         <input type="hidden" th:value="${boardResponseDto.postId}" name="postId"/>
+        <!--icon-->
+        <input type="hidden" th:value="${boardResponseDto.icon}" name="icon"/>
 
         <div class="write_form_header">
 
@@ -148,6 +169,9 @@
 
             <div class="write_form_header_second">
                 <input readonly th:value="${boardResponseDto.year}+년+' '+${boardResponseDto.month}+월+' '+${boardResponseDto.day}+일" type="text" id="date" size="10" class="write_form_header_second_text" />
+                <div class="weather-icon">
+                    <!--<i class="fa-solid fa-sun"></i>-->
+                </div>
             </div>
         </div> <!--header-->
 

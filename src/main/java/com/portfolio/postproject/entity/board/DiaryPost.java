@@ -28,14 +28,10 @@ public class DiaryPost {
     @JoinColumn(name = "user_id")
     private DiaryUser diaryUser;
 
-    @NotBlank
     private String postTitle;
-
-    @NotBlank
     private String postContent;
-
-    @NotNull
     private LocalDate postDate;
+    private String icon;
 
     @OneToMany(mappedBy = "diaryPost", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<PostComments> numOfComments;

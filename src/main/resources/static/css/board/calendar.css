@@ -43,12 +43,10 @@ html, body {
 }
 .write_form_header_second {
     margin-top: 15px;
-    box-shadow: 0 4px 4px -7px #222;
 }
 .write_form_header_second_text {
     border: none;
     width: 130px;
-    padding: 10px;
     padding-left: 0px;
     background-color: #9aafe6;
     color: #222;
