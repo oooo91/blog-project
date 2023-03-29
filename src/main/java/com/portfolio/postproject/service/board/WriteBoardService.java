@@ -1,6 +1,7 @@
 package com.portfolio.postproject.service.board;
 
 import com.portfolio.postproject.dto.board.BoardResponseDto;
+import com.portfolio.postproject.dto.board.ThumbnailResponseDto;
 import com.portfolio.postproject.entity.board.DiaryPost;
 import com.portfolio.postproject.exception.board.PostException;
 import com.portfolio.postproject.dto.board.PostRequestDto;
@@ -8,6 +9,7 @@ import com.portfolio.postproject.repository.board.PostRepository;
 import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.repository.board.WeatherRepository;
 import com.portfolio.postproject.repository.user.UserRepository;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -25,6 +28,7 @@ public class WriteBoardService {
 	private final PostRepository postRepository;
 	private final UserRepository userRepository;
 	private final WeatherRepository weatherRepository;
+	private final ThumbnailService thumbnailService;
 
 	//디테일 페이지
 	public BoardResponseDto getDetail(HttpServletRequest request) {
@@ -62,7 +66,8 @@ public class WriteBoardService {
 	}
 
 	//저장
-	public long saveBoard(PostRequestDto postRequestDto) {
+	public long saveBoard(PostRequestDto postRequestDto, MultipartFile multipartFile)
+		throws IOException {
 		DiaryUser diaryUser = userRepository.findById(postRequestDto.getParamId())
 			.orElseThrow(() -> new PostException("작성자가 존재하지 않습니다."));
 		LocalDate date = LocalDate.parse(postRequestDto.getPostDate(), DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
@@ -76,6 +81,12 @@ public class WriteBoardService {
 
 		if (weatherRepository.existsById(date)) {
 			diaryPost.setIcon(weatherRepository.findIconByDate(date));
+		}
+
+		if (multipartFile != null) {
+			ThumbnailResponseDto thumbnailResponseDto = thumbnailService.uploadImage(multipartFile);
+			diaryPost.setThumbnail(thumbnailResponseDto.getThumbnail());
+			diaryPost.setThumbnailName(thumbnailResponseDto.getThumbnailName());
 		}
 
 		return postRepository.save(diaryPost).getId();

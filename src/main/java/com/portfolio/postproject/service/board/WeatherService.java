@@ -29,7 +29,7 @@ public class WeatherService {
 
 
 	@Transactional
-	@Scheduled(cron = "0/5 * * * * *") 	//@Scheduled(cron = "0 0 0 * * *") //매 12시
+	@Scheduled(cron = "0 0 0 * * *") //매 12시 @Scheduled(cron = "0/5 * * * * *")
 	public void saveWeatherDate() {
 		weatherRepository.save(getWeatherFormApi());
 	}

@@ -3,16 +3,13 @@ package com.portfolio.postproject.service.board;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.portfolio.postproject.dto.board.ImageResponseDto;
+import com.portfolio.postproject.dto.board.ThumbnailRequestDto;
+import com.portfolio.postproject.dto.board.ThumbnailResponseDto;
 import com.portfolio.postproject.entity.board.DiaryPost;
-import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.exception.board.PostException;
-import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.board.PostRepository;
-import com.portfolio.postproject.repository.user.UserRepository;
 import java.io.IOException;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,17 +28,31 @@ public class ThumbnailService {
 	private final AmazonS3 amazonS3;
 	private final PostRepository postRepository;
 
+	@Transactional
+	public void updateImage(String postId, MultipartFile multipartFile) throws IOException {
+
+		DiaryPost diaryPost = postRepository.findById(Long.valueOf(postId))
+			.orElseThrow(() -> new PostException("존재하지 않는 게시글입니다."));
+
+		if (multipartFile != null) {
+			ThumbnailResponseDto thumbnailResponseDto = uploadImage(multipartFile);
+			diaryPost.setThumbnail(thumbnailResponseDto.getThumbnail());
+			diaryPost.setThumbnailName(thumbnailResponseDto.getThumbnailName());
+		}
+	}
+
 
 	@Transactional
-	public ImageResponseDto uploadImage(String postId, MultipartFile multipartFile)
-		throws IOException {
+	public void deleteImage(ThumbnailRequestDto thumbnailRequestDto) {
+		DiaryPost diaryPost = postRepository.findById(Long.valueOf(thumbnailRequestDto.getPostId()))
+			.orElseThrow(() -> new PostException("존재하지 않는 게시글입니다."));
+		diaryPost.setThumbnail(null);
 
-		if (multipartFile == null) {
-			return ImageResponseDto.builder()
-				.fileName(null)
-				.url(null)
-				.build();
-		}
+		amazonS3.deleteObject(new DeleteObjectRequest(bucket, diaryPost.getThumbnailName()));
+	}
+
+
+	public ThumbnailResponseDto uploadImage(MultipartFile multipartFile) throws IOException {
 
 		String fileName = multipartFile.getOriginalFilename();
 		String s3FileName = UUID.randomUUID() + "-" + fileName;
@@ -71,24 +82,9 @@ public class ThumbnailService {
 		amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
 		multipartFile.getInputStream().close();
 
-		String url = amazonS3.getUrl(bucket, s3FileName).toString();
-		DiaryPost diaryPost = postRepository.findById(Long.valueOf(postId))
-			.orElseThrow(() -> new PostException("존재하지 않는 게시글입니다."));
-		diaryPost.setThumbnail(url);
-
-		return ImageResponseDto.builder()
-			.fileName(s3FileName)
-			.url(url)
+		return ThumbnailResponseDto.builder()
+			.thumbnail(amazonS3.getUrl(bucket, s3FileName).toString()) //url
+			.thumbnailName(s3FileName)
 			.build();
 	}
-
-	@Transactional
-	public void deleteImage(String postId, String s3FileName) {
-		DiaryPost diaryPost = postRepository.findById(Long.valueOf(postId))
-			.orElseThrow(() -> new PostException("존재하지 않는 게시글입니다."));
-		diaryPost.setThumbnail(null);
-
-		amazonS3.deleteObject(new DeleteObjectRequest(bucket, s3FileName));
-	}
-
 }

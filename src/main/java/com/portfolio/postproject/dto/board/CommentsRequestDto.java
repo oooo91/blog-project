@@ -1,15 +1,8 @@
 package com.portfolio.postproject.dto.board;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 public class CommentsRequestDto {
 

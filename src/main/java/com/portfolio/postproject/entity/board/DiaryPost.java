@@ -33,6 +33,7 @@ public class DiaryPost {
     private LocalDate postDate;
     private String icon;
     private String thumbnail;
+    private String thumbnailName;
 
     @OneToMany(mappedBy = "diaryPost", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<PostComments> numOfComments;

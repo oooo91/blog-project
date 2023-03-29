@@ -2,15 +2,15 @@ package com.portfolio.postproject.dto.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ImageResponseDto {
+@NoArgsConstructor
+@Builder
+@Getter
+public class ThumbnailResponseDto {
 
-	private String fileName;
-	private String url;
+	String thumbnailName;
+	String thumbnail;
 }
