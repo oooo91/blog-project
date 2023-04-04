@@ -2,7 +2,7 @@
 **🎇 게시판 기능을 바탕으로 한 일기형 블로그**  
 #
 
-### 📜 요구사항 정의서 및 개발 진도
+### 📜 요구사항 정의서 및 개발 진행률
 * [**post-project(notion)**](https://www.notion.so/4d28f5332b1f4a458f88086937abfb9f)
 #
 
@@ -99,3 +99,10 @@
 #
 
 ### ☄️ 회고 및 트러블 슈팅
+
+**1. Property or field 'name' cannot be found on object of type 'org.springframework.security.core.userdetails.User'**
+- UserDetails를 implements한 CustomUser를 구현하여 이를 해결
+
+**2. Authenticated=true, Details=WebAuthenticationDetail [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null]**
+- log.info(authentication.getPrincipal()); 위처럼 로그를 찍었더니 SessionId가 null이 뜨는 문제 발생
+- .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS); 세션 정책 설정하여 해결
