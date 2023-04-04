@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/reset.css}" rel="stylesheet" />
     <link th:href="@{/css/board/write.css}" rel="stylesheet"/>
+    <link th:href="@{/css/board/modal.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <title>Document</title>
     <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
@@ -15,6 +16,81 @@
             $('.fa-x').on('click', function() {
                 window.history.back();
             });
+
+
+            // 파일 업로드
+            let form = "";
+            let formData = "";
+            $('#upload-file-input').on('click', function(){
+
+                $('#upload-file-input').on('change', function(){
+                    $('.img-text').val(this.files[0].name);
+                    form = $('#updateImgForm')[0];
+                    formData = new FormData(form);
+                    formData.append("img", this.files[0]);
+                });
+            });
+
+
+            //초기화
+            $('#reset-btn').on('click', function(){
+                $('.img-text').val("");
+                formData.delete("img");
+            });
+
+
+            //사진 수정하기
+            $('.image-update-btn').on('click', function(){
+
+                let obj={
+                    "paramId" : $("input[name='paramId']").val(),
+                    "postId" : $("input[name='postId']").val()
+                };
+                formData.append("data", new Blob([JSON.stringify(obj)], {type: "application/json"}));
+
+                if (confirm('수정하시겠습니까?')) {
+
+                    $.ajax({
+                        type: "put",
+                        url : "/board/image/update",
+                        processData: false,
+                        contentType: false,
+                        data : formData,
+                        success : function (data){
+                            alert("수정되었습니다");
+                        },
+                        error: function(data, status, error){
+                            alert(data.responseText);
+                        }
+                    });
+                }
+            });
+
+            //사진 삭제하기
+            $('.image-delete-btn').on('click', function(){
+
+                let obj={
+                    "paramId" : $("input[name='paramId']").val(),
+                    "postId" : $("input[name='postId']").val()
+                };
+
+                if (confirm('기존 썸네일을 삭제하시겠습니까?')) {
+
+                    $.ajax({
+                        type: "delete",
+                        url : "/board/image/delete",
+                        headers: {'Content-Type': 'application/json'},
+                        data : JSON.stringify(obj),
+                        success : function (data){
+                            alert("삭제되었습니다");
+                        },
+                        error: function(data, status, error){
+                            alert(data.responseText);
+                        }
+                    });
+                }
+            });
+
 
             //수정하기
             $('.write_form_header_save').on('click', function() {
@@ -87,7 +163,34 @@
             <textarea th:text="${boardResponseDto.postContent}" placeholder="내용을 입력해 주세요" onkeydown="resize(this)" onkeyup="resize(this)" class="write_form_main_content"></textarea>
         </div>
 
+        <div class="content_thumbnail cursor" id="add-btn">
+            <i class="fa-solid fa-image cursor"></i>
+        </div> <!--footer-->
 
+        <!-- 모달 -->
+        <div class="modal" id="modal">
+            <div class="modal_body">
+                <div class="m_head">
+                    <div class="modal_title">Update thumbnail</div>
+                    <div class="close_btn">X</div>
+                </div>
+                <form enctype="multipart/form-data" id="updateImgForm">
+                    <div class="m_body">
+                        <input th:value="${boardResponseDto.thumbnailName}" type="text" name="extra" class="img-text">
+                        <label for="upload-file-input">
+                            <div class="modal_btn save cursor">파일 선택</div>
+                        </label>
+                        <input id="upload-file-input" class="modal_btn save" value="" type="file" name="multipartFile"/>
+                    </div>
+                </form>
+                <div class="m_footer">
+                    <div class="modal_btn delete image-delete-btn">기존 썸네일 삭제</div>
+                    <div class="modal_btn cancel" id="reset-btn">초기화</div>
+                    <div class="modal_btn save close_btn image-update-btn">저장</div>
+                </div>
+            </div>
+        </div>
+        <!-- 모달 -->
     </div>
 </div>
 
@@ -106,6 +209,16 @@
         obj.style.height = '1px';
         obj.style.height = (12 + obj.scrollHeight) + 'px';
     }
+
+    // click on 라벨 추가 모달 열기
+    $(document).on('click', '#add-btn', function (e) {
+        $('#modal').addClass('show');
+    });
+
+    // 모달 닫기
+    $(document).on('click', '.close_btn', function (e) {
+        $('#modal').removeClass('show');
+    });
 </script>
 </body>
 </html>

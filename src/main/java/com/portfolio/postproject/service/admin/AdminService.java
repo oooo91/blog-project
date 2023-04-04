@@ -74,7 +74,7 @@ public class AdminService {
 	}
 
 	public List<AdminDetailBoardResponseDto> getUserBoardList(HttpServletRequest request) {
-		return AdminDetailBoardResponseDto.of(postRepository.findByUserId(request.getParameter("userId")));
+		return AdminDetailBoardResponseDto.of(postRepository.findAllByUserId(request.getParameter("userId")));
 	}
 
 	@Transactional

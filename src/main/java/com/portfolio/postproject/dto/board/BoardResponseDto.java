@@ -20,11 +20,13 @@ public class BoardResponseDto {
     private long postId;
     private String postTitle;
     private String postContent;
-    private LocalDate postDate;
-    private int year;
+    private String icon;
     private String month;
     private String day;
+    private String thumbnailName;
+    private int year;
     private int numOfComments;
+    private LocalDate postDate;
 
     public static BoardResponseDto of(DiaryPost post) {
 
@@ -32,6 +34,8 @@ public class BoardResponseDto {
                 .postId(post.getId())
                 .postTitle(post.getPostTitle())
                 .postContent(post.getPostContent())
+                .icon(post.getIcon())
+                .thumbnailName(post.getThumbnailName())
                 .postDate(post.getPostDate())
                 .year(post.getPostDate().getYear())
                 .month(String.format("%02d", post.getPostDate().getMonthValue()))

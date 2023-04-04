@@ -27,10 +27,10 @@ public class CalendarService {
 		LocalDate endDate = LocalDate.parse(sortDto.getSearchEndDate(), formatter);
 
 		if (sortDto.getSortValue() == 0) {
-			page = postRepository.findByUserIdAndDateAscInCalendar(paramId, startDate,
+			page = postRepository.findAllByUserIdAndDateAscInCalendar(paramId, startDate,
 				endDate, sortDto.getSearchText(), pageable);
 		} else {
-			page = postRepository.findByUserIdAndDateDescInCalendar(paramId, startDate,
+			page = postRepository.findAllByUserIdAndDateDescInCalendar(paramId, startDate,
 				endDate, sortDto.getSearchText(), pageable);
 		}
 		return BoardResponseDto.of(page);

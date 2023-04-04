@@ -144,3 +144,21 @@ textarea::placeholder {
     border: none !important;
     background: white !important;
 }
+
+/*썸네일*/
+.content_thumbnail {
+    position: fixed;
+    right: 35px;
+    bottom: 35px;
+    height: 30px;
+    width: 30px;
+    padding: 20px;
+    padding-top: 22px;
+    border-radius: 50%;
+    background-color: #063e99;
+    text-align: center;
+    color: white;
+}
+.fa-image {
+    font-size: 25px;
+}
