@@ -3,7 +3,7 @@
 #
 
 ### 📜 요구사항 정의서 및 개발 진행률
-* [**post-project(notion)**](https://www.notion.so/4d28f5332b1f4a458f88086937abfb9f)
+* [**post-project(notion)**](https://receptive-platinum-aea.notion.site/4d28f5332b1f4a458f88086937abfb9f)
 #
 
 
