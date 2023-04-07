@@ -8,10 +8,9 @@ import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.board.PostRepository;
 import com.portfolio.postproject.repository.user.UserRepository;
 import java.security.Principal;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -30,7 +29,7 @@ public class FeedService {
 		return diaryUser.getUserRoles().toString().equals(UserRoles.ADMIN.toString());
 	}
 
-	public Page<FeedResponseDto> getFeedInfo(SortDto sortDto, Pageable pageable) {
-		return postRepository.findAllFeedResponseDto(pageable, sortDto.getSearchText());
+	public List<FeedResponseDto> getFeedInfo(SortDto sortDto) {
+		return postRepository.findAllFeedResponseDto(sortDto.getSearchText());
 	}
 }

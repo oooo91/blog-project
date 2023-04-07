@@ -70,6 +70,6 @@ public interface PostRepository extends JpaRepository<DiaryPost, Long> {
     //feed
     @Query("select new com.portfolio.postproject.dto.board.FeedResponseDto(dp.thumbnail, dp.postTitle, dp.postContent, dp.postDate, "
         + "du.id, du.profile, (select count(*) from PostComments pc where dp.id = pc.diaryPost.id)) "
-        + "from DiaryPost dp join fetch DiaryUser du on dp.diaryUser.id = du.id where dp.postContent or dp.postTitle like %:text%")
-    Page<FeedResponseDto> findAllFeedResponseDto(Pageable pageable, String text);
+        + "from DiaryPost dp join fetch DiaryUser du on dp.diaryUser.id = du.id where dp.postContent like %:text% or dp.postTitle like %:text%")
+    List<FeedResponseDto> findAllFeedResponseDto(String text);
 }
