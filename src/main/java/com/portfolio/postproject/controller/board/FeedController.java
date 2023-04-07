@@ -33,10 +33,12 @@ public class FeedController {
 		model.addAttribute("paramId", principal.getName());
 		model.addAttribute("comparison", feedService.checkAdmin(principal));
 
-		model.addAttribute("list", page);
-		model.addAttribute("hasNext", page.hasNext());
-		model.addAttribute("hasPrev", page.hasPrevious());
-		model.addAttribute("totalCount", page.getTotalElements());
+		if (page != null) {
+			model.addAttribute("list", page);
+			model.addAttribute("hasNext", page.hasNext());
+			model.addAttribute("hasPrev", page.hasPrevious());
+		}
+
 		model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
 		model.addAttribute("next", pageable.next().getPageNumber());
 
