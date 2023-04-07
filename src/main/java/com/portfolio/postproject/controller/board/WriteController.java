@@ -52,7 +52,6 @@ public class WriteController {
 	public String boardWrite(@PathVariable("paramId") String paramId, Principal principal,
 		Model model) {
 
-		//여기에 날씨 정보 넣어야함
 		model.addAttribute("paramId", paramId);
 		return "/board/write";
 	}

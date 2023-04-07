@@ -1,6 +1,5 @@
 package com.portfolio.postproject.dto.user;
 
-import com.portfolio.postproject.entity.user.DiaryUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +13,13 @@ public class MyPageResponseDto {
 
     private String userName;
     private String userEmail;
+    private long totalCount;
+    private long mondayCount;
+    private long tuesdayCount;
+    private long wednesdayCount;
+    private long thursdayCount;
+    private long fridayCount;
+    private long saturdayCount;
+    private long sundayCount;
 
-    public static MyPageResponseDto of(DiaryUser diaryUser) {
-        return MyPageResponseDto.builder()
-                .userName(diaryUser.getNickname())
-                .userEmail(diaryUser.getUserEmail())
-                .build();
-    }
 }

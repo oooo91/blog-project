@@ -1,143 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <link th:href="@{/css/reset.css}" rel="stylesheet" />
-    <link th:href="@{/css/user/myPage.css}" rel="stylesheet"/>
-    <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/user/myPage.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  </script>
 </head>
 <body>
 <div class="container">
-    <div class="container_background">
+  <div class="container_background">
 
-        <div class="write_form_header">
+    <input type="hidden" th:value="${paramId}" name="paramId"/>
 
-            <div class="write_form_header_first">
-                <div class="write_form_header_icon cursor">
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </div>
-                <span class="write_form_header_save">사용자</span>
+    <div class="write_form_header">
+      <div class="write_form_header_first">
+        <div class="write_form_header_icon cursor">
+          <i class="fa-solid fa-arrow-left-long"></i>
+        </div>
+        <span class="write_form_header_save">사용자</span>
+      </div>
+    </div> <!--header-->
+
+    <div class="content_main">
+
+      <div class="content_main_user">
+        <div class="content_main_user-detail cursor">
+
+          <div class="content_main_user-detail-info">
+            <span th:text="${myPageResponseDto.userName}" class="content_main_user-detail-info-name"></span>
+            <a href="/user/myPage-detail/" + th:value="${paramId}">
+              <div class="content_main_user-detail-info-changed">
+                <i class="fa-solid fa-user-pen"></i>
+              </div>
+            </a>
+          </div>
+
+          <div class="content_main_user-detail-box">
+            <div class="content_main_user-detail-info-id">
+              email
+            </div>
+            <div class="content_main_user-detail-info-email">
+              <span th:text="${myPageResponseDto.userEmail}"></span>
+            </div>
+          </div>
+
+        </div> <!--content_main_diary-detail-->
+      </div> <!--content_main_diary-->
+    </div> <!--content_main-->
+  </div> <!--background-->
+
+
+  <div class="content_main-second">
+
+    <div class="content_main_user-second">
+      <div class="content_main_user-detail-second cursor-second">
+
+        <div class="content_main_user-detail-info-second">
+            <span th:text="${myPageResponseDto.totalCount}" class="content_main_user-detail-info-name-second"></span>
+          <div class="content_main_user-detail-info-changed-second">
+            전체
+          </div>
+        </div>
+
+        <div class="content_main_user-detail-box-second">
+
+          <div class="content_main_user-detail-info-id-second">
+            <div class="one">일기 통계</div>
+            <div class="twice">최근 일주일</div>
+          </div>
+          <div class="content_main_user-detail-info-email-second">
+
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.sundayCount}"></span>
+              </div>
+              <div class="diary_text_sun">일</div>
             </div>
 
-        </div> <!--header-->
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.mondayCount}"></span>
+              </div>
+              <div class="diary_text_sun">월</div>
+            </div>
 
-        <div class="content_main"> <!--main-->
-            <!--동적 처리-->
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.tuesdayCount}"></span>
+              </div>
+              <div class="diary_text_sun">화</div>
+            </div>
 
-            <div class="content_main_user">
-                <!--동적 처리-->
-                <div class="content_main_user-detail cursor">
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.wednesdayCount}"></span>
+              </div>
+              <div class="diary_text_sun">수</div>
+            </div>
 
-                    <div class="content_main_user-detail-info">
-                      <span th:text="${myPageInfo.userName}" class="content_main_user-detail-info-name">
-                        user_name
-                      </span>
-                        <div class="content_main_user-detail-info-changed">
-                            <a href="/user/password-checker">
-                                <i class="fa-solid fa-user-pen"></i>
-                            </a>
-                        </div>
-                    </div>
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.thursdayCount}"></span>
+              </div>
+              <div class="diary_text_sun">목</div>
+            </div>
 
-                    <div class="content_main_user-detail-box">
-                        <div class="content_main_user-detail-info-id">
-                            Email
-                        </div>
-                        <div th:text="${myPageInfo.userEmail}" class="content_main_user-detail-info-email">
-                            email@email
-                        </div>
-                    </div>
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.fridayCount}"></span>
+              </div>
+              <div class="diary_text_sun">금</div>
+            </div>
 
-                </div> <!--content_main_diary-detail-->
+            <div class="diary_date_sun">
+              <div class="diary_count_sun">
+                <span th:text="${myPageResponseDto.saturdayCount}"></span>
+              </div>
+              <div class="diary_text_sun">토</div>
+            </div>
 
-            </div> <!--content_main_diary-->
+          </div> <!--email-second-->
+        </div>
 
-        </div> <!--content_main-->
+        <div class="bye">
+          <span>탈퇴하기</span>
+        </div>
 
-
-    </div> <!--background-->
-
-
-    <div class="content_main-second">
-        <!--동적 처리-->
-
-        <div class="content_main_user-second">
-            <!--동적 처리-->
-            <div class="content_main_user-detail-second cursor-second">
-
-                <div class="content_main_user-detail-info-second">
-                    <span class="content_main_user-detail-info-name-second">
-                      <!--총 일기 수-->
-                      5
-                    </span>
-                    <div class="content_main_user-detail-info-changed-second">
-                        전체
-                    </div>
-                </div>
-
-                <div class="content_main_user-detail-box-second">
-
-                    <div class="content_main_user-detail-info-id-second">
-                        <div class="one">일기 통계</div>
-                        <div class="twice">최근 일주일</div>
-                    </div>
-                    <div class="content_main_user-detail-info-email-second">
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">일</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">일</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">월</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">화</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">수</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">목</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">금</div>
-                        </div>
-
-                        <div class="diary_date_sun">
-                            <div class="diary_count_sun">0</div>
-                            <div class="diary_text_sun">토</div>
-                        </div>
-
-                    </div> <!--email-second-->
-
-                </div>
-
-
-                <div class="bye">
-                    <span>탈퇴하기</span>
-                </div>
-
-            </div> <!--content_main_diary-detail-->
-
-        </div> <!--content_main_diary-->
-
-    </div> <!--content_main-->
+      </div> <!--content_main_diary-detail-->
+    </div> <!--content_main_diary-->
+  </div> <!--content_main-->
 </div>
 
 </body>

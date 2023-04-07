@@ -5,6 +5,9 @@ html, body {
 .cursor {
     cursor: pointer;
 }
+a {
+    color: #222;
+}
 .container_background {
     padding: 0px 40px;
     background-color: #9aafe6;

@@ -1,11 +1,11 @@
 package com.portfolio.postproject.dto.user;
 
-import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Getter;
 
-@Data
+@Getter
 public class JoinRequestDto {
 
     @Size(min = 5, message = "아이디는 최소 5자 이상 입력해야 합니다.")

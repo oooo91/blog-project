@@ -1,0 +1,42 @@
+.profile-user-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 70%;
+  overflow: hidden;
+  border: 1px solid rgb(241, 241, 241);
+}
+.profile-user-img-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.join_form_main-profile {
+  margin-bottom: 30px;
+}
+.join_form_main-profile-title {
+  color: #fffafd;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  width: 80%;
+  font-size: 18px;
+}
+.img_btn {
+  width: 90px;
+  height: 30px;
+  text-align: center;
+  font-size: 12px;
+  padding: 0px;
+  line-height: 30px;
+  margin-top: 10px;
+}
+.container_background {
+  margin-top: 5%;
+}
+input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link th:href="@{/css/reset.css}" rel="stylesheet" />
+  <link th:href="@{/css/user/join.css}" rel="stylesheet" />
+  <link th:href="@{/css/user/myPage-detail.css}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="container_background">
+
+    <div class="join_form">
+      <div class="join_form_title">
+        <span class="join_form_title_detail">회원 정보 수정</span>
+      </div>
+      <div class="join_form_main">
+
+        <div class="join_form_main-profile">
+          <div class="join_form_main-profile-title">
+            profile
+          </div>
+          <form enctype="multipart/form-data" id="updateImgForm">
+            <div class="profile-user-img">
+              <img th:src="${myPageDetailResponseDto.profile}" class="profile-user-img-img" id="preview-image">
+            </div>
+            <input type="button" value="프로필 수정" class="join_form_btn img_btn">
+          </form>
+        </div>
+
+        <div class="join_form_main-userName">
+          <div class="join_form_main-userName-title">
+            User name
+          </div>
+          <input th:value="${myPageDetailResponseDto.userName}" type="text" class="join_form_main-userName-text" placeholder="이름을 입력하세요">
+        </div> <!--userName-->
+
+        <div class="join_form_main-userId">
+          <div class="join_form_main-userId-title">
+            Id
+          </div>
+          <input th:value="${myPageDetailResponseDto.userId}" type="text" class="join_form_main-userId-text" readonly>
+        </div>
+
+        <div class="join_form_main-userPwd">
+          <div class="join_form_main-userPwd-title">
+            Password
+          </div>
+          <input type="password" class="join_form_main-userPwd-text" placeholder="비밀번호를 입력하세요">
+        </div>
+
+        <div class="join_form_main-userPwd">
+          <div class="join_form_main-userPwd-title">
+            New Password
+          </div>
+          <input type="password" class="join_form_main-userPwd-text" placeholder="비밀번호를 입력하세요">
+        </div>
+
+        <div class="join_form_main-userPwd">
+          <div class="join_form_main-userPwd-title">
+            Password-check
+          </div>
+          <input type="password" class="join_form_main-userPwd-text-recheck" placeholder="새 비밀번호를 입력하세요">
+        </div>
+
+        <div class="join_form_main-userEmail">
+          <div class="join_form_main-userEmail-title">
+            Email
+          </div>
+          <input th:value="${myPageDetailResponseDto.userEmail}" type="email" class="join_form_main-userEmail-text" readonly>
+        </div>
+
+      </div> <!--main-->
+
+      <div class="join_form_btnBox">
+        <input type="button" value="수정" class="join_form_btn"/>
+        <input type="button" value="취소" class="join_form_btn"/>
+      </div>
+
+
+    </div> <!--join_form-->
+  </div>
+</div>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+  $('#upload-file-input').on('click', function(){
+
+    $('#upload-file-input').on('change', function(){
+      console.log(this.files[0]);
+      console.log(this.files[0].name);
+
+      if (this.files && this.files[0]) { // 이미지 파일인지 검사 (생략)
+
+        const reader = new FileReader() // FileReader 인스턴스 생성
+        reader.onload = e => {
+          const previewImage = document.getElementById("preview-image") // 이미지가 로드가 된 경우
+          previewImage.src = e.target.result
+        }
+        reader.readAsDataURL(this.files[0]) // reader가 이미지 읽도록 하기
+      }
+    });
+  });
+
+</script>
+</body>
+</html>

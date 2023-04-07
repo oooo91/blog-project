@@ -53,6 +53,7 @@ public class JoinService {
                 .createdAt(LocalDateTime.now())
                 .userRoles(UserRoles.USER)
                 .socialType("none")
+                .profile("https://ifh.cc/g/6w0ZP7.jpg") //기본 프로필 사진
                 .emailAuthKey(uuid)
                 .emailAuthYn(false)
                 .userStatus(UserStatus.STATUS_READY.getUserStatus())

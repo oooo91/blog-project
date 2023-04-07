@@ -64,4 +64,14 @@ public class SortComponents {
 
 		return sortDto;
 	}
+
+	public SortDto feedOf(HttpServletRequest request) {
+		if (request.getParameter("searchText") == null || request.getParameter("searchText").trim()
+			.equals("")) {
+			sortDto.setSearchText("");
+		} else {
+			sortDto.setSearchText(request.getParameter("searchText").trim());
+		}
+		return sortDto;
+	}
 }
