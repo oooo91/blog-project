@@ -9,8 +9,16 @@
   <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
+    $(function() {
+      $('.reload-feed').on('click', function(){
+        location.href = "/board/feed";
+      });
 
-
+      $('.fa-magnifying-glass_second').on('click', function(){
+        let searchText = $("input[name='search-text']").val();
+        location.href = "/board/feed?searchText=" + searchText;
+      });
+    });
   </script>
 </head>
 <body>
@@ -20,23 +28,22 @@
       <!--header -->
       <div class="content_header">
         <div class="logo cursor">
-          <a href="#" class="logo_a">
-            <span>Diary</span>
-          </a>
+          <span class="reload-feed logo_a">Diary</span>
         </div>
 
         <div class="search-flex">
           <div class="search_icon cursor">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="search-text">
+            <input type="text" class="search-text" name="search-text">
+            <i class="fa-solid fa-magnifying-glass fa-magnifying-glass_second"></i>
           </div>
           <div class="dropdown">
             <button class="dropbtn">
               <span class="dropbtn_icon">My Menu</span>
             </button>
             <div class="dropdown-content">
-              <a href="#">Home</a>
-              <a href="#">로그아웃</a>
+              <a th:href="'/board/main/' + ${paramId}">Home</a>
+              <a href="/user/logout">로그아웃</a>
             </div>
           </div>
           <div th:if="${comparison eq true}">
@@ -46,6 +53,46 @@
           </div>
         </div>
       </div>
+
+      <div class="content_main">
+
+        <!--content-item을 반복적으로 돌리기-->
+        <div th:if="${not #strings.isEmpty(list)}" class="content_flex">
+          <th:block th:each="x : ${list}">
+            <div class="content-item">
+              <a class="content-item_a" th:href="'/board/detail/' + ${x.userId} + '?postId=' + ${x.postId}">
+                <div class="content-item_img">
+                  <img th:src="${x.thumbnail}">
+                </div>
+              </a>
+
+              <div class="content-text">
+                <a class="content-text_a" th:href="'http://localhost:8080/board/detail/' + ${x.userId} + '?postId=' + ${x.postId}">
+                  <h4 th:text="${x.postTitle}"></h4>
+                  <div class="content_detail">
+                    <p th:text="${x.postContent}"></p>
+                  </div>
+                </a>
+                <div class="content-day">
+                  <span th:text="${x.postDate}"></span>
+                  <span class="separator">·</span>
+                  <span th:text="${x.numOfComments} +'개의 댓글'"></span>
+                </div>
+              </div>
+
+              <div class="content-profile">
+                <a class="userinfo" th:href="'http://localhost:8080/user/myPage/' + ${x.userId}"> <!--마이페이지 사이트로 이동-->
+                  <img th:src="${x.profile}" alt="user thumbnail of teo">
+                  <span>
+                    by
+                    <b th:text="${x.userName}"></b>
+                  </span>
+                </a>
+              </div>
+            </div> <!--item-->
+          </th:block>
+        </div>
+      </div> <!--main-->
 
     </div>
   </div>

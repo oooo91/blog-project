@@ -39,9 +39,6 @@
         <!--paramId-->
         <input type="hidden" th:value="${paramId}" name="paramId"/>
 
-        <!--커뮤니티 목록-->
-        <!--<a href="http://localhost:8080/board/main/ddddd.do">ddddd친구의 일기</a>-->
-
         <!--header -->
         <div class="content_header">
 
@@ -49,11 +46,14 @@
                 <a href="/user/logout" class="join_form_btn_a">
                     <input type="button" value="로그아웃" class="join_form_btn"/>
                 </a>
+                <a href="/board/feed" class="join_form_btn_a">
+                    <input type="button" value="피드 이동" class="join_form_btn"/>
+                </a>
             </div>
 
             <div class="search-flex">
                 <div class="search_icon cursor">
-                    <input type="text" name="search-text" class="search-text" th:value="${searchText}">
+                    <input type="text" name="search-text" class="search-text">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <div class="sort_icon cursor">
@@ -120,7 +120,7 @@
                     </a>
                 </div>
 
-                <a th:href="'/board/myPage/' + ${paramId}">
+                <a th:href="'/user/myPage/' + ${paramId}">
                     <div class="content_footer_user cursor">
                         <i class="fa-solid fa-user"></i>
                     </div>

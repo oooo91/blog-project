@@ -87,6 +87,9 @@ public class WriteBoardService {
 			ThumbnailResponseDto thumbnailResponseDto = thumbnailService.uploadImage(multipartFile);
 			diaryPost.setThumbnail(thumbnailResponseDto.getThumbnail());
 			diaryPost.setThumbnailName(thumbnailResponseDto.getThumbnailName());
+		} else {
+			diaryPost.setThumbnail("https://ifh.cc/g/A8QH0A.jpg"); //기본 썸네일 이미지
+			diaryPost.setThumbnailName("기본 이미지");
 		}
 
 		return postRepository.save(diaryPost).getId();

@@ -5,6 +5,10 @@ html, body {
 .cursor {
     cursor: pointer;
 }
+.content_main {
+    margin-top: 155px;
+    margin-right: 400px;
+}
 .container_background {
     padding: 0px 40px;
 }
@@ -76,10 +80,6 @@ input:focus {
 .fa-plus {
     font-size: 25px;
 }
-.content_main {
-    margin-top: 185px;
-    margin-right: 400px;
-}
 .content_main_diary {
     margin-bottom: 15px;
 }
@@ -133,6 +133,7 @@ input:focus {
     padding: 3px;
     font-size: 13px;
     text-decoration-line: none;
+    padding-left: 20px;
 }
 input:focus {
     outline: none;

@@ -35,10 +35,6 @@ public class JoinService {
             throw new AlreadyExistedUserException("이미 가입된 아이디입니다.");
         }
 
-        if (userRepository.existsByNickname(joinRequestDto.getUserName())) {
-            throw new AlreadyExistedUserException("이미 가입된 이름입니다.");
-        }
-
         if (userRepository.existsByUserEmail(joinRequestDto.getUserEmail())) {
             throw new AlreadyExistedUserException("이미 가입된 이메일입니다.");
         }
@@ -53,6 +49,7 @@ public class JoinService {
                 .createdAt(LocalDateTime.now())
                 .userRoles(UserRoles.USER)
                 .socialType("none")
+                .profile("https://ifh.cc/g/6w0ZP7.jpg") //기본 프로필 사진
                 .emailAuthKey(uuid)
                 .emailAuthYn(false)
                 .userStatus(UserStatus.STATUS_READY.getUserStatus())

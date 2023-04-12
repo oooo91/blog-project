@@ -31,12 +31,13 @@
             // 파일 업로드
             let form = "";
             let formData = "";
-            $('#upload-file-input').on('click', function(){
 
+            form = $('#updateImgForm')[0];
+            formData = new FormData(form);
+
+            $('#upload-file-input').on('click', function(){
                 $('#upload-file-input').on('change', function(){
                     $('.img-text').val(this.files[0].name);
-                    form = $('#updateImgForm')[0];
-                    formData = new FormData(form);
                     formData.append("img", this.files[0]);
                 });
             });

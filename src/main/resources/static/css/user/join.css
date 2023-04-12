@@ -74,6 +74,7 @@ input::placeholder {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    margin-right: 320px;
 }
 .join_form_btn {
     margin-top: 15px;

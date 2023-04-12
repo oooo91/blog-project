@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -48,7 +49,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     //staticResource ignore
@@ -70,7 +71,8 @@ public class SecurityConfig {
             .authorizeRequests()
             .antMatchers("/user/signup",
                                     "/user/login",
-                                    "/user/find-password")
+                                    "/user/find-password",
+                                    "/user/email-auth/**")
                                     .permitAll()
             .antMatchers("/admin/**")
             .hasAnyAuthority(UserRoles.ADMIN.getUserRole())

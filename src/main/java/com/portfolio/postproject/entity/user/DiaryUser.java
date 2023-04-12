@@ -38,6 +38,7 @@ public class DiaryUser {
 
     private String userStatus;
     private String socialType;
+    private String profile;
 
     @Enumerated(EnumType.STRING)
     private UserRoles userRoles;
