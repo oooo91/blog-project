@@ -25,7 +25,7 @@
 #
 
 ### 📑 ERD
-
+<img src="https://ifh.cc/g/aPl1k9.jpg" width="800"/>  
 #
 ### 📱 Demo
 
