@@ -4,7 +4,9 @@ import com.portfolio.postproject.dto.user.OAuthAttributes;
 import com.portfolio.postproject.dto.user.UserSessionDto;
 import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.repository.user.UserRepository;
+import java.security.Principal;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -20,6 +22,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final UserRepository userRepository;

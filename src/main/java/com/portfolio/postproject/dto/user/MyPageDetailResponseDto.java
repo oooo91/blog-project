@@ -15,4 +15,5 @@ public class MyPageDetailResponseDto {
 	private String userId;
 	private String userEmail;
 	private String profile;
+	private String socialType;
 }

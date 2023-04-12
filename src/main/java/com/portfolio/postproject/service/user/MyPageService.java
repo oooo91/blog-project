@@ -1,6 +1,7 @@
 package com.portfolio.postproject.service.user;
 
 import com.portfolio.postproject.dto.board.ThumbnailResponseDto;
+import com.portfolio.postproject.dto.user.MyPageDetailPwdRequestDto;
 import com.portfolio.postproject.dto.user.MyPageDetailRequestDto;
 import com.portfolio.postproject.dto.user.MyPageDetailResponseDto;
 import com.portfolio.postproject.dto.user.MyPageResponseDto;
@@ -33,24 +34,27 @@ public class MyPageService {
 	public void myPageDetailUpdate(MyPageDetailRequestDto myPageDetailRequestDto, MultipartFile multipartFile)
 		throws IOException {
 
-		log.info(myPageDetailRequestDto.getParamId());
-		log.info(myPageDetailRequestDto.getUserPwd());
-		log.info(myPageDetailRequestDto.getUserNewPwd());
-
 		DiaryUser diaryUser = userRepository.findById(myPageDetailRequestDto.getParamId())
 			.orElseThrow(() -> new NotFoundUserException("사용자가 존재하지 않습니다."));
 
-		if (!passwordEncoder.matches(myPageDetailRequestDto.getUserPwd(), diaryUser.getUserPwd())) {
-			throw new InvalidPasswordException("아이디 혹은 비밀번호가 잘못되었습니다.");
-		}
-
-		diaryUser.setUserPwd(passwordEncoder.encode(myPageDetailRequestDto.getUserNewPwd()));
 		diaryUser.setNickname(myPageDetailRequestDto.getUserName());
 
 		if (multipartFile != null) {
 			ThumbnailResponseDto thumbnailResponseDto = thumbnailService.uploadImage(multipartFile);
 			diaryUser.setProfile(thumbnailResponseDto.getThumbnail());
 		}
+	}
+
+	@Transactional
+	public void myPageDetailPwdUpdate(MyPageDetailPwdRequestDto myPageDetailPwdRequestDto) {
+
+		DiaryUser diaryUser = userRepository.findById(myPageDetailPwdRequestDto.getParamId())
+			.orElseThrow(() -> new NotFoundUserException("사용자가 존재하지 않습니다."));
+
+		if (!passwordEncoder.matches(myPageDetailPwdRequestDto.getUserPwd(), diaryUser.getUserPwd())) {
+			throw new InvalidPasswordException("아이디 혹은 비밀번호가 잘못되었습니다.");
+		}
+		diaryUser.setUserPwd(passwordEncoder.encode(myPageDetailPwdRequestDto.getUserNewPwd()));
 	}
 
 	@Transactional
@@ -77,6 +81,7 @@ public class MyPageService {
 			.orElseThrow(() -> new PostException("사용자가 존재하지 않습니다."));
 
 		return MyPageDetailResponseDto.builder()
+			.socialType(diaryUser.getSocialType())
 			.userName(diaryUser.getNickname())
 			.userEmail(diaryUser.getUserEmail())
 			.userId(diaryUser.getId())

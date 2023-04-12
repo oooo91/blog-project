@@ -22,6 +22,7 @@ public class FeedService {
 	private final PostRepository postRepository;
 
 	public boolean checkAdmin(Principal principal) {
+
 		DiaryUser diaryUser = userRepository.findById(principal.getName())
 			.orElseThrow(() -> new NotFoundUserException("다시 로그인하세요."));
 		log.info("user's role: " + diaryUser.getUserRoles());

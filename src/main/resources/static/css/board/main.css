@@ -2,6 +2,9 @@ html, body {
     height: 100%;
     background-color: #edf4ff;
 }
+a {
+    text-decoration: none;
+}
 .cursor {
     cursor: pointer;
 }
@@ -38,6 +41,7 @@ html, body {
 }
 .search-flex {
     display: flex;
+    margin-right: 30px;
 }
 .search_icon {
     margin-right: 20px;
@@ -63,6 +67,7 @@ html, body {
     padding: 3px;
     font-size: 13px;
     text-decoration-line: none;
+    padding-left: 20px;
 }
 input:focus {
     outline: none;

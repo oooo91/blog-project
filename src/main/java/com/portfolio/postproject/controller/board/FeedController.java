@@ -8,9 +8,6 @@ import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +22,7 @@ public class FeedController {
 	private final SortComponents sortComponents;
 
 	@GetMapping("/feed")
-	public String main(Model model, Principal principal, HttpServletRequest request) {
+	public String feed(Model model, Principal principal, HttpServletRequest request) {
 
 		SortDto sortDto = sortComponents.feedOf(request);
 		List<FeedResponseDto> list = feedService.getFeedInfo(sortDto);

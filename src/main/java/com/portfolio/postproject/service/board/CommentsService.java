@@ -12,6 +12,7 @@ import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.user.UserRepository;
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,7 @@ public class CommentsService {
 	}
 
 	//수정
+	@Transactional
 	public void updateComments(CommentsRequestDto commentsRequestDto, Principal principal) {
 		PostComments postComments = commentsRepository.findById(
 				Long.parseLong(commentsRequestDto.getCommentsId()))
@@ -58,6 +60,7 @@ public class CommentsService {
 	}
 
 	//삭제
+	@Transactional
 	public void deleteComments(String commentsId, Principal principal) {
 		PostComments postComments = commentsRepository.findById(Long.parseLong(commentsId))
 			.orElseThrow(() -> new CommentsException("이미 삭제된 댓글입니다."));

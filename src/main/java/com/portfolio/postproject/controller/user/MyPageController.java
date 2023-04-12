@@ -1,6 +1,7 @@
 package com.portfolio.postproject.controller.user;
 
 import com.portfolio.postproject.service.user.MyPageService;
+import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,12 @@ public class MyPageController {
 		model.addAttribute("myPageDetailResponseDto", myPageService.getMyPageDetailInfo(paramId));
 		model.addAttribute("paramId", paramId);
 		return "/user/myPage-detail";
+	}
+
+	@GetMapping("/withdrawal")
+	public String withdrawal(Principal principal, Model model) {
+		model.addAttribute("userId", principal.getName());
+		return "/user/withdrawal";
 	}
 
 }

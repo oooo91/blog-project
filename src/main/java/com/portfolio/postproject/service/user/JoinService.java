@@ -35,10 +35,6 @@ public class JoinService {
             throw new AlreadyExistedUserException("이미 가입된 아이디입니다.");
         }
 
-        if (userRepository.existsByNickname(joinRequestDto.getUserName())) {
-            throw new AlreadyExistedUserException("이미 가입된 이름입니다.");
-        }
-
         if (userRepository.existsByUserEmail(joinRequestDto.getUserEmail())) {
             throw new AlreadyExistedUserException("이미 가입된 이메일입니다.");
         }

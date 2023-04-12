@@ -47,6 +47,7 @@ public class OAuthAttributes {
                 .userEmail(userEmail)
                 .nickname(userName)
                 .socialType("google")
+                .profile("https://ifh.cc/g/6w0ZP7.jpg")
                 .createdAt(LocalDateTime.now())
                 .userStatus(UserStatus.STATUS_ACTIVE.getUserStatus())
                 .userRoles(UserRoles.SOCIAL)

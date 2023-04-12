@@ -28,19 +28,9 @@
       //저장하기
       $('#save-btn').on('click', function() {
 
-        //새 비번 일치하는지
-        var password = $("input[name='userNewPwd']").val();
-        var rePassword = $("input[name='checkUserNewPwd']").val();
-
-        if (password != rePassword) {
-          alert('비밀번호가 일치하지 않습니다');
-        } else {
-
           let obj={
             "paramId" : $("input[name='userId']").val(),
-            "userName" : $("input[name='userName']").val(),
-            "userPwd": $("input[name='userPwd']").val(),
-            "userNewPwd" : $("input[name='userNewPwd']").val(),
+            "userName" : $("input[name='userName']").val()
           };
 
           formData.append("data", new Blob([JSON.stringify(obj)], {type: "application/json"}));
@@ -63,11 +53,43 @@
               }
             });
           } //if
-        } //else
       }); //save
 
+      $('#pwdSave').on('click', function(){
+        //새 비번 일치하는지
+        var password = $("input[name='userNewPwd']").val();
+        var rePassword = $("input[name='checkUserNewPwd']").val();
+
+        if (password != rePassword) {
+          alert('비밀번호가 일치하지 않습니다');
+        } else {
+          let obj = {
+            "paramId" : $("input[name='userId']").val(),
+            "userPwd": $("input[name='userPwd']").val(),
+            "userNewPwd": $("input[name='userNewPwd']").val()
+          };
+
+          if (confirm('저장하시겠습니까?')) {
+            $.ajax({
+              type: "put",
+              url: "/user/myPage/pwdUpdate",
+              headers: {'Content-Type': 'application/json'},
+              data: JSON.stringify(obj),
+              success: function (data) {
+                alert("저장되었습니다");
+                let paramId = $("input[name='userId']").val();
+                location.href = "/user/myPage/" + paramId;
+              },
+              error: function (request, status, error) {
+                alert(request.responseText);
+              }
+            });
+          }
+        }
+      });
+
       //취소하기
-      $('#cancel-btn').on('click',function(){
+      $('#cancel-btn, #pwdCancel').on('click',function(){
         window.history.back();
       });
     });
@@ -112,27 +134,6 @@
           <input th:value="${myPageDetailResponseDto.userId}" type="text" name="userId" class="join_form_main-userId-text" readonly>
         </div>
 
-        <div class="join_form_main-userPwd">
-          <div class="join_form_main-userPwd-title">
-            Password
-          </div>
-          <input type="password" class="join_form_main-userPwd-text" name="userPwd" placeholder="비밀번호를 입력하세요">
-        </div>
-
-        <div class="join_form_main-userPwd">
-          <div class="join_form_main-userPwd-title">
-            New Password
-          </div>
-          <input type="password" class="join_form_main-userPwd-text" name="userNewPwd" placeholder="비밀번호를 입력하세요">
-        </div>
-
-        <div class="join_form_main-userPwd">
-          <div class="join_form_main-userPwd-title">
-            Password-check
-          </div>
-          <input type="password" class="join_form_main-userPwd-text-recheck" name="checkUserNewPwd" placeholder="새 비밀번호를 입력하세요">
-        </div>
-
         <div class="join_form_main-userEmail">
           <div class="join_form_main-userEmail-title">
             Email
@@ -140,12 +141,39 @@
           <input th:value="${myPageDetailResponseDto.userEmail}" type="email" class="join_form_main-userEmail-text" readonly>
         </div>
 
-      </div> <!--main-->
+        <div class="join_form_btnBox">
+          <input type="button" value="수정" class="join_form_btn" id="save-btn"/>
+          <input type="button" value="취소" class="join_form_btn" id="cancel-btn"/>
+        </div>
 
-      <div class="join_form_btnBox">
-        <input type="button" value="수정" class="join_form_btn" id="save-btn"/>
-        <input type="button" value="취소" class="join_form_btn" id="cancel-btn"/>
-      </div>
+        <div th:if="${#strings.equals(myPageDetailResponseDto.socialType, 'none')}">
+          <div class="join_form_main-userPwd">
+            <div class="join_form_main-userPwd-title">
+              Password
+            </div>
+            <input type="password" class="join_form_main-userPwd-text" name="userPwd" placeholder="비밀번호를 입력하세요">
+          </div>
+
+          <div class="join_form_main-userPwd">
+            <div class="join_form_main-userPwd-title">
+              New Password
+            </div>
+            <input type="password" class="join_form_main-userPwd-text" name="userNewPwd" placeholder="비밀번호를 입력하세요">
+          </div>
+
+          <div class="join_form_main-userPwd">
+            <div class="join_form_main-userPwd-title">
+              Password-check
+            </div>
+            <input type="password" class="join_form_main-userPwd-text-recheck" name="checkUserNewPwd" placeholder="새 비밀번호를 입력하세요">
+          </div>
+
+          <div class="join_form_btnBox">
+            <input type="button" value="수정" class="join_form_btn" id="pwdSave"/>
+            <input type="button" value="취소" class="join_form_btn" id="pwdCancel"/>
+          </div>
+        </div>
+      </div> <!--main-->
 
 
     </div> <!--join_form-->
