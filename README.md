@@ -2,7 +2,7 @@
 **🎇 게시판 기능을 바탕으로 한 일기형 블로그**  
 #
 
-### 📜 요구사항 정의서 및 개발 진행률
+### 📜 요구사항 정의서
 * [**post-project(notion)**](https://receptive-platinum-aea.notion.site/4d28f5332b1f4a458f88086937abfb9f)
 #
 
