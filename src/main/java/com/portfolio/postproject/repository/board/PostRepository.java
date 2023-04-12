@@ -49,27 +49,27 @@ public interface PostRepository extends JpaRepository<DiaryPost, Long> {
     @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
     long countMonday(@Param("paramId") String paramId);
 
-    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
+    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 1 ) and dp.diaryUser.id = :paramId")
     long countTuesday(@Param("paramId") String paramId);
 
-    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
+    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 2 ) and dp.diaryUser.id = :paramId")
     long countWednesday(@Param("paramId") String paramId);
 
-    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
+    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 3 ) and dp.diaryUser.id = :paramId")
     long countThursday(@Param("paramId") String paramId);
 
-    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
+    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 4 ) and dp.diaryUser.id = :paramId")
     long countFriday(@Param("paramId") String paramId);
 
-    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
+    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 5 ) and dp.diaryUser.id = :paramId")
     long countSaturday(@Param("paramId") String paramId);
 
-    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 0 ) and dp.diaryUser.id = :paramId")
+    @Query("select count(*) from DiaryPost dp where dp.postDate = ADDDATE( CURDATE(), - WEEKDAY(CURDATE()) + 6 ) and dp.diaryUser.id = :paramId")
     long countSunday(@Param("paramId") String paramId);
 
     //feed
     @Query("select new com.portfolio.postproject.dto.board.FeedResponseDto(dp.thumbnail, dp.postTitle, dp.postContent, dp.postDate, "
-        + "du.id, du.profile, (select count(*) from PostComments pc where dp.id = pc.diaryPost.id)) "
-        + "from DiaryPost dp join fetch DiaryUser du on dp.diaryUser.id = du.id where dp.postContent like %:text% or dp.postTitle like %:text%")
-    List<FeedResponseDto> findAllFeedResponseDto(String text);
+        + "du.id, du.profile, dp.id, (select count(*) from PostComments pc where dp.id = pc.diaryPost.id)) "
+        + "from DiaryPost dp join fetch DiaryUser du on dp.diaryUser.id = du.id where dp.postContent like %:text% or dp.postTitle like %:text% order by dp.id desc")
+    List<FeedResponseDto> findAllFeedResponseDto(@Param("text") String text);
 }

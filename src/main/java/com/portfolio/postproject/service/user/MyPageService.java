@@ -14,9 +14,12 @@ import com.portfolio.postproject.service.board.ThumbnailService;
 import java.io.IOException;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MyPageService {
@@ -24,19 +27,24 @@ public class MyPageService {
 	private final UserRepository userRepository;
 	private final ThumbnailService thumbnailService;
 	private final PostRepository postRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	@Transactional
 	public void myPageDetailUpdate(MyPageDetailRequestDto myPageDetailRequestDto, MultipartFile multipartFile)
 		throws IOException {
 
+		log.info(myPageDetailRequestDto.getParamId());
+		log.info(myPageDetailRequestDto.getUserPwd());
+		log.info(myPageDetailRequestDto.getUserNewPwd());
+
 		DiaryUser diaryUser = userRepository.findById(myPageDetailRequestDto.getParamId())
 			.orElseThrow(() -> new NotFoundUserException("사용자가 존재하지 않습니다."));
 
-		if (!diaryUser.getUserPwd().equals(myPageDetailRequestDto.getUserPwd())) {
-			throw new InvalidPasswordException("비밀번호가 잘못되었습니다.");
+		if (!passwordEncoder.matches(myPageDetailRequestDto.getUserPwd(), diaryUser.getUserPwd())) {
+			throw new InvalidPasswordException("아이디 혹은 비밀번호가 잘못되었습니다.");
 		}
 
-		diaryUser.setUserPwd(myPageDetailRequestDto.getUserNewPwd());
+		diaryUser.setUserPwd(passwordEncoder.encode(myPageDetailRequestDto.getUserNewPwd()));
 		diaryUser.setNickname(myPageDetailRequestDto.getUserName());
 
 		if (multipartFile != null) {

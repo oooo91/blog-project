@@ -8,6 +8,14 @@
   <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
+
+    let paramId = $("input[name='paramId']").val();
+
+    //x버튼 시 뒤로 가기
+    $('.fa-arrow-left-long').on('click', function () {
+      location.href="/board/main/" + paramId;
+    });
+
   </script>
 </head>
 <body>
@@ -32,7 +40,7 @@
 
           <div class="content_main_user-detail-info">
             <span th:text="${myPageResponseDto.userName}" class="content_main_user-detail-info-name"></span>
-            <a href="/user/myPage-detail/" + th:value="${paramId}">
+            <a th:href="'http://localhost:8080/user/myPage-detail/' + ${paramId}">
               <div class="content_main_user-detail-info-changed">
                 <i class="fa-solid fa-user-pen"></i>
               </div>

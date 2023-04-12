@@ -10,7 +10,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
 
-
   </script>
 </head>
 <body>
@@ -46,6 +45,46 @@
           </div>
         </div>
       </div>
+
+      <div class="content_main">
+
+        <!--content-item을 반복적으로 돌리기-->
+        <div th:if="${not #strings.isEmpty(list)}" class="content_flex">
+          <th:block th:each="x : ${list}">
+            <div class="content-item">
+              <a class="content-item_a" th:href="'/board/detail/' + ${x.userName} + '?postId=' + ${x.postId}">
+                <div class="content-item_img">
+                  <img th:src="${x.thumbnail}">
+                </div>
+              </a>
+
+              <div class="content-text">
+                <a class="content-text_a" th:href="'http://localhost:8080/board/detail/' + ${x.userName} + '?postId=' + ${x.postId}">
+                  <h4 th:text="${x.postTitle}"></h4>
+                  <div class="content_detail">
+                    <p th:text="${x.postContent}"></p>
+                  </div>
+                </a>
+                <div class="content-day">
+                  <span th:text="${x.postDate}"></span>
+                  <span class="separator">·</span>
+                  <span th:text="${x.numOfComments} +'개의 댓글'"></span>
+                </div>
+              </div>
+
+              <div class="content-profile">
+                <a class="userinfo" th:href="'http://localhost:8080/user/myPage/' + ${x.userName}"> <!--마이페이지 사이트로 이동-->
+                  <img th:src="${x.profile}" alt="user thumbnail of teo">
+                  <span>
+                    by
+                    <b th:text="${x.userName}"></b>
+                  </span>
+                </a>
+              </div>
+            </div> <!--item-->
+          </th:block>
+        </div>
+      </div> <!--main-->
 
     </div>
   </div>
