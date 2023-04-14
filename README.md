@@ -26,11 +26,10 @@
 
 ### 📑 ERD
 <img src="https://ifh.cc/g/AXD7Gx" width="800"/>  
-#
 
-### 📱 Demo
 
 #
+
 
 ### ✨ 프로젝트 주요기능
 
@@ -106,6 +105,3 @@
 **1. Property or field 'name' cannot be found on object of type 'org.springframework.security.core.userdetails.User'**
 - UserDetails를 implements한 CustomUser를 구현하여 이를 해결
 
-**2. Authenticated=true, Details=WebAuthenticationDetail [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null]**
-- log.info(authentication.getPrincipal()); 위처럼 로그를 찍었더니 SessionId가 null이 뜨는 문제 발생
-- .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS); 세션 정책 설정하여 해결
