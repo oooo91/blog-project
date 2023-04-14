@@ -72,7 +72,11 @@ public class SecurityConfig {
             .antMatchers("/user/signup",
                                     "/user/login",
                                     "/user/find-password",
-                                    "/user/email-auth/**")
+                                    "/user/email-auth/**",
+                                    "/user/find-user-id-auth",
+                                    "/user/find-user-id",
+                                    "/user/find-user-pwd",
+                                    "/user/find-user-pwd-auth")
                                     .permitAll()
             .antMatchers("/admin/**")
             .hasAnyAuthority(UserRoles.ADMIN.getUserRole())

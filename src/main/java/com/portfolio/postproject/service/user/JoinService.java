@@ -58,7 +58,7 @@ public class JoinService {
 
         String email = joinRequestDto.getUserEmail();
         String title = "diary 사이트 가입을 축하드립니다.";
-        String contents = "<p> fastlms 사이트 가입을 축하드립니다. </p>" +
+        String contents = "<p> diary 사이트 가입을 축하드립니다. </p>" +
                 "<p> 아래 링크를 클릭하셔서 가입을 완료하세요 </p>" +
                 "<div>" +
                 "<a target='_blank' href='http://localhost:8080/user/email-auth?uuid=" + uuid + "'> 가입완료 </a>" +
