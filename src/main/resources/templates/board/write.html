@@ -45,7 +45,7 @@
             //초기화
             $('#reset-btn').on('click', function(){
                 $('.img-text').val("");
-                formData.delete("img");
+                formData.delete('img');
             });
 
             //저장하기
@@ -128,7 +128,7 @@
                 </div>
                 <form enctype="multipart/form-data" id="updateImgForm">
                     <div class="m_body">
-                        <input type="text" name="extra" class="img-text">
+                        <input type="text" name="extra" class="img-text" readonly>
                         <label for="upload-file-input">
                             <div class="modal_btn save cursor">파일 선택</div>
                         </label>

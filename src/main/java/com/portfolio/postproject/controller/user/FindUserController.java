@@ -11,39 +11,39 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/user/find")
 public class FindUserController {
 
 	private final FindUserService findUserService;
 
 	//아이디 찾기
-	@GetMapping("/find-user-id-auth")
-	public String findUserInfo() { return "/user/find-user-id-auth"; }
+	@GetMapping("/user-id-auth")
+	public String findUserInfo() { return "/user/find/user-id-auth"; }
 
 
 	//아이디 인증 표시 페이지
-	@GetMapping("/find-user-id")
+	@GetMapping("/user-id")
 	public String userFindUserId(Model model, HttpServletRequest request) {
 
 		model.addAttribute("userId",
 			findUserService.getUserId(request.getParameter("userEmailAuthKey")));
-		return "/user/find-user-id";
+		return "/user/find/user-id";
 	}
 
 
 	//비밀번호 찾기
-	@GetMapping("/find-user-pwd")
+	@GetMapping("/user-pwd")
 	public String findPwd() {
-		return "/user/find-user-pwd";
+		return "/user/find/user-pwd";
 	}
 
 
 	//비밀번호 인증 표시 페이지
-	@GetMapping("/find-user-pwd-auth")
+	@GetMapping("/user-pwd-auth")
 	public String findUserPwdAuth(Model model, HttpServletRequest request) {
 
 		model.addAttribute("userId", request.getParameter("userId"));
-		return "/user/find-user-pwd-auth";
+		return "/user/find/user-pwd-auth";
 	}
 
 }

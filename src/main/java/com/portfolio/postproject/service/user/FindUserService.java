@@ -9,7 +9,9 @@ import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.exception.user.EmailException;
 import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.user.UserRepository;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,16 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FindUserService {
 
     private final UserRepository userRepository;
     private final MailComponents mailComponents;
-    private final ProtectIdComponents protectIdComponents;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void sendEmailForUserId(String userEmail) {
 
         DiaryUser user = userRepository.findByUserEmail(userEmail)
@@ -49,12 +52,13 @@ public class FindUserService {
     }
 
 
+    @Transactional
     public void checkAuthKeyForUserId(EmailAuthToFindId emailAuthToFindId) {
 
         DiaryUser user = userRepository.findByUserEmail(emailAuthToFindId.getUserEmail())
             .orElseThrow(() -> new NotFoundUserException("잘못된 이메일입니다. 다시 입력하세요."));
 
-        if (user.getFindIdEmailAuthKey().equals(emailAuthToFindId.getUserEmailAuthKey())) {
+        if (!user.getFindIdEmailAuthKey().equals(emailAuthToFindId.getUserEmailAuthKey())) {
             throw new NotFoundUserException("인증키를 먼저 발급 받으세요.");
         }
 
@@ -64,12 +68,13 @@ public class FindUserService {
         user.setFindIdEmailAuthYn(true);
     }
 
+    @Transactional
     public void sendEmailForUserPwd(IdAuthToFindPwd idAuthToFindPwd) {
 
         DiaryUser user = userRepository.findById(idAuthToFindPwd.getUserId())
             .orElseThrow(() -> new NotFoundUserException("아이디가 존재하지 않습니다."));
 
-        if (user.getUserEmail().equals(idAuthToFindPwd.getUserEmail())) {
+        if (!user.getUserEmail().equals(idAuthToFindPwd.getUserEmail())) {
             throw new NotFoundUserException("이메일이 맞지 않습니다. 다시 입력하세요.");
         }
 
@@ -92,12 +97,13 @@ public class FindUserService {
     }
 
 
+    @Transactional
     public void sendNewPwd(EmailAuthToFindPwd emailAuthToFindPwd) {
 
         DiaryUser user = userRepository.findById(emailAuthToFindPwd.getUserId())
             .orElseThrow(() -> new NotFoundUserException("아이디가 존재하지 않습니다."));
 
-        if (user.getUserEmail().equals(emailAuthToFindPwd.getUserEmail())) {
+        if (!user.getUserEmail().equals(emailAuthToFindPwd.getUserEmail())) {
             throw new NotFoundUserException("이메일이 맞지 않습니다. 다시 입력하세요.");
         }
 
@@ -110,9 +116,7 @@ public class FindUserService {
         }
 
         String uuid = UUID.randomUUID().toString().replaceAll("-", "").substring(0,10);
-
-        String enc = BCrypt.hashpw(uuid, BCrypt.gensalt());
-        user.setUserPwd(passwordEncoder.encode(enc));
+        user.setUserPwd(passwordEncoder.encode(uuid));
 
         String title = "비밀번호 재발급";
         String contents = "<h3> 비밀번호 재발급 메일 </h3>" + "<p> 안녕하세요. </p>" +
@@ -127,7 +131,7 @@ public class FindUserService {
 
     public String getUserId(String userEmailAuthKey) {
         DiaryUser user = userRepository.findByFindIdEmailAuthKey(userEmailAuthKey).get();
-        return protectIdComponents.getChangeId(user.getId());
+        return ProtectIdComponents.getChangeId(user.getId());
     }
 
     public void checkIdForUserPwd(String userId) {

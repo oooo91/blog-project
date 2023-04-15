@@ -15,10 +15,10 @@
 
         $.ajax({
           type: "post",
-          url : "/user/find-userPwd-checkId",
+          url : "/user/find/userPwd-checkId",
           data: 'userId=' + userId,
           success : function (data){
-            location.href="/user/find-user-pwd-auth?userId=" + data;
+            location.href="/user/find/user-pwd-auth?userId=" + data;
           },
           error: function(request, status, error){
             alert(request.responseText);
@@ -48,5 +48,6 @@
     </d1>
   </div>
 </div>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </body>
 </html>
