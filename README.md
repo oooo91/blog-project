@@ -44,11 +44,29 @@
     - 이메일과 비밀번호 유효성을 검사한다.
     - 구글 로그인이 가능하다.
 
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232205715-7634a2c6-6704-4e06-83e6-34c4f8b68d86.gif"/>
+
 
 **아이디/비밀번호 찾기**
 - 이메일 인증을 통해 아이디를 찾을 수 있다.
 - 아이디 및 이메일 인증을 통해 새로운 비밀번호를 발급한다.
 
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232208029-faf659dd-7bdb-4fff-a9ff-e29be5ac9a44.gif"/>
+
+**피드 페이지**
+- 다른 유저의 다이어리를 조회할 수 있다.
+- 다른 유저의 다이어리를 열람할 수 있다.
+- 유저가 관리자일 경우 관리자 페이지로 이동할 수 있다.
+- 자신의 게시판 페이지로 이동할 수 있다.
+- 로그아웃할 수 있다.
+
+**댓글 작성/수정**
+- 로그인한 사용자만 댓글을 작성할 수 있다.
+- 공백일 경우 유효성을 검사한다.
+- 댓글 수정 및 삭제는 댓글 작성자만 가능하다.
+- 게시글 삭제될 시 해당 댓글도 같이 삭제되도록 한다.
+
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232208085-a36fc62e-b3dc-4688-b3d7-d174b6f137be.gif"/>
 
 **글 상세보기/작성/수정/삭제**
 - 게시글 작성
@@ -66,17 +84,13 @@
     - 게시판 글 상세보기에서는 제목, 작성일(수정일), 작성자, 본문의 내용이 보인다.
     - 오늘날 날씨를 날씨 이모티콘으로 확인할 수 있다.
 
-
-**댓글 작성/수정**
-- 로그인한 사용자만 댓글을 작성할 수 있다.
-- 공백일 경우 유효성을 검사한다.
-- 댓글 수정 및 삭제는 댓글 작성자만 가능하다.
-- 게시글 삭제될 시 해당 댓글도 같이 삭제되도록 한다.
-
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232208380-90263d8a-cdbf-4992-a563-305b8c35b746.gif"/>
 
 **달력 페이지**
 - 로그인한 유저는 게시판 글을 기간 별로 조회 및 정렬할 수 있다.
 - 5개씩 페이징 처리가 된다.
+
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232209422-9ac71992-7b99-4e3b-9a2a-12c5298a9bf6.gif"/>
 
 
 **관리자 페이지**
@@ -84,6 +98,7 @@
 - 사용자의 게시판을 삭제할 수 있다.
 - 사용자의 상태 정보를 변경할 수 있다.
 
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232209345-f77d214b-ba59-4bb0-9fd0-c2d1cff75b63.gif"/>
 
 **마이 페이지**
 - 사용자 정보를 확인하고 수정할 수 있다.
@@ -92,17 +107,5 @@
 - 프로필 사진을 등록할 수 있다.
 - 탈퇴가 가능하다.
 
-
-**피드 페이지**
-- 다른 유저의 다이어리를 조회할 수 있다.
-- 다른 유저의 다이어리를 열람할 수 있다.
-- 유저가 관리자일 경우 관리자 페이지로 이동할 수 있다.
-- 자신의 게시판 페이지로 이동할 수 있다.
-- 로그아웃할 수 있다.
-#
-
-### ☄️ 회고 및 트러블 슈팅
-
-**1. Property or field 'name' cannot be found on object of type 'org.springframework.security.core.userdetails.User'**
-- UserDetails를 implements한 CustomUser를 구현하여 이를 해결
+<img width="80%" src="https://user-images.githubusercontent.com/74234719/232209478-de6e3293-3ade-47f8-ba26-513a892becda.gif"/>
 
