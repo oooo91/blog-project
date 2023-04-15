@@ -3,23 +3,26 @@ package com.portfolio.postproject.controller.user;
 import com.portfolio.postproject.dto.user.FindUserInfoRequestDto;
 import com.portfolio.postproject.service.user.FindUserService;
 import com.portfolio.postproject.components.common.ValidationComponent;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/user/find")
 public class FindUserRestController {
 
 	private final FindUserService findUserService;
 	private final ValidationComponent validationComponent;
 
 	//아이디 찾기 위한 이메일 인증키 발송
-	@PostMapping("/find-userId-auth-send")
+	@PostMapping("/userId-auth-send")
 	public ResponseEntity<?> findUserIdAuthSend(@RequestParam String userEmail) {
 
 		findUserService.sendEmailForUserId(userEmail);
@@ -27,7 +30,7 @@ public class FindUserRestController {
 	}
 
 	//아이디 찾기 위한 이메일 인증키 인증
-	@PostMapping("/find-userId-auth-check")
+	@PostMapping("/userId-auth-check")
 	public ResponseEntity<?> findUserIdAuthCheck(
 		@RequestBody @Valid FindUserInfoRequestDto.EmailAuthToFindId emailAuthToFindId, Errors error) {
 
@@ -38,7 +41,7 @@ public class FindUserRestController {
 	}
 
 	//비밀번호 찾기 위해 아이디 체크
-	@PostMapping("/find-userPwd-checkId")
+	@PostMapping("/userPwd-checkId")
 	public ResponseEntity<?> findUserPwdCheckId(@RequestParam String userId) {
 
 		findUserService.checkIdForUserPwd(userId);
@@ -46,7 +49,7 @@ public class FindUserRestController {
 	}
 
 	//비밀번호 찾기 위한 이메일 인증키 발송
-	@PostMapping("/find-userPwd-auth-send")
+	@PostMapping("/userPwd-auth-send")
 	public ResponseEntity<?> findUserPwdAuthSend(
 		@RequestBody @Valid FindUserInfoRequestDto.IdAuthToFindPwd idAuthToFindPwd, Errors error) {
 
@@ -57,7 +60,7 @@ public class FindUserRestController {
 	}
 
 	//비밀번호 찾기 위한 이메일 인증키 인증
-	@PostMapping("/find-userPwd-auth-check")
+	@PostMapping("/userPwd-auth-check")
 	public ResponseEntity<?> findUserPwdAuthCheck(
 		@RequestBody @Valid FindUserInfoRequestDto.EmailAuthToFindPwd emailAuthToFindPwd, Errors error) {
 

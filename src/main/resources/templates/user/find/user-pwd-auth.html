@@ -10,46 +10,51 @@
   <script>
     $(function() {
       //아이디 찾기를 위한 인증번호 메일 받기
-      $('#find_btn').on('click', function() {
-
-        let userEmail = $("input[name='userEmail']").val();
-
-        $.ajax({
-            type: "post",
-            url : "/user/find-userId-auth-send",
-            data: 'userEmail=' + userEmail,
-            success : function (data){
-              alert("인증키가 발송되었습니다.");
-            },
-            error: function(request, status, error){
-              alert(request.responseText);
-            }
-        });
-      });
-
-      //인증번호 확인
-      $('#find_second_btn').on('click', function(){
+      $('#find_btn').on('click', function () {
 
         let obj={
           "userEmail" : $("input[name='userEmail']").val(),
-          "userEmailAuthKey" : $("input[name='userEmailAuthKey']").val()
+          "userId" : $("input[name='userId']").val()
         };
 
         $.ajax({
+          type: "post",
+          url: "/user/find/userPwd-auth-send",
+          headers: {'Content-Type': 'application/json'},
+          data : JSON.stringify(obj),
+          success: function (data) {
+            alert("인증키가 발송되었습니다.");
+          },
+          error: function (request, status, error) {
+            alert(request.responseText);
+          }
+        });
+
+        //인증번호 확인
+        $('#find_second_btn').on('click', function(){
+
+          let obj={
+            "userId" : $("input[name='userId']").val(),
+            "userEmail" : $("input[name='userEmail']").val(),
+            "userEmailAuthKey" : $("input[name='userEmailAuthKey']").val()
+          };
+
+          $.ajax({
             type: "post",
-            url : "/user/find-userId-auth-check",
+            url : "/user/find/userPwd-auth-check",
             headers: {'Content-Type': 'application/json'},
             data : JSON.stringify(obj),
             success : function (data){
-              alert("인증되었습니다.");
-              location.href = "/user/find-user-id?userEmailAuthKey=" + data; //인증키와 함께 전송
+              alert("해당 이메일로 비밀번호가 재발급되었습니다.");
+              alert("변경된 비밀번호로 재로그인하세요.")
+              location.href = "/user/login";
             },
             error: function(request, status, error){
               alert(request.responseText);
             }
+          });
         });
       });
-
     });
   </script>
 </head>
@@ -64,13 +69,12 @@
       </dd>
       <dd>
         <input type="text" name="userEmailAuthKey" placeholder="J48F37U" class="join_form_email"/>
-        <input type="submit" value="다음" class="join_form_btn second_btn" id="find_second_btn"/>
+        <input type="button" value="다음" class="join_form_btn second_btn" id="find_second_btn"/>
       </dd>
     </d1>
-
-    <input type="hidden" class="errorMessage"/>
-
   </div>
 </div>
+<input type="hidden" th:value="${userId}" name="userId"/>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </body>
 </html>
