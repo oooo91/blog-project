@@ -14,39 +14,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class MainController {
 
-    private final MainBoardService mainBoardService;
-    private final SortComponents sortComponents;
+	private final MainBoardService mainBoardService;
+	private final SortComponents sortComponents;
 
-    @RequestMapping("/board/main/{paramId}")
-    public String boardMain(@PathVariable("paramId") String paramId,
-                            Principal principal, Model model, HttpServletRequest request) {
+	@RequestMapping("/board/main/{paramId}")
+	public String boardMain(@PathVariable("paramId") String paramId,
+		Principal principal, Model model,
+		@RequestParam(value = "sortValue", required = false) String sortValue,
+		@RequestParam(value = "searchText", required = false) String searchText) {
 
-        log.info("main 블로그의 아이디: " + paramId);
-        log.info("main 세션의 아이디: " + principal.getName());
+		log.info("main 블로그의 아이디: " + paramId);
+		log.info("main 세션의 아이디: " + principal.getName());
 
-        SortDto sortDto = sortComponents.mainOf(request);
-        List<BoardResponseDto> list = mainBoardService.boardMain(paramId, sortDto);
+		SortDto sortDto = sortComponents.mainOf(sortValue, searchText);
+		List<BoardResponseDto> list = mainBoardService.boardMain(paramId, sortDto);
 
-        if (list != null) {
-            model.addAttribute("list", list);
-            model.addAttribute("totalCount", list.size());
-            model.addAttribute("sortValue", sortDto.getSortValue());
-        } else {
-            model.addAttribute("totalCount", 0);
-        }
+		if (list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("totalCount", list.size());
+			model.addAttribute("sortValue", sortDto.getSortValue());
+		} else {
+			model.addAttribute("totalCount", 0);
+		}
 
-        model.addAttribute("paramId", paramId);
-        model.addAttribute("userId", principal.getName());
-        model.addAttribute("comparison", paramId.equals(principal.getName()));
+		model.addAttribute("paramId", paramId);
+		model.addAttribute("userId", principal.getName());
+		model.addAttribute("comparison", paramId.equals(principal.getName()));
 
-        return "/board/main";
-    }
+		return "/board/main";
+	}
 
 
 }

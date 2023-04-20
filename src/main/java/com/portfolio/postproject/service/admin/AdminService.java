@@ -47,17 +47,14 @@ public class AdminService {
 
 	/*main*/
 	@Transactional
-	public List<AdminMainResponseDto> getUserList(HttpServletRequest request) {
+	public List<AdminMainResponseDto> getUserList(String searchText) {
 
 		List<DiaryUser> list;
 
-		if (request.getParameter("searchText") == null ||
-			request.getParameter("searchText").trim().equals("")) {
+		if (searchText == null || searchText.trim().equals("")) {
 			list = userRepository.findAll();
 		} else {
-			list = userRepository.findByIdOrNicknameContaining(
-				request.getParameter("searchText").trim(),
-				request.getParameter("searchText").trim());
+			list = userRepository.findByIdOrNicknameContaining(searchText.trim(), searchText.trim());
 		}
 		return of(list);
 	}

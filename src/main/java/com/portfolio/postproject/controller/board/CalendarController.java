@@ -12,44 +12,47 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.data.domain.Pageable;
-
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 public class CalendarController {
 
-    private final CalendarService calendarService;
-    private final SortComponents sortComponents;
+	private final CalendarService calendarService;
+	private final SortComponents sortComponents;
 
-    @GetMapping("/board/calendar/{paramId}")
-    public String boardCalendar(@PathVariable("paramId") String paramId,
-                                Principal principal, Model model, HttpServletRequest request,
-                                @PageableDefault(size = 5) Pageable pageable) {
+	@GetMapping("/board/calendar/{paramId}")
+	public String boardCalendar(@PathVariable("paramId") String paramId, Principal principal,
+		Model model,
+		@RequestParam(value = "searchStartDate", required = false) String searchStartDate,
+		@RequestParam(value = "searchEndDate", required = false) String searchEndDate,
+		@RequestParam(value = "sortValue", required = false) String sortValue,
+		@RequestParam(value = "searchText", required = false) String searchText,
+		@PageableDefault(size = 5) Pageable pageable) {
 
-        SortDto sortDto = sortComponents.calendarOf(request);
-        Page<BoardResponseDto> page = calendarService.searchCalendar(paramId, sortDto, pageable);
+		SortDto sortDto = sortComponents.calendarOf(searchStartDate, searchEndDate, sortValue, searchText);
+		Page<BoardResponseDto> page = calendarService.searchCalendar(paramId, sortDto, pageable);
 
-        model.addAttribute("paramId", paramId); //아이디
+		model.addAttribute("paramId", paramId); //아이디
 
-        model.addAttribute("searchStartDate", sortDto.getSearchStartDate());
-        model.addAttribute("searchEndDate", sortDto.getSearchEndDate());
-        model.addAttribute("sortValue", sortDto.getSortValue());
+		model.addAttribute("searchStartDate", sortDto.getSearchStartDate());
+		model.addAttribute("searchEndDate", sortDto.getSearchEndDate());
+		model.addAttribute("sortValue", sortDto.getSortValue());
 
-        if (page != null) {
-            model.addAttribute("list", page);
-            model.addAttribute("hasNext", page.hasNext());
-            model.addAttribute("hasPrev", page.hasPrevious());
-            model.addAttribute("totalCount", page.getTotalElements());
-        } else {
-            model.addAttribute("totalCount", 0);
-        }
+		if (page != null) {
+			model.addAttribute("list", page);
+			model.addAttribute("hasNext", page.hasNext());
+			model.addAttribute("hasPrev", page.hasPrevious());
+			model.addAttribute("totalCount", page.getTotalElements());
+		} else {
+			model.addAttribute("totalCount", 0);
+		}
 
-        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
-        model.addAttribute("next", pageable.next().getPageNumber());
-        model.addAttribute("comparison", paramId.equals(principal.getName()));
+		model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+		model.addAttribute("next", pageable.next().getPageNumber());
+		model.addAttribute("comparison", paramId.equals(principal.getName()));
 
-        return "/board/calendar";
-    }
+		return "/board/calendar";
+	}
 }

@@ -44,7 +44,7 @@
                 if(confirm('삭제하시겠습니까?')) {
 
                     $.ajax({
-                        type: "get",
+                        type: "delete",
                         url : "/board/delete/" + paramId + "?postId=" + postId,
                         headers: {'Content-Type': 'application/json'},
                         success : function (data){

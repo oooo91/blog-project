@@ -23,11 +23,10 @@ public class WriteController {
 
 	@GetMapping("/detail/{paramId}")
 	public String boardDetail(@PathVariable("paramId") String paramId,
-		Principal principal, Model model, HttpServletRequest request) {
-
+		Principal principal, Model model, @RequestParam("postId") String postId) {
 		model.addAttribute("userName", commentsService.getUserName(principal));
-		model.addAttribute("commentsList", commentsService.getComments(request, principal));
-		model.addAttribute("boardResponseDto", writeBoardService.getDetail(request));
+		model.addAttribute("commentsList", commentsService.getComments(postId, principal));
+		model.addAttribute("boardResponseDto", writeBoardService.getDetail(postId));
 		model.addAttribute("comparison", paramId.equals(principal.getName()));
 		model.addAttribute("paramId", paramId);
 
@@ -38,9 +37,9 @@ public class WriteController {
 	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/rewrite/{paramId}")
 	public String boardRewrite(@PathVariable("paramId") String paramId,
-		Principal principal, Model model, HttpServletRequest request) {
+		Principal principal, Model model, @RequestParam("postId") String postId) {
 
-		model.addAttribute("boardResponseDto", writeBoardService.getDetail(request));
+		model.addAttribute("boardResponseDto", writeBoardService.getDetail(postId));
 		model.addAttribute("paramId", paramId);
 
 		return "/board/rewrite";

@@ -29,9 +29,9 @@ public class CommentsService {
 	private final UserRepository userRepository;
 
 	//댓글 가져오기
-	public List<CommentsResponseDto> getComments(HttpServletRequest request, Principal principal) {
+	public List<CommentsResponseDto> getComments(String postId, Principal principal) {
 		List<PostComments> list = commentsRepository.findAllByPostId(
-			Long.parseLong(request.getParameter("postId")));
+			Long.parseLong(postId));
 
 		if (list.isEmpty()) {
 			return new ArrayList<>();

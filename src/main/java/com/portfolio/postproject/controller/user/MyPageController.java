@@ -3,6 +3,7 @@ package com.portfolio.postproject.controller.user;
 import com.portfolio.postproject.service.user.MyPageService;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,10 @@ public class MyPageController {
 		return "/user/myPage";
 	}
 
+	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
 	@GetMapping("/myPage-detail/{paramId}")
-	public String userMyPageDetail(@PathVariable("paramId") String paramId, Model model) {
+	public String userMyPageDetail(@PathVariable("paramId") String paramId, Model model,
+		Principal principal) {
 
 		//아이디, 이메일, 이름, 사진
 		model.addAttribute("myPageDetailResponseDto", myPageService.getMyPageDetailInfo(paramId));
@@ -34,8 +37,10 @@ public class MyPageController {
 		return "/user/myPage-detail";
 	}
 
-	@GetMapping("/withdrawal")
-	public String withdrawal(Principal principal, Model model) {
+	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
+	@GetMapping("/withdrawal/{paramId}")
+	public String withdrawal(@PathVariable("paramId") String paramId, Principal principal,
+		Model model) {
 		model.addAttribute("userId", principal.getName());
 		return "/user/withdrawal";
 	}

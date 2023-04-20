@@ -41,8 +41,9 @@ public class WriteRestController {
 		return ResponseEntity.ok().build();
 	}
 
+	//얘 수정해야됨
 	@PreAuthorize("isAuthenticated() and (#paramId == principal.name)")
-	@GetMapping("/delete/{paramId}")
+	@DeleteMapping("/delete/{paramId}")
 	public ResponseEntity<?> boardDelete(@PathVariable("paramId") String paramId,
 		Principal principal, HttpServletRequest request) {
 

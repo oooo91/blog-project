@@ -6,12 +6,12 @@ import com.portfolio.postproject.dto.board.SortDto;
 import com.portfolio.postproject.service.board.FeedService;
 import java.security.Principal;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,9 +22,10 @@ public class FeedController {
 	private final SortComponents sortComponents;
 
 	@GetMapping("/feed")
-	public String feed(Model model, Principal principal, HttpServletRequest request) {
+	public String feed(Model model, Principal principal,
+		@RequestParam(value = "searchText", required = false) String searchText) {
 
-		SortDto sortDto = sortComponents.feedOf(request);
+		SortDto sortDto = sortComponents.feedOf(searchText);
 		List<FeedResponseDto> list = feedService.getFeedInfo(sortDto);
 
 		model.addAttribute("paramId", principal.getName());

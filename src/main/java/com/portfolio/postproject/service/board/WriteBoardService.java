@@ -31,9 +31,9 @@ public class WriteBoardService {
 	private final ThumbnailService thumbnailService;
 
 	//디테일 페이지
-	public BoardResponseDto getDetail(HttpServletRequest request) {
+	public BoardResponseDto getDetail(String postId) {
 		DiaryPost diaryPost = postRepository.findById(
-				Long.parseLong(request.getParameter("postId"))).
+				Long.parseLong(postId)).
 			orElseThrow(() -> new PostException("이미 삭제된 게시글입니다."));
 
 		return BoardResponseDto.of(diaryPost);
