@@ -6,9 +6,35 @@
     <link th:href="@{/css/user/withdrawal.css}" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/d84eab0825.js" crossorigin="anonymous"></script>
     <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(function(){
+            $('.cancel_btn').on('click', function() {
+                location.href="/user/myPage/" + $('.userId');
+            });
+
+            $('.withdrawal_btn').on('click', function() {
+                $.ajax({
+                    type: "post",
+                    url : "/user/withdrawal/" + $('.userId'),
+                    success : function (data){
+                        console.log(data);
+                        alert('탈퇴되었습니다.');
+                        location.href = '/user/logout';
+                    },
+                    error: function(request, status, error){
+                        alert(request.responseText);
+                    }
+                });
+            });
+
+        });
+    </script>
 </head>
 <body>
 <div class="container">
+    <input type="hidden" th:text="${userId}" class="userId"/>
+
     <div class="container_background">
 
         <div class="withdrawal_form">
@@ -32,8 +58,8 @@
             </div>
 
             <div class="withdrawal_form_btnBox">
-                <input type="button" value="탈퇴" class="join_form_btn"/>
-                <input type="button" value="취소" class="join_form_btn"/>
+                <input type="button" value="탈퇴" class="join_form_btn withdrawal_btn"/>
+                <input type="button" value="취소" class="join_form_btn cancel_btn"/>
             </div>
 
         </div> <!--withdrawal form-->

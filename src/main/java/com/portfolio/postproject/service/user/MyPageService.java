@@ -6,6 +6,7 @@ import com.portfolio.postproject.dto.user.MyPageDetailRequestDto;
 import com.portfolio.postproject.dto.user.MyPageDetailResponseDto;
 import com.portfolio.postproject.dto.user.MyPageResponseDto;
 import com.portfolio.postproject.entity.user.DiaryUser;
+import com.portfolio.postproject.enums.UserStatus;
 import com.portfolio.postproject.exception.board.PostException;
 import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.exception.user.InvalidPasswordException;
@@ -87,6 +88,13 @@ public class MyPageService {
 			.userId(diaryUser.getId())
 			.profile(diaryUser.getProfile())
 			.build();
+	}
+
+	@Transactional
+	public void withdrawal(String paramId) {
+		DiaryUser diaryUser = userRepository.findById(paramId)
+			.orElseThrow(() -> new PostException("사용자가 존재하지 않습니다."));
+		diaryUser.setUserStatus(UserStatus.STATUS_WITHDRAW.getUserStatus());
 	}
 }
 
