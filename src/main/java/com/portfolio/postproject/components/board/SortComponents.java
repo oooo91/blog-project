@@ -12,10 +12,10 @@ public class SortComponents {
 
 	private final SortDto sortDto;
 
-	public SortDto calendarOf(HttpServletRequest request) {
+	public SortDto calendarOf(String searchStartDate, String searchEndDate, String sortValue,
+		String searchText) {
 
-		if (request.getParameter("searchStartDate") == null ||
-			request.getParameter("searchStartDate").trim().equals("")) {
+		if (searchStartDate == null || searchStartDate.trim().equals("")) {
 
 			LocalDate local = LocalDate.now();
 			String year = local.getYear() + "년";
@@ -27,50 +27,48 @@ public class SortComponents {
 			sortDto.setSearchEndDate(date);
 
 		} else {
-			sortDto.setSearchStartDate(request.getParameter("searchStartDate"));
-			sortDto.setSearchEndDate(request.getParameter("searchEndDate"));
+			sortDto.setSearchStartDate(searchStartDate);
+			sortDto.setSearchEndDate(searchEndDate);
 		}
 
-		if (request.getParameter("sortValue") == null ||
-			request.getParameter("sortValue").trim().equals("")) {
+		if (sortValue == null || sortValue.trim().equals("")) {
 			sortDto.setSortValue(0);
 		} else {
-			sortDto.setSortValue(Integer.parseInt(request.getParameter("sortValue")));
+			sortDto.setSortValue(Integer.parseInt(sortValue));
 		}
 
-		if (request.getParameter("searchText") == null ||
-			request.getParameter("searchText").trim().equals("")) {
+		if (searchText == null || searchText.trim().equals("")) {
 			sortDto.setSearchText("");
 		} else {
-			sortDto.setSearchText(request.getParameter("searchText").trim());
+			sortDto.setSearchText(searchText.trim());
 		}
 		return sortDto;
 	}
 
-	public SortDto mainOf(HttpServletRequest request) {
-		if (request.getParameter("sortValue") == null || request.getParameter("sortValue").trim()
+	public SortDto mainOf(String sortValue, String searchText) {
+		if (sortValue == null || sortValue.trim()
 			.equals("")) {
 			sortDto.setSortValue(0);
 		} else {
-			sortDto.setSortValue(Integer.parseInt(request.getParameter("sortValue")));
+			sortDto.setSortValue(Integer.parseInt(sortValue));
 		}
 
-		if (request.getParameter("searchText") == null || request.getParameter("searchText").trim()
+		if (searchText == null || searchText.trim()
 			.equals("")) {
 			sortDto.setSearchText("");
 		} else {
-			sortDto.setSearchText(request.getParameter("searchText").trim());
+			sortDto.setSearchText(searchText.trim());
 		}
 
 		return sortDto;
 	}
 
-	public SortDto feedOf(HttpServletRequest request) {
-		if (request.getParameter("searchText") == null || request.getParameter("searchText").trim()
+	public SortDto feedOf(String searchText) {
+		if (searchText == null || searchText.trim()
 			.equals("")) {
 			sortDto.setSearchText("");
 		} else {
-			sortDto.setSearchText(request.getParameter("searchText").trim());
+			sortDto.setSearchText(searchText.trim());
 		}
 		return sortDto;
 	}

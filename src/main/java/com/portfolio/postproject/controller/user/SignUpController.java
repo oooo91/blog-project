@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -23,8 +24,8 @@ public class SignUpController {
     }
 
     @GetMapping("/email-auth")
-    public String emailAuth(HttpServletRequest request, Model model) {
-        model.addAttribute("result", joinService.emailAuth(request.getParameter("uuid")));
+    public String emailAuth(@RequestParam("uuid") String uuid, Model model) {
+        model.addAttribute("result", joinService.emailAuth(uuid));
         return "/user/email-auth";
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,15 +19,18 @@ public class FindUserController {
 
 	//아이디 찾기
 	@GetMapping("/user-id-auth")
-	public String findUserInfo() { return "/user/find/user-id-auth"; }
+	public String findUserInfo() {
+		return "/user/find/user-id-auth";
+	}
 
 
 	//아이디 인증 표시 페이지
 	@GetMapping("/user-id")
-	public String userFindUserId(Model model, HttpServletRequest request) {
+	public String userFindUserId(Model model,
+		@RequestParam("userEmailAuthKey") String userEmailAuthKey) {
 
 		model.addAttribute("userId",
-			findUserService.getUserId(request.getParameter("userEmailAuthKey")));
+			findUserService.getUserId(userEmailAuthKey));
 		return "/user/find/user-id";
 	}
 
@@ -40,9 +44,9 @@ public class FindUserController {
 
 	//비밀번호 인증 표시 페이지
 	@GetMapping("/user-pwd-auth")
-	public String findUserPwdAuth(Model model, HttpServletRequest request) {
+	public String findUserPwdAuth(Model model, @RequestParam("userId") String userId) {
 
-		model.addAttribute("userId", request.getParameter("userId"));
+		model.addAttribute("userId", userId);
 		return "/user/find/user-pwd-auth";
 	}
 

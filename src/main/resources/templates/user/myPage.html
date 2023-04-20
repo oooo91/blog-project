@@ -133,10 +133,13 @@
 
           </div> <!--email-second-->
         </div>
+        @GetMapping("/withdrawal/{paramId}")
 
-        <div class="bye">
-          <span>탈퇴하기</span>
-        </div>
+        <a th:href="'/user/withdrawal' + ${paramId}">
+          <div class="bye">
+            <span>탈퇴하기</span>
+          </div>
+        </a>
 
       </div> <!--content_main_diary-detail-->
     </div> <!--content_main_diary-->

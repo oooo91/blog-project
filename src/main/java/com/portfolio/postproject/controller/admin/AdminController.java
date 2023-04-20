@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,9 +21,10 @@ public class AdminController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/main")
-	public String admin(Model model, HttpServletRequest request) {
+	public String admin(Model model,
+		@RequestParam(value = "searchText", required = false) String searchText) {
 
-		model.addAttribute("list", adminService.getUserList(request));
+		model.addAttribute("list", adminService.getUserList(searchText));
 		return "/admin/main";
 	}
 
