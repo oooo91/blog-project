@@ -3,7 +3,6 @@ package com.portfolio.postproject.controller.user;
 import com.portfolio.postproject.dto.user.FindUserInfoRequestDto;
 import com.portfolio.postproject.service.user.FindUserService;
 import com.portfolio.postproject.components.common.ValidationComponent;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -2,7 +2,6 @@ package com.portfolio.postproject.components.board;
 
 import com.portfolio.postproject.dto.board.SortDto;
 import java.time.LocalDate;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
