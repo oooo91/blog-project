@@ -29,7 +29,7 @@ public class FeedController {
 		List<FeedResponseDto> list = feedService.getFeedInfo(sortDto);
 
 		model.addAttribute("paramId", principal.getName());
-		model.addAttribute("comparison", feedService.checkAdmin(principal));
+		model.addAttribute("comparison", feedService.checkAdmin(principal.getName()));
 		model.addAttribute("list", list);
 
 		return "/board/feed";

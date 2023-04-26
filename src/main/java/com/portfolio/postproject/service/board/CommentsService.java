@@ -10,8 +10,6 @@ import com.portfolio.postproject.repository.board.CommentsRepository;
 import com.portfolio.postproject.entity.user.DiaryUser;
 import com.portfolio.postproject.exception.common.NotFoundUserException;
 import com.portfolio.postproject.repository.user.UserRepository;
-import java.security.Principal;
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,31 +27,31 @@ public class CommentsService {
 	private final UserRepository userRepository;
 
 	//댓글 가져오기
-	public List<CommentsResponseDto> getComments(String postId, Principal principal) {
+	public List<CommentsResponseDto> getComments(String postId, String username) {
 		List<PostComments> list = commentsRepository.findAllByPostId(
 			Long.parseLong(postId));
 
 		if (list.isEmpty()) {
 			return new ArrayList<>();
 		}
-		return CommentsResponseDto.of(list, principal.getName());
+		return CommentsResponseDto.of(list, username);
 	}
 
 	//내 닉네임 가져오기
-	public String getUserName(Principal principal) {
-		DiaryUser user = userRepository.findById(principal.getName())
+	public String getUserName(String username) {
+		DiaryUser user = userRepository.findById(username)
 			.orElseThrow(() -> new NotFoundUserException("아이디가 존재하지 않습니다."));
 		return user.getNickname();
 	}
 
 	//수정
 	@Transactional
-	public void updateComments(CommentsRequestDto commentsRequestDto, Principal principal) {
+	public void updateComments(CommentsRequestDto commentsRequestDto, String username) {
 		PostComments postComments = commentsRepository.findById(
 				Long.parseLong(commentsRequestDto.getCommentsId()))
 			.orElseThrow(() -> new CommentsException("이미 삭제된 댓글입니다."));
 
-		if (!postComments.getDiaryUser().getId().equals(principal.getName())) {
+		if (!postComments.getDiaryUser().getId().equals(username)) {
 			throw new CommentsException("본인이 작성한 댓글만 수정 가능합니다.");
 		}
 		postComments.setCommentDetail(commentsRequestDto.getCommentsDetail());
@@ -61,19 +59,19 @@ public class CommentsService {
 
 	//삭제
 	@Transactional
-	public void deleteComments(String commentsId, Principal principal) {
+	public void deleteComments(String commentsId, String username) {
 		PostComments postComments = commentsRepository.findById(Long.parseLong(commentsId))
 			.orElseThrow(() -> new CommentsException("이미 삭제된 댓글입니다."));
 
-		if (!postComments.getDiaryUser().getId().equals(principal.getName())) {
+		if (!postComments.getDiaryUser().getId().equals(username)) {
 			throw new CommentsException("본인이 작성한 댓글만 삭제 가능합니다.");
 		}
 		commentsRepository.delete(postComments);
 	}
 
 	//저장
-	public void writeComments(CommentsRequestDto commentsRequestDto, Principal principal) {
-		DiaryUser diaryUser = userRepository.findById(principal.getName())
+	public void writeComments(CommentsRequestDto commentsRequestDto, String username) {
+		DiaryUser diaryUser = userRepository.findById(username)
 			.orElseThrow(() -> new CommentsException("존재하지 않는 회원입니다."));
 
 		DiaryPost diaryPost = postRepository.findById(
