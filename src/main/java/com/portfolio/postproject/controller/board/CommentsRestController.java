@@ -23,7 +23,7 @@ public class CommentsRestController {
 	public ResponseEntity<?> commentsUpdate(@RequestBody @Valid CommentsRequestDto commentsRequestDto,
 											Errors error, Principal principal) {
 		validationComponent.validation(error);
-		commentsService.updateComments(commentsRequestDto, principal);
+		commentsService.updateComments(commentsRequestDto, principal.getName());
 
 		return ResponseEntity.ok().build();
 	}
@@ -31,7 +31,7 @@ public class CommentsRestController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> commentsDelete(@RequestParam String commentsId, Principal principal) {
 
-		commentsService.deleteComments(commentsId, principal);
+		commentsService.deleteComments(commentsId, principal.getName());
 		return ResponseEntity.ok().build();
 	}
 
@@ -39,7 +39,7 @@ public class CommentsRestController {
 	public ResponseEntity<?> commentsWrite(@RequestBody @Valid CommentsRequestDto commentsRequestDto,
 									       Errors error, Principal principal) {
 		validationComponent.validation(error);
-		commentsService.writeComments(commentsRequestDto, principal);
+		commentsService.writeComments(commentsRequestDto, principal.getName());
 
 		return ResponseEntity.ok().build();
 	}
