@@ -51,11 +51,11 @@ public class WriteRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	@PreAuthorize("isAuthenticated() and (#postRequestDto.paramId == principal.name)")
+	@PreAuthorize("isAuthenticated() and (#postRequestDto.paramId == principal.getName())")
 	@PostMapping("/save")
 	public ResponseEntity<?> boardSave(
 		@Valid @RequestPart(value = "data") PostRequestDto postRequestDto,
-		@RequestPart(value = "img", required = false) MultipartFile multipartFile,
+		@RequestPart(name = "img", required = false) MultipartFile multipartFile,
 		Errors error, Principal principal) throws IOException {
 
 		validationComponent.validation(error);
