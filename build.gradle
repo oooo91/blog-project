@@ -26,6 +26,9 @@ dependencies {
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.281'
 
+    runtimeOnly group: 'org.springframework.cloud', name: 'spring-cloud-dependencies', version: 'Hoxton.SR10', ext: 'pom'
+    implementation group: 'org.apache.tika', name: 'tika-parsers', version: '1.28.3'
+
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
