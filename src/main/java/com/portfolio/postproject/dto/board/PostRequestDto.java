@@ -1,13 +1,11 @@
 package com.portfolio.postproject.dto.board;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Builder
+@NoArgsConstructor
 @Data
 public class PostRequestDto {
 

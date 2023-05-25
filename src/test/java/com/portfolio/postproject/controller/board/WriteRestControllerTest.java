@@ -43,13 +43,13 @@ class WriteRestControllerTest {
 	@WithMockUser
 	void boardSave() throws Exception {
 
-		PostRequestDto postRequestDto = PostRequestDto.builder()
-			.postId("1")
-			.paramId("user")
-			.postDate("2023년 04월 27일")
-			.postTitle("TITLE")
-			.postContent("CONTENT")
-			.build();
+		PostRequestDto postRequestDto = new PostRequestDto();
+			postRequestDto.setPostId("1");
+			postRequestDto.setParamId("user");
+			postRequestDto.setPostDate("2023년 04월 27일");
+			postRequestDto.setPostTitle("TITLE");
+			postRequestDto.setPostContent("CONTENT");
+
 		MockMultipartFile file = new MockMultipartFile("img",
 			"test.png",
 			"image/png",
