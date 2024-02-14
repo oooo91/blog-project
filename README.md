@@ -24,11 +24,7 @@
 <img src="https://img.shields.io/badge/jQuery-000000?style=flat-square&logo=jQuery&logoColor=#0769AD"/></a>
 #
 
-### 📑 ERD
-<img src="https://ifh.cc/g/AXD7Gx" width="800"/>  
 
-
-#
 
 
 ### ✨ 프로젝트 주요기능
