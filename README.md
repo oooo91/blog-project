@@ -6,6 +6,20 @@
 * [**post-project(notion)**](https://receptive-platinum-aea.notion.site/4d28f5332b1f4a458f88086937abfb9f)
 #
 
+### 개요
+
+- 프로젝트 명칭 : Blog project
+- 개발 인원 : 1명
+- 개발 기간 : 2022.12.25 ~ 2023.01.20 / 2023.03.15 ~ 2023.04.16
+- 주요 기능 :
+    - 게시판 - CRUD 기능, 페이징 및 검색 처리, 날씨 API, 사진 업로드
+    - 사용자 - Security 회원가입 및 로그인, 이메일 인증, OAuth 2.0 구글 로그인, 회원 정보 수정, 유효성 검사 및 중복 검사
+    - 댓글 - CRUD 기능
+- 깃허브 : https://github.com/oooo91/blog-project
+- 개발 언어 : Java 11
+- 데이터베이스 : MariaDB
+- 형상관리 툴 : GitHub
+#
 
 ### 👨‍🔧 기술 스택
 
