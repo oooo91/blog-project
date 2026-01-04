@@ -24,18 +24,15 @@
 ### 👨‍🔧 기술 스택
 
 **Back-End**
-
-<img src="https://img.shields.io/badge/Spring Boot-000000?style=flat-square&logo=Spring Boot&logoColor=#6DB33F"/></a>
-<img src="https://img.shields.io/badge/Gradle-000000?style=flat-square&logo=Gradle&logoColor=#02303A"/></a>
-<img src="https://img.shields.io/badge/Spring Security-000000?style=flat-square&logo=Spring Security&logoColor=#6DB33F"/></a>
-<img src="https://img.shields.io/badge/Spring JPA-000000?style=flat-square&logo=Spring Jpa&logoColor=#6DB33F"/></a>
-<img src="https://img.shields.io/badge/MariaDB-000066?style=flat-square&logo=MariaDB&logoColor=#003545"/></a>
+spring boot
+spring security
+spring jpa
+mariaDB
 
 **Front-End**
-
-<img src="https://img.shields.io/badge/HTML5-000000?style=flat-square&logo=HTML5&logoColor=#E34F26"/></a>
-<img src="https://img.shields.io/badge/CSS3-000000?style=flat-square&logo=CSS3&logoColor=#1572B6"/></a>
-<img src="https://img.shields.io/badge/jQuery-000000?style=flat-square&logo=jQuery&logoColor=#0769AD"/></a>
+HTML5
+CSS3
+jQuery
 #
 
 
